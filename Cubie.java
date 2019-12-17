@@ -1,20 +1,3 @@
-enum Color{
-    RED,
-    GREEN,
-    YELLOW,
-    BLUE,
-    WHITE,
-    ORANGE 
-}
-enum Orientation{
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    FRONT,
-    BACK
-}
-
 class Cubie{
     Color color;
     Orientation orientation;
@@ -83,36 +66,4 @@ class Cubie{
     }
 }
 
-class Face{
-    Cubie cubie[] = new Cubie[9];
-    public Face(Color c, Orientation o){
-        int i = 0;
-        for(Cubie x:cubie){
-            x = new Cubie(c, o);
-            i++;
-            if(i % 3 == 0)
-                System.out.println(x);
-            else
-                System.out.print(x);
-            }
-            System.out.println();
-    }
-}
-class Rubik{
-    Face face[] = new Face[6];
-    public Rubik(){
-            face[0] = new Face(Color.WHITE, Orientation.FRONT);
-            face[1] = new Face(Color.RED, Orientation.BACK);
-            face[2] = new Face(Color.BLUE, Orientation.UP);
-            face[3] = new Face(Color.GREEN, Orientation.DOWN);
-            face[4] = new Face(Color.YELLOW, Orientation.LEFT);
-            face[5] = new Face(Color.ORANGE, Orientation.RIGHT);
-    }
-}
-class Driver{
-    public static void main(String [] args){
-        // Face face =  new Face(Color.BLUE,Orientation.FRONT);
-        Rubik cube = new Rubik();
-        // System.out.println(cube);
-    }
-}
+
