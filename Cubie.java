@@ -65,5 +65,3 @@ class Cubie{
         return String.format("[%s]",color);
     }
 }
-
-
