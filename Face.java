@@ -22,14 +22,19 @@ class Face{
     }
 
     public void printface(){
+        System.out.println(toString());
+    }
+    public String toString(){
+        String s = "";
         for(int i = 0;i < numcubies;i++){
             if(i == 4)
-                System.out.print(center.toString());
+                s += center.toString();
             if(i == 2 || i == 4 || i == 7)
-                System.out.println(cubie[i].toString());
+                s += cubie[i].toString()+"\n";
             else
-                System.out.print(cubie[i].toString());
-            }
-            System.out.println();
+                s += cubie[i].toString();
+        }
+        // s+="\n";
+        return s;
     }
 }

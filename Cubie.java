@@ -12,25 +12,25 @@ class Cubie{
         String color;
         switch(this.color){
             case RED:
-                color = "R";
+                color = Coloreths.Red.color+"R"+Coloreths.Reset.color;
                 break;
             case GREEN:
-                color = "G";
+                color = Coloreths.Green.color+"G"+Coloreths.Reset.color;
                 break;
             case YELLOW:
-                color = "Y";
+                color = Coloreths.Yellow.color+"Y"+Coloreths.Reset.color;
                 break;
             case BLUE:
-                color = "B";
+                color = Coloreths.Blue.color+"B"+Coloreths.Reset.color;
                 break;
             case WHITE:
-                color = "W";
+                color = Coloreths.White.color+"W"+Coloreths.Reset.color;
                 break;
             case ORANGE:
-                color = "O";
+                color = Coloreths.Magenta.color+"O"+Coloreths.Reset.color;
                 break;
             default :
-                color = "W";
+                color = Coloreths.White.color+"W"+Coloreths.Reset.color;
                 break;
         }
         return color;

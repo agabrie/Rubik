@@ -24,31 +24,41 @@ class Rubik{
             clockwiseAdjacents(faceNum);
             clockwiseFace(faceNum);
         }
-        for(int x = 0; x < 6;x++){
-            face[x].printface();
-        }
+        
     }
 
     public void clockwiseFace(int faceNum){
         return ;
     }
     public void clockwiseAdjacents(int faceNum){
-        Color temp = face[faceNum].adjacents[3].cubie[7].color;
-        face[faceNum].adjacents[1].cubie[0].color = face[faceNum].adjacents[0].cubie[5].color;
-        face[faceNum].adjacents[2].cubie[2].color = face[faceNum].adjacents[1].cubie[0].color;
+        Color temp1 = face[faceNum].adjacents[3].cubie[7].color;
+        Color temp2 = face[faceNum].adjacents[3].cubie[4].color;
+        Color temp3 = face[faceNum].adjacents[3].cubie[2].color;
+
+        
+        
         face[faceNum].adjacents[3].cubie[7].color = face[faceNum].adjacents[2].cubie[2].color;
-        face[faceNum].adjacents[0].cubie[5].color = temp;
-
-        temp =  face[faceNum].adjacents[3].cubie[4].color;
-        face[faceNum].adjacents[1].cubie[3].color = face[faceNum].adjacents[0].cubie[6].color;
-        face[faceNum].adjacents[2].cubie[1].color = face[faceNum].adjacents[1].cubie[3].color;
         face[faceNum].adjacents[3].cubie[4].color = face[faceNum].adjacents[2].cubie[1].color;
-        face[faceNum].adjacents[0].cubie[6].color = temp;
-
-        temp = face[faceNum].adjacents[3].cubie[2].color;
-        face[faceNum].adjacents[1].cubie[5].color = face[faceNum].adjacents[0].cubie[7].color;
-        face[faceNum].adjacents[2].cubie[0].color = face[faceNum].adjacents[1].cubie[5].color;
         face[faceNum].adjacents[3].cubie[2].color = face[faceNum].adjacents[2].cubie[0].color;
-        face[faceNum].adjacents[0].cubie[7].color = temp;
+
+        face[faceNum].adjacents[2].cubie[2].color = face[faceNum].adjacents[1].cubie[0].color;
+        face[faceNum].adjacents[2].cubie[1].color = face[faceNum].adjacents[1].cubie[3].color;
+        face[faceNum].adjacents[2].cubie[0].color = face[faceNum].adjacents[1].cubie[5].color;
+
+        face[faceNum].adjacents[1].cubie[0].color = face[faceNum].adjacents[0].cubie[5].color;
+        face[faceNum].adjacents[1].cubie[3].color = face[faceNum].adjacents[0].cubie[6].color;
+        face[faceNum].adjacents[1].cubie[5].color = face[faceNum].adjacents[0].cubie[7].color;
+
+        face[faceNum].adjacents[0].cubie[5].color = temp1;
+        face[faceNum].adjacents[0].cubie[6].color = temp2;
+        face[faceNum].adjacents[0].cubie[7].color = temp3;
+    }
+    public String toString(){
+        String s = "";
+
+        for(int x = 0; x < 6;x++){
+            s += face[x].toString()+"\n";
+        }
+        return s;
     }
 }
