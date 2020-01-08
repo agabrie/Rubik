@@ -5,6 +5,7 @@ class Cubie{
     public Cubie(Color c, Orientation o){
         this.color = c;
         this.orientation = o;
+        // System.out.println(colorString());
     }
 
     public String colorString(){
@@ -62,6 +63,7 @@ class Cubie{
     public String toString(){
         String color = colorString();
         // String orient = orientationString();
+        // System.out.println("something");
         return String.format("[%s]",color);
     }
 }
