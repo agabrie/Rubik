@@ -16,10 +16,23 @@ class Rubik{
             face[5].adjacentsAssign(face[4], face[2], face[0], face[3]);
     }
 
-    public void rotateFace(int faceNum){
+    public void rotateFace(boolean clockwise,int faceNum){
         // Stringtemp
         // Cubie temp;
         // temp = face[faceNum].adjacents[1].cubie[0];
+        if(clockwise){
+            clockwiseAdjacents(faceNum);
+            clockwiseFace(faceNum);
+        }
+        for(int x = 0; x < 6;x++){
+            face[x].printface();
+        }
+    }
+
+    public void clockwiseFace(int faceNum){
+        return ;
+    }
+    public void clockwiseAdjacents(int faceNum){
         Color temp = face[faceNum].adjacents[3].cubie[7].color;
         face[faceNum].adjacents[1].cubie[0].color = face[faceNum].adjacents[0].cubie[5].color;
         face[faceNum].adjacents[2].cubie[2].color = face[faceNum].adjacents[1].cubie[0].color;
@@ -37,8 +50,5 @@ class Rubik{
         face[faceNum].adjacents[2].cubie[0].color = face[faceNum].adjacents[1].cubie[5].color;
         face[faceNum].adjacents[3].cubie[2].color = face[faceNum].adjacents[2].cubie[0].color;
         face[faceNum].adjacents[0].cubie[7].color = temp;
-        for(int x = 0; x < 6;x++){
-            face[x].printface();
-        }
     }
 }
