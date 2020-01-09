@@ -28,14 +28,23 @@ class Rubik{
     }
 
     public void clockwiseFace(int faceNum){
-        return ;
+        Color temp1 = face[faceNum].cubie[5].color;  
+        face[faceNum].cubie[5].color =  face[faceNum].cubie[7].color;
+        face[faceNum].cubie[7].color =  face[faceNum].cubie[2].color;
+        face[faceNum].cubie[2].color =  face[faceNum].cubie[0].color;
+        face[faceNum].cubie[0].color =  temp1;
+
+        temp1 = face[faceNum].cubie[3].color;  
+        face[faceNum].cubie[3].color =  face[faceNum].cubie[6].color;
+        face[faceNum].cubie[6].color =  face[faceNum].cubie[4].color;
+        face[faceNum].cubie[4].color =  face[faceNum].cubie[1].color;
+        face[faceNum].cubie[1].color =  temp1;
     }
+
     public void clockwiseAdjacents(int faceNum){
         Color temp1 = face[faceNum].adjacents[3].cubie[7].color;
         Color temp2 = face[faceNum].adjacents[3].cubie[4].color;
-        Color temp3 = face[faceNum].adjacents[3].cubie[2].color;
-
-        
+        Color temp3 = face[faceNum].adjacents[3].cubie[2].color;        
         
         face[faceNum].adjacents[3].cubie[7].color = face[faceNum].adjacents[2].cubie[2].color;
         face[faceNum].adjacents[3].cubie[4].color = face[faceNum].adjacents[2].cubie[1].color;
