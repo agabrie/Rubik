@@ -12,25 +12,25 @@ class Cubie{
         String color;
         switch(this.color){
             case RED:
-                color = Coloreths.Red.color+"R"+Coloreths.Reset.color;
+                color = Coloreths.Red.color+"[R]"+Coloreths.Reset.color;
                 break;
             case GREEN:
-                color = Coloreths.Green.color+"G"+Coloreths.Reset.color;
+                color = Coloreths.Green.color+"[G]"+Coloreths.Reset.color;
                 break;
             case YELLOW:
-                color = Coloreths.Yellow.color+"Y"+Coloreths.Reset.color;
+                color = Coloreths.Yellow.color+"[Y]"+Coloreths.Reset.color;
                 break;
             case BLUE:
-                color = Coloreths.Blue.color+"B"+Coloreths.Reset.color;
+                color = Coloreths.Blue.color+"[B]"+Coloreths.Reset.color;
                 break;
             case WHITE:
-                color = Coloreths.White.color+"W"+Coloreths.Reset.color;
+                color = Coloreths.White.color+"[W]"+Coloreths.Reset.color;
                 break;
             case ORANGE:
-                color = Coloreths.Magenta.color+"O"+Coloreths.Reset.color;
+                color = Coloreths.Magenta.color+"[O]"+Coloreths.Reset.color;
                 break;
             default :
-                color = Coloreths.White.color+"W"+Coloreths.Reset.color;
+                color = Coloreths.White.color+"[W]"+Coloreths.Reset.color;
                 break;
         }
         return color;
@@ -64,6 +64,6 @@ class Cubie{
         String color = colorString();
         // String orient = orientationString();
         // System.out.println("something");
-        return String.format("[%s]",color);
+        return String.format("%s",color);
     }
 }

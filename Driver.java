@@ -17,7 +17,7 @@ class Driver{
                 face = face % 6;
                 clockwise = scLine.next().equals("cw");
                 cube.rotateFace(clockwise, face);
-                System.out.printf("%s",cube.toString());
+                System.err.print(cube.toString());
             }
         }
     }
