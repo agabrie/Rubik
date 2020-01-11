@@ -16,7 +16,60 @@ class Rubik{
             face[5].adjacentsAssign(face[4], face[2], face[0], face[3]);
             System.err.print(toString());
     }
-
+    public void F(boolean clockwise,boolean extra){
+        rotateFace(clockwise, 0);
+        if(extra)
+            rotateFace(clockwise, 0);
+    }
+    public void D(boolean clockwise,boolean extra){
+        clockwiseFace(2);
+        antiClockwiseFace(3);
+        rotateFace(clockwise, 1);
+        if(extra)
+            rotateFace(clockwise, 1);
+        antiClockwiseFace(2);
+        clockwiseFace(3);
+    }
+    public void R(boolean clockwise,boolean extra){
+        clockwiseFace(5);
+        antiClockwiseFace(1);
+        rotateFace(clockwise, 2);
+        if(extra)
+            rotateFace(clockwise, 2);
+        antiClockwiseFace(5);
+        clockwiseFace(1);
+    }
+    public void L(boolean clockwise,boolean extra){
+        antiClockwiseFace(5);
+        clockwiseFace(1);
+        rotateFace(clockwise, 3);
+        if(extra)
+            rotateFace(clockwise, 3);
+        clockwiseFace(5);
+        antiClockwiseFace(1);
+    }
+    public void B(boolean clockwise,boolean extra){
+        for (int i = 0; i < 2; i++) {   
+            clockwiseFace(5);
+            antiClockwiseFace(1);
+        }
+        rotateFace(clockwise, 4);
+        if(extra)
+            rotateFace(clockwise, 4);
+        for (int i = 0; i < 2; i++) {   
+            clockwiseFace(1);
+            antiClockwiseFace(5);
+        }
+    }
+    public void U(boolean clockwise,boolean extra){
+        antiClockwiseFace(2);
+        clockwiseFace(3);
+        rotateFace(clockwise, 5);
+        if(extra)
+            rotateFace(clockwise, 5);
+        clockwiseFace(2);
+        antiClockwiseFace(3);
+    }
     public void rotateFace(boolean clockwise,int faceNum){
         // Stringtemp
         // Cubie temp;
@@ -24,10 +77,22 @@ class Rubik{
         if(clockwise){
             clockwiseAdjacents(faceNum);
             clockwiseFace(faceNum);
+        }else{
+            antiClockwiseAdjacents(faceNum);
+            antiClockwiseFace(faceNum);
         }
         
     }
-
+    public void antiClockwiseFace(int faceNum){
+        for (int i = 0; i < 3; i++) {
+            clockwiseFace(faceNum);
+        }
+    }
+    public void antiClockwiseAdjacents(int faceNum){
+        for (int i = 0; i < 3; i++) {
+            clockwiseAdjacents(faceNum);
+        }
+    }
     public void clockwiseFace(int faceNum){
         Color temp1 = face[faceNum].cubie[5].color;  
         face[faceNum].cubie[5].color =  face[faceNum].cubie[7].color;
