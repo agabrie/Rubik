@@ -3,7 +3,13 @@ import java.util.*;
 class Driver{
 	static Rubik cube = new Rubik();
 	static boolean verbose = false;
-	public static void invoke(String instr){
+	
+	public static void invoke(List<String> instructions){
+		for(String instr:instructions)
+			execute(instr);
+	}
+	
+	public static void execute(String instr){
 		try {
 			boolean clockwise;
 			boolean extra;
@@ -55,35 +61,78 @@ class Driver{
 				System.exit(0);
 			}
 		}
-	static void simplesolve(List<String> scramble){
-		Collections.reverse(scramble);
-		for(String instr : scramble){
+	static void RTrigger(){
+		List<String> instructions = new ArrayList<String>();
+		instructions.add("R");
+		instructions.add("U");
+		instructions.add("R'");
+		instructions.add("U'");
+		invoke(instructions);
+	}
+	static void LTrigger(){
+		List<String> instructions = new ArrayList<String>();
+		instructions.add("L'");
+		instructions.add("U'");
+		instructions.add("L");
+		instructions.add("U");
+	}
+	static void T2RE(){
+		List<String> instructions = new ArrayList<String>();
+		instructions.add("U");
+		instructions.add("R");
+		instructions.add("U'");
+		instructions.add("R'");
+		instructions.add("U'");
+		instructions.add("F'");
+		instructions.add("U");
+		instructions.add("F");
+	}
+	static void T2LE(){
+		List<String> instructions = new ArrayList<String>();
+		instructions.add("U'");
+		instructions.add("L'");
+		instructions.add("U");
+		instructions.add("L");
+		instructions.add("U");
+		instructions.add("F");
+		instructions.add("U'");
+		instructions.add("F'");
+	}
+	static void simplesolve(List<String> instructions){
+		Collections.reverse(instructions);
+		for(String instr : instructions){
 			if(instr.contains("\'")){
-				invoke(instr.replace("\'", "2"));
-				invoke(instr);
+				execute(instr.replace("\'", "2"));
+				execute(instr);
 			}
 			else if(instr.contains("2")){
-				invoke(instr);
+				execute(instr);
 			}
 			else
-				invoke(instr+'\'');
+				execute(instr+'\'');
 		}
 	}
 	public static boolean binaryquestion(String s){
+		String input;
+		Scanner scInput;
+		boolean output = false;
+		scInput = new Scanner(System.in);
 		try {
-			Scanner scInput = new Scanner(System.in);
 			System.out.println(s+"? Y/N");
-			String input = scInput.nextLine();
-			scInput.close();
+			input = scInput.nextLine();
+			// System.out.println("ibibyuibib");
+			// scInput.close();
 			if(input.equalsIgnoreCase("Y"))
-				return true;
-			else if (!input.equalsIgnoreCase("N"))
+				output = true;
+			else if (!input.equalsIgnoreCase("N")){
+				scInput.close();
 				throw new Exception("Invalid Input: 'Y' or 'N' expected");
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 			System.exit(0);
 		}
-		return false;
+		return output;
 	}
 	public static void main(String [] args){
 		try{
@@ -93,8 +142,7 @@ class Driver{
 				throw new Exception("Argument required");
 			Collections.addAll(scramble, args[0].toUpperCase().split(" "));
 			verbose = binaryquestion("turn verbose mode on");
-			for(String instr:scramble)
-				invoke(instr);
+				invoke(scramble);
 			System.out.println("Post scramble:\n"+cube);
 			if(binaryquestion("Do you wish to see solution")){
 				verbose = binaryquestion("With vebose mode turned on");
