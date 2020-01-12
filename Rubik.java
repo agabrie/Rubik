@@ -24,9 +24,18 @@ class Rubik{
     public void D(boolean clockwise,boolean extra){
         clockwiseFace(2);
         antiClockwiseFace(3);
+
+        clockwiseFace(4);
+        clockwiseFace(4);
+
         rotateFace(clockwise, 1);
         if(extra)
             rotateFace(clockwise, 1);
+        
+        antiClockwiseFace(4);
+        antiClockwiseFace(4);
+        
+        
         antiClockwiseFace(2);
         clockwiseFace(3);
     }
@@ -62,11 +71,19 @@ class Rubik{
         }
     }
     public void U(boolean clockwise,boolean extra){
-        antiClockwiseFace(2);
         clockwiseFace(3);
+        antiClockwiseFace(2);
+
+        clockwiseFace(4);
+        clockwiseFace(4);
+        
         rotateFace(clockwise, 5);
         if(extra)
             rotateFace(clockwise, 5);
+        
+        antiClockwiseFace(4);
+        antiClockwiseFace(4);
+        
         clockwiseFace(2);
         antiClockwiseFace(3);
     }

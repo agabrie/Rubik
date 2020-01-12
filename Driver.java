@@ -48,7 +48,9 @@ class Driver{
                 }
                 System.err.print(cube.toString());
             }
+            scLine.close();
         }
+        scInput.close();
     }
     
 }
