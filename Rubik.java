@@ -14,7 +14,7 @@ class Rubik{
             face[3].adjacentsAssign(face[5], face[0], face[1], face[4]);
             face[4].adjacentsAssign(face[5], face[3], face[1], face[2]);
             face[5].adjacentsAssign(face[4], face[2], face[0], face[3]);
-            System.err.print(toString());
+            // System.err.print(toString());
     }
     public void F(boolean clockwise,boolean extra){
         rotateFace(clockwise, 0);
