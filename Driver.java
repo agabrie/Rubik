@@ -112,6 +112,7 @@ class Driver{
 				execute(instr+'\'');
 		}
 	}
+
 	public static boolean binaryquestion(String s){
 		String input;
 		Scanner scInput;
@@ -120,8 +121,6 @@ class Driver{
 		try {
 			System.out.println(s+"? Y/N");
 			input = scInput.nextLine();
-			// System.out.println("ibibyuibib");
-			// scInput.close();
 			if(input.equalsIgnoreCase("Y"))
 				output = true;
 			else if (!input.equalsIgnoreCase("N")){
