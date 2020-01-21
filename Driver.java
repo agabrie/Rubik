@@ -25,7 +25,6 @@ class Driver{
 				// extra = (instr.charAt(1)=='2');
 				instr = instr.replace("2", "");
 				instr = instr.replace("\'", "");
-
 			}
 				
 			if(instr.length() != 1){
@@ -57,7 +56,7 @@ class Driver{
 			}
 			moves++;
 			if(verbose)
-				System.err.print(cube.toString()+"Number of Moves : "+moves);
+				System.err.println(cube.toString()+"Number of Moves : "+moves);
 		} catch (Exception e) {
 			System.out.println(e);
 			System.exit(0);
