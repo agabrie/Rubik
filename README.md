@@ -1,4 +1,4 @@
-Introduction
+# Introduction
 We ask you for the proper conduct of this evaluation to
 respect the following rules:
 - Stay courteous, polite, respectful and constructive in all
@@ -13,16 +13,14 @@ functionalities. Stay open-minded towards the other's vision
 (is he or she right or wrong?), And rate the most
 honestly possible. The pedagogy of 42 only makes sense if
 the peer assessment is done seriously.
-Guidelines
+
+# Guidelines
 - You should only evaluate what is on the GiT repository
 for the student or the group.
 - Take care to verify that the GiT repository is the one
 corresponding to the student or group, and to the project.
 - Check meticulously that no malicious alias has been used
 to mislead you and have you evaluate something other than
-(https://profile.intra.42.fr)
-  (https://profile.intra.42.fr/searches) Gawie13/01/2020 Intra Projects Rubik-copy
-https://projects.intra.42.fr/projects/rubik/project_sessions/4018/evaluations/490/scales/397 2/5
 the content of the official deposit.
 - Any script intended to facilitate the evaluation provided by one of the two
 parties must be rigorously checked by the other party to
@@ -38,14 +36,10 @@ of cheating, you are encouraged to continue to exchange around the
 work done (or not done right) to identify the
 problems that led to this situation and avoid them for the
 next report.
-Attachments
- subject (https://cdn.intra.42.fr/pdf/pdf/7299/rubik.en.pdf)
-preliminaries
-Preliminary instructions
 
 
-preliminaries
-Preliminary instructions
+
+# Preliminary instructions
 First check the following:
 - There is a rendering (in the git repository)
 - No cheating, the student must be able to explain his code.
@@ -53,53 +47,50 @@ First check the following:
 If an element of this list is not respected, the notation stops there. Use the appropriate flag. You are
 encouraged to continue debating the project, but the scale is not applied.
 
-Mandatory part
-Simple problems
+# Mandatory part
+## Simple problems
 
-Error handling
- Yes  No13 / 01/2020 Intra Projects Rubik-copy
-https://projects.intra.42.fr/projects/rubik/project_sessions/4018/evaluations/490/scales/397 3/5
-Try the program without parameters, with too many parameters, with invalid parameters, with
-invalid sequences ... In short, try to put the program in fault. Does the program have the
-expected behaviors (display of usage, quits with a message, etc.)?
+### Error handling
+Try the program without parameters, with too many parameters, with invalid parameters, with invalid sequences ...
+- In short, try to put the program in fault.
+- Does the program have the expected behaviors (display of usage, quits with a message, etc.)?
 
-Simple position
-Try the program with simple mixes, up to 4-5 movements only. Does the result
-is correct ? Does it appear within a reasonable time (2-3 seconds)? If the answer to any of these questions is
+### Simple position
+Try the program with simple mixes, up to 4-5 movements only.
+- Does the result is correct ?
+- Does it appear within a reasonable time (2-3 seconds)?
+- If the answer to any of these questions is
 no, the defense stops there.
 
-Slightly more complex position
-Try the program with more complex mixes, between 5 and 20 movements. Is the result
-correct? Does it appear within a reasonable time (2-3 seconds)? If the answer to any of these questions is
-no, the defense stops there.
+### Slightly more complex position
+Try the program with more complex mixes, between 5 and 20 movements.
+- Is the result correct?
+- Does it appear within a reasonable time (2-3 seconds)?
+- If the answer to any of these questions is no, the defense stops there.
 
-Random position
-Try the program with random mixes larger than 20 movements. Is the
-result is correct? Does it appear within a reasonable time (2-3 seconds)? If the answer to any of these
-questions is no, the defense stops there.
+### Random position
+Try the program with random mixes larger than 20 movements.
+- Is the result is correct?
+- Does it appear within a reasonable time (2-3 seconds)?
+- If the answer to any of these questions is no, the defense stops there.
 
-Performance
+## Performance
 For mixtures of size greater than thirty movements, is the program capable of
 solve on average in less than 150 movements and always within 2-3 seconds, including display?
-If the answer is no, then put 0 to this question.
-Add 1 point for every 20 movements won.
-Rate it from 0 (failed) through 5 (excellent)
+- If the answer is no, then put 0 to this question.
+- Add 1 point for every 20 movements won.
+- Rate it from 0 (failed) through 5 (excellent)
 
 
-Distance-20
- Yes  No
- Yes  No
- Yes  No
- Yes  No13 / 01/2020 Intra Projects Rubik-copy
-https://projects.intra.42.fr/projects/rubik/project_sessions/4018/evaluations/490/scales/397 4/5
-U R2 F B R B2 R U2 L B2 R U 'D' R2 F R 'L B2 U2 F2
-This position, called superflip, is one of the positions that always requires at least 20 movements
-to be resolved ("Distance-20"). Does the program solve this Cube in a number of movements
-comparable to the results of the previous questions? Try other blends like this
-(Http://www.cube20.org/distance20s/).
-bonus
-Bonus part
-Program bonus
+## U R2 F B R B2 R U2 L B2 R U 'D' R2 F R 'L B2 U2 F2
+- This position, called superflip, is one of the positions that always requires at least 20 movements to be resolved ("Distance-20").
+- Does the program solve this Cube in a number of movements
+comparable to the results of the previous questions?
+-  Try other blends like this (Http://www.cube20.org/distance20s/).
+
+
+# Bonus part
+## Program bonus
 The bonus scale is at the discretion of the corrector. A truly hardcore bonus deserves more than two
 really easy bonus. For example, among the super class bonuses, which should be worth a lot of points if they
 are correctly performed:

@@ -1,91 +1,99 @@
 class Rubik{
     Face face[] = new Face[6];
+    public final int WHITE = 0;
+    public final int RED = 1;
+    public final int BLUE = 2;
+    public final int GREEN = 3;
+    public final int YELLOW = 4;
+    public final int ORANGE = 5;
+
+
     public Rubik(){
-            face[0] = new Face(Color.WHITE, Orientation.FRONT);
-            face[1] = new Face(Color.RED, Orientation.BACK);
-            face[2] = new Face(Color.BLUE, Orientation.UP);
-            face[3] = new Face(Color.GREEN, Orientation.DOWN);
-            face[4] = new Face(Color.YELLOW, Orientation.LEFT);
-            face[5] = new Face(Color.ORANGE, Orientation.RIGHT);
+            face[WHITE] = new Face(Color.WHITE, Orientation.FRONT);
+            face[RED] = new Face(Color.RED, Orientation.BACK);
+            face[BLUE] = new Face(Color.BLUE, Orientation.UP);
+            face[GREEN] = new Face(Color.GREEN, Orientation.DOWN);
+            face[YELLOW] = new Face(Color.YELLOW, Orientation.LEFT);
+            face[ORANGE] = new Face(Color.ORANGE, Orientation.RIGHT);
             
-            face[0].adjacentsAssign(face[5], face[2], face[1], face[3]);
-            face[1].adjacentsAssign(face[0], face[2], face[4], face[3]);
-            face[2].adjacentsAssign(face[5], face[4], face[1], face[0]);
-            face[3].adjacentsAssign(face[5], face[0], face[1], face[4]);
-            face[4].adjacentsAssign(face[5], face[3], face[1], face[2]);
-            face[5].adjacentsAssign(face[4], face[2], face[0], face[3]);
+            face[WHITE].adjacentsAssign(face[ORANGE], face[BLUE], face[RED], face[GREEN]);
+            face[RED].adjacentsAssign(face[WHITE], face[BLUE], face[YELLOW], face[GREEN]);
+            face[BLUE].adjacentsAssign(face[ORANGE], face[YELLOW], face[RED], face[WHITE]);
+            face[GREEN].adjacentsAssign(face[ORANGE], face[WHITE], face[RED], face[YELLOW]);
+            face[YELLOW].adjacentsAssign(face[ORANGE], face[GREEN], face[RED], face[BLUE]);
+            face[ORANGE].adjacentsAssign(face[YELLOW], face[BLUE], face[WHITE], face[GREEN]);
             // System.err.print(toString());
     }
     public void F(boolean clockwise,boolean extra){
-        rotateFace(clockwise, 0);
+        rotateFace(clockwise, WHITE);
         if(extra)
-            rotateFace(clockwise, 0);
+            rotateFace(clockwise, WHITE);
     }
     public void D(boolean clockwise,boolean extra){
-        clockwiseFace(2);
-        antiClockwiseFace(3);
+        clockwiseFace(BLUE);
+        antiClockwiseFace(GREEN);
 
-        clockwiseFace(4);
-        clockwiseFace(4);
+        clockwiseFace(YELLOW);
+        clockwiseFace(YELLOW);
 
-        rotateFace(clockwise, 1);
+        rotateFace(clockwise, RED);
         if(extra)
-            rotateFace(clockwise, 1);
+            rotateFace(clockwise, RED);
         
-        antiClockwiseFace(4);
-        antiClockwiseFace(4);
+        antiClockwiseFace(YELLOW);
+        antiClockwiseFace(YELLOW);
         
         
-        antiClockwiseFace(2);
-        clockwiseFace(3);
+        antiClockwiseFace(BLUE);
+        clockwiseFace(GREEN);
     }
     public void R(boolean clockwise,boolean extra){
-        clockwiseFace(5);
-        antiClockwiseFace(1);
-        rotateFace(clockwise, 2);
+        clockwiseFace(ORANGE);
+        antiClockwiseFace(RED);
+        rotateFace(clockwise, BLUE);
         if(extra)
-            rotateFace(clockwise, 2);
-        antiClockwiseFace(5);
-        clockwiseFace(1);
+            rotateFace(clockwise, BLUE);
+        antiClockwiseFace(ORANGE);
+        clockwiseFace(RED);
     }
     public void L(boolean clockwise,boolean extra){
-        antiClockwiseFace(5);
-        clockwiseFace(1);
-        rotateFace(clockwise, 3);
+        antiClockwiseFace(ORANGE);
+        clockwiseFace(RED);
+        rotateFace(clockwise, GREEN);
         if(extra)
-            rotateFace(clockwise, 3);
-        clockwiseFace(5);
-        antiClockwiseFace(1);
+            rotateFace(clockwise, GREEN);
+        clockwiseFace(ORANGE);
+        antiClockwiseFace(RED);
     }
     public void B(boolean clockwise,boolean extra){
         for (int i = 0; i < 2; i++) {   
-            clockwiseFace(5);
-            antiClockwiseFace(1);
+            clockwiseFace(ORANGE);
+            antiClockwiseFace(RED);
         }
-        rotateFace(clockwise, 4);
+        rotateFace(clockwise, YELLOW);
         if(extra)
-            rotateFace(clockwise, 4);
+            rotateFace(clockwise, YELLOW);
         for (int i = 0; i < 2; i++) {   
-            clockwiseFace(1);
-            antiClockwiseFace(5);
+            clockwiseFace(RED);
+            antiClockwiseFace(ORANGE);
         }
     }
     public void U(boolean clockwise,boolean extra){
-        clockwiseFace(3);
-        antiClockwiseFace(2);
+        clockwiseFace(GREEN);
+        antiClockwiseFace(BLUE);
 
-        clockwiseFace(4);
-        clockwiseFace(4);
+        clockwiseFace(YELLOW);
+        clockwiseFace(YELLOW);
         
-        rotateFace(clockwise, 5);
+        rotateFace(clockwise, ORANGE);
         if(extra)
-            rotateFace(clockwise, 5);
+            rotateFace(clockwise, ORANGE);
         
-        antiClockwiseFace(4);
-        antiClockwiseFace(4);
+        antiClockwiseFace(YELLOW);
+        antiClockwiseFace(YELLOW);
         
-        clockwiseFace(2);
-        antiClockwiseFace(3);
+        clockwiseFace(BLUE);
+        antiClockwiseFace(GREEN);
     }
     public void rotateFace(boolean clockwise,int faceNum){
         // Stringtemp
