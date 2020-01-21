@@ -3,6 +3,7 @@ import java.util.*;
 class Driver{
 	static Rubik cube = new Rubik();
 	static boolean verbose = false;
+	static int moves = 0;
 	
 	public static void invoke(List<String> instructions){
 		for(String instr:instructions)
@@ -54,13 +55,14 @@ class Driver{
 					throw new Exception("no instruction given");
 					// break;
 			}
+			moves++;
 			if(verbose)
-				System.err.print(cube.toString());
-			} catch (Exception e) {
-				System.out.println(e);
-				System.exit(0);
-			}
+				System.err.print(cube.toString()+"Number of Moves : "+moves);
+		} catch (Exception e) {
+			System.out.println(e);
+			System.exit(0);
 		}
+	}
 	static void RTrigger(){
 		List<String> instructions = new ArrayList<String>();
 		instructions.add("R");
