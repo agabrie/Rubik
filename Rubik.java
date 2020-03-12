@@ -1,3 +1,5 @@
+import java.io.Console;
+
 class Rubik{
     Face face[] = new Face[6];
     public final int WHITE = 0;
@@ -6,6 +8,17 @@ class Rubik{
     public final int GREEN = 3;
     public final int YELLOW = 4;
     public final int ORANGE = 5;
+
+    public final int TL = 0;
+    public final int T = 1;
+    public final int TR = 2;
+    public final int L = 3;
+    public final int R = 4;
+    public final int BL = 5;
+    public final int B = 6;
+    public final int BR = 7;
+
+
     public boolean clockwise = true;
     public boolean extra = false;
 
@@ -120,39 +133,74 @@ class Rubik{
         }
     }
     public void clockwiseFace(int faceNum){
-        Color temp1 = face[faceNum].cubie[5].color;  
-        face[faceNum].cubie[5].color =  face[faceNum].cubie[7].color;
-        face[faceNum].cubie[7].color =  face[faceNum].cubie[2].color;
-        face[faceNum].cubie[2].color =  face[faceNum].cubie[0].color;
-        face[faceNum].cubie[0].color =  temp1;
+        Cubie temp1 = face[faceNum].cubie[BL];  
+        face[faceNum].cubie[BL] =  face[faceNum].cubie[BR];
+        face[faceNum].cubie[BR] =  face[faceNum].cubie[TR];
+        face[faceNum].cubie[TR] =  face[faceNum].cubie[TL];
+        face[faceNum].cubie[TL] =  temp1;
 
-        temp1 = face[faceNum].cubie[3].color;  
-        face[faceNum].cubie[3].color =  face[faceNum].cubie[6].color;
-        face[faceNum].cubie[6].color =  face[faceNum].cubie[4].color;
-        face[faceNum].cubie[4].color =  face[faceNum].cubie[1].color;
-        face[faceNum].cubie[1].color =  temp1;
+        temp1 = face[faceNum].cubie[L];  
+        face[faceNum].cubie[L] =  face[faceNum].cubie[B];
+        face[faceNum].cubie[B] =  face[faceNum].cubie[R];
+        face[faceNum].cubie[R] =  face[faceNum].cubie[T];
+        face[faceNum].cubie[T] =  temp1;
+        // Color temp1 = face[faceNum].cubie[5].color;  
+        // face[faceNum].cubie[5].color =  face[faceNum].cubie[7].color;
+        // face[faceNum].cubie[7].color =  face[faceNum].cubie[2].color;
+        // face[faceNum].cubie[2].color =  face[faceNum].cubie[0].color;
+        // face[faceNum].cubie[0].color =  temp1;
+
+        // temp1 = face[faceNum].cubie[3].color;  
+        // face[faceNum].cubie[3].color =  face[faceNum].cubie[6].color;
+        // face[faceNum].cubie[6].color =  face[faceNum].cubie[4].color;
+        // face[faceNum].cubie[4].color =  face[faceNum].cubie[1].color;
+        // face[faceNum].cubie[1].color =  temp1;
     }
 
     public void clockwiseAdjacents(int faceNum){
-        Color temp1 = face[faceNum].adjacents[3].cubie[7].color;
-        Color temp2 = face[faceNum].adjacents[3].cubie[4].color;
-        Color temp3 = face[faceNum].adjacents[3].cubie[2].color;        
+        Face top = face[faceNum].adjacents[0];
+        Face right = face[faceNum].adjacents[1];
+        Face bottom = face[faceNum].adjacents[2];
+        Face left = face[faceNum].adjacents[3];
+        // System.out.println(top.toString()+left.toString()+right.toString()+bottom.toString());
+        Cubie temp1 = left.cubie[7];
+        Cubie temp2 = left.cubie[4];
+        Cubie temp3 = left.cubie[2];        
         
-        face[faceNum].adjacents[3].cubie[7].color = face[faceNum].adjacents[2].cubie[2].color;
-        face[faceNum].adjacents[3].cubie[4].color = face[faceNum].adjacents[2].cubie[1].color;
-        face[faceNum].adjacents[3].cubie[2].color = face[faceNum].adjacents[2].cubie[0].color;
+        left.cubie[7] = bottom.cubie[2];
+        left.cubie[4] = bottom.cubie[1];
+        left.cubie[2] = bottom.cubie[0];
 
-        face[faceNum].adjacents[2].cubie[2].color = face[faceNum].adjacents[1].cubie[0].color;
-        face[faceNum].adjacents[2].cubie[1].color = face[faceNum].adjacents[1].cubie[3].color;
-        face[faceNum].adjacents[2].cubie[0].color = face[faceNum].adjacents[1].cubie[5].color;
+        bottom.cubie[2] = right.cubie[0];
+        bottom.cubie[1] = right.cubie[3];
+        bottom.cubie[0] = right.cubie[5];
 
-        face[faceNum].adjacents[1].cubie[0].color = face[faceNum].adjacents[0].cubie[5].color;
-        face[faceNum].adjacents[1].cubie[3].color = face[faceNum].adjacents[0].cubie[6].color;
-        face[faceNum].adjacents[1].cubie[5].color = face[faceNum].adjacents[0].cubie[7].color;
+        right.cubie[0] = top.cubie[5];
+        right.cubie[3] = top.cubie[6];
+        right.cubie[5] = top.cubie[7];
 
-        face[faceNum].adjacents[0].cubie[5].color = temp1;
-        face[faceNum].adjacents[0].cubie[6].color = temp2;
-        face[faceNum].adjacents[0].cubie[7].color = temp3;
+        top.cubie[5] = temp1;
+        top.cubie[6] = temp2;
+        top.cubie[7] = temp3;
+        // Color temp1 = face[faceNum].adjacents[3].cubie[7].color;
+        // Color temp2 = face[faceNum].adjacents[3].cubie[4].color;
+        // Color temp3 = face[faceNum].adjacents[3].cubie[2].color;        
+        
+        // face[faceNum].adjacents[3].cubie[7].color = face[faceNum].adjacents[2].cubie[2].color;
+        // face[faceNum].adjacents[3].cubie[4].color = face[faceNum].adjacents[2].cubie[1].color;
+        // face[faceNum].adjacents[3].cubie[2].color = face[faceNum].adjacents[2].cubie[0].color;
+
+        // face[faceNum].adjacents[2].cubie[2].color = face[faceNum].adjacents[1].cubie[0].color;
+        // face[faceNum].adjacents[2].cubie[1].color = face[faceNum].adjacents[1].cubie[3].color;
+        // face[faceNum].adjacents[2].cubie[0].color = face[faceNum].adjacents[1].cubie[5].color;
+
+        // face[faceNum].adjacents[1].cubie[0].color = face[faceNum].adjacents[0].cubie[5].color;
+        // face[faceNum].adjacents[1].cubie[3].color = face[faceNum].adjacents[0].cubie[6].color;
+        // face[faceNum].adjacents[1].cubie[5].color = face[faceNum].adjacents[0].cubie[7].color;
+
+        // face[faceNum].adjacents[0].cubie[5].color = temp1;
+        // face[faceNum].adjacents[0].cubie[6].color = temp2;
+        // face[faceNum].adjacents[0].cubie[7].color = temp3;
     }
     public String toString(){
         String s = "";

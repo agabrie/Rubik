@@ -16,14 +16,16 @@ enum Orientation{
 }
 enum Coloreths{
 Black	("\u001b[30m"),
-Red		("\u001b[31m"),
-Green	("\u001b[32m"),
-Yellow	("\u001b[33m"),
-Blue	("\u001b[34m"),
-Magenta	("\u001b[35m"),
-Cyan	("\u001b[36m"),
-White	("\u001b[37m"),
-Reset	("\u001b[0m");
+// Red		("\u001b[31m"),
+Red		("\033[30;41m"),
+Green	("\033[30;42m"), //32
+Yellow	("\033[30;43m"), //33
+Blue	("\033[30;104m"), //34
+Magenta	("\033[30;45m"), //35
+Cyan	("\033[30;46m"), //36
+White	("\033[30;47m"), //37
+Orange  ("\033[30;45m"), //o
+Reset	("\u001b[0m"); //
 
 public String color;
 	private Coloreths(String color)

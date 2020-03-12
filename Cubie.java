@@ -27,7 +27,7 @@ class Cubie{
                 color = Coloreths.White.color+"[W]"+Coloreths.Reset.color;
                 break;
             case ORANGE:
-                color = Coloreths.Cyan.color+"[O]"+Coloreths.Reset.color;
+                color = Coloreths.Orange.color+"[O]"+Coloreths.Reset.color;
                 break;
             default :
                 color = Coloreths.White.color+"[W]"+Coloreths.Reset.color;

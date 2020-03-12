@@ -78,7 +78,8 @@ class Driver{
 			System.out.println(cube);
 			List<String> scramble= new ArrayList<String>();
 			if(!(args.length == 1))
-				throw new Exception("Argument required");
+				debug();
+				// throw new Exception("Argument required");
 			Collections.addAll(scramble, args[0].toUpperCase().split(" "));
 			verbose = binaryquestion("turn verbose mode on");
 				invoke(scramble);
@@ -88,6 +89,18 @@ class Driver{
 				Solver.simplesolve(scramble);
 			}
 			System.out.println("Final solution:\n"+cube);
+		}catch(Exception e){
+			System.out.println(e);
+			System.exit(0);
+		}
+	}
+	public static void debug(){
+		try{
+			Scanner scInput = new Scanner(System.in);
+			while(scInput.hasNextLine()){
+				execute(scInput.nextLine());
+				System.out.println(cube);
+			}
 		}catch(Exception e){
 			System.out.println(e);
 			System.exit(0);

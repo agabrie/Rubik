@@ -131,10 +131,12 @@ class Solver{
 		// }
 	}
 
-	public void FindEdge(Color c){
+	public void FindEdge(Color color){
 		Rubik cube = Driver.cube;
 		for(Face f : cube.face){
-
+			for(Cubie c: f.cubie){
+				return ;
+			}
 		}
 	}
 }
