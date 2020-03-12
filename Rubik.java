@@ -210,4 +210,23 @@ class Rubik{
         }
         return s;
     }
+    public Coordinate findEdge(Cubie edge){
+		// Rubik cube = Driver.cube;
+		// ArrayList<>
+		int f = 0;
+		for(Face face : face){
+			// System.out.println("looking in face :"+face.center.colorString());
+			int c = 0;
+			for(Cubie cubie: face.cubie){
+			// System.out.println("looking at cubie :"+cubie.fulldetail());
+				if(cubie.equals(edge)){
+					Coordinate p = new Coordinate(f, c);
+					return (p);
+				}
+				c++;
+			}
+			f++;
+		}
+		return null;
+	}
 }

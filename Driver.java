@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 class Driver{
 	static Rubik cube = new Rubik();
+	static Rubik solved = new Rubik();
 	static boolean verbose = false;
 	static int moves = 0;
 	static HashMap<Character, Runnable> instruct;
