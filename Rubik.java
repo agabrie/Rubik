@@ -6,7 +6,8 @@ class Rubik{
     public final int GREEN = 3;
     public final int YELLOW = 4;
     public final int ORANGE = 5;
-
+    public boolean clockwise = true;
+    public boolean extra = false;
 
     public Rubik(){
             face[WHITE] = new Face(Color.WHITE, Orientation.FRONT);
@@ -24,12 +25,12 @@ class Rubik{
             face[ORANGE].adjacentsAssign(face[YELLOW], face[BLUE], face[WHITE], face[GREEN]);
             // System.err.print(toString());
     }
-    public void F(boolean clockwise,boolean extra){
+    public void F(){
         rotateFace(clockwise, WHITE);
         if(extra)
             rotateFace(clockwise, WHITE);
     }
-    public void D(boolean clockwise,boolean extra){
+    public void D(){
         clockwiseFace(BLUE);
         antiClockwiseFace(GREEN);
 
@@ -47,7 +48,7 @@ class Rubik{
         antiClockwiseFace(BLUE);
         clockwiseFace(GREEN);
     }
-    public void R(boolean clockwise,boolean extra){
+    public void R(){
         clockwiseFace(ORANGE);
         antiClockwiseFace(RED);
         rotateFace(clockwise, BLUE);
@@ -56,7 +57,7 @@ class Rubik{
         antiClockwiseFace(ORANGE);
         clockwiseFace(RED);
     }
-    public void L(boolean clockwise,boolean extra){
+    public void L(){
         antiClockwiseFace(ORANGE);
         clockwiseFace(RED);
         rotateFace(clockwise, GREEN);
@@ -65,7 +66,7 @@ class Rubik{
         clockwiseFace(ORANGE);
         antiClockwiseFace(RED);
     }
-    public void B(boolean clockwise,boolean extra){
+    public void B(){
         for (int i = 0; i < 2; i++) {   
             clockwiseFace(ORANGE);
             antiClockwiseFace(RED);
@@ -78,7 +79,7 @@ class Rubik{
             antiClockwiseFace(ORANGE);
         }
     }
-    public void U(boolean clockwise,boolean extra){
+    public void U(){
         clockwiseFace(GREEN);
         antiClockwiseFace(BLUE);
 
