@@ -9,9 +9,6 @@ class Solver{
 
 	public static HashMap<String, String> rotations;
 	public static HashMap<Orientation, Runnable> orient = new HashMap<Orientation,Runnable>(){
-
-	// rotations.put("U","U");
-	// public Solver(){
 		{
 			put(Orientation.FRONT,()->{
 				rotations = new HashMap<String, String>();
@@ -134,42 +131,10 @@ class Solver{
 		// }
 	}
 
-	// static void RTrigger(){
-	// 	List<String> instructions = new ArrayList<String>();
-	// 	instructions.add("R");
-	// 	instructions.add("U");
-	// 	instructions.add("R'");
-	// 	instructions.add("U'");
-	// 	// return (instructions);
-	// 	invoke(instructions);
-	// }
-	// static void LTrigger(){
-	// 	List<String> instructions = new ArrayList<String>();
-	// 	instructions.add("L'");
-	// 	instructions.add("U'");
-	// 	instructions.add("L");
-	// 	instructions.add("U");
-	// }
-	// static void T2RE(){
-	// 	List<String> instructions = new ArrayList<String>();
-	// 	instructions.add("U");
-	// 	instructions.add("R");
-	// 	instructions.add("U'");
-	// 	instructions.add("R'");
-	// 	instructions.add("U'");
-	// 	instructions.add("F'");
-	// 	instructions.add("U");
-	// 	instructions.add("F");
-	// }
-	// static void T2LE(){
-	// 	List<String> instructions = new ArrayList<String>();
-	// 	instructions.add("U'");
-	// 	instructions.add("L'");
-	// 	instructions.add("U");
-	// 	instructions.add("L");
-	// 	instructions.add("U");
-	// 	instructions.add("F");
-	// 	instructions.add("U'");
-	// 	instructions.add("F'");
-	// }
+	public void FindEdge(Color c){
+		Rubik cube = Driver.cube;
+		for(Face f : cube.face){
+
+		}
+	}
 }
