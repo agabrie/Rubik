@@ -143,25 +143,66 @@ class Solver{
 		System.out.println("position of : "+edge.fulldetail());
 		System.out.println(start);
 		switchFace(start.face);
-		if(start.equals(dest)){
-			System.out.println("in pos");
-			return;
-		}
-		if(frontface == YELLOW){
-			Driver.execute(rotations.get("U2"));
-		}
-		else{
-		switch(start.cubie){
-			case L:
-				Driver.execute(rotations.get("L")+"'");
-				break;
-			case R:
-				Driver.execute(rotations.get("R"));
-				break;
-			case T:
-				Driver.execute(rotations.get("U")+"'");
-			default:break;
-		}
+		if (start.face == dest.face){
+			while(start.cubie != dest.cubie)
+			{
+				System.out.println(start.cubie+","+dest.cubie);
+				start = Driver.cube.findEdge(edge);
+				Driver.execute(rotations.get("F"));
+			}
+		}else{
+			if(frontface != YELLOW){
+				System.out.println(edge.adjacents[0].colorString());
+				System.out.println(Driver.cube.face[start.face].center);
+				if(edge.adjacents[0].colorString().equals( Driver.cube.face[start.face].center.colorString()))
+				{
+					List<String> instructions = new ArrayList<String>();
+					switch (start.cubie){
+						case T:
+							instructions.add(rotations.get("F"));
+							instructions.add(rotations.get("U")+"'");
+							instructions.add(rotations.get("R"));
+							instructions.add(rotations.get("U"));
+							break;
+						case R:
+							// instructions.add(rotations.get("F"));
+							instructions.add(rotations.get("U")+"'");
+							instructions.add(rotations.get("R"));
+							instructions.add(rotations.get("U"));
+							break;
+						case L:
+							// instructions.add(rotations.get("F"));
+							instructions.add(rotations.get("U"));
+							instructions.add(rotations.get("L")+"'");
+							instructions.add(rotations.get("U")+"'");
+							break;
+						case B:
+							instructions.add(rotations.get("F"));
+							instructions.add(rotations.get("U"));
+							instructions.add(rotations.get("L")+"'");
+							instructions.add(rotations.get("U")+"'");
+							break;
+						default:break;
+					}
+					Driver.invoke(instructions);
+				}
+
+			}
+		// if(frontface == YELLOW){
+		// 	Driver.execute(rotations.get("U2"));
+		// }
+		// else{
+		// switch(start.cubie){
+		// 	case L:
+		// 		Driver.execute(rotations.get("L")+"'");
+		// 		break;
+		// 	case R:
+		// 		Driver.execute(rotations.get("R"));
+		// 		break;
+		// 	case T:
+		// 		Driver.execute(rotations.get("U")+"'");
+		// 	default:break;
+		// }
 	}
 	}
 	static void simplesolve(List<String> instructions){
