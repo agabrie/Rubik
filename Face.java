@@ -1,9 +1,14 @@
-class Face{
+/**
+ *
+ * @author Abduraghmaan G
+ */
+public final class Face {
+
     public int numcubies = 8;
     Cubie cubie[] = new Cubie[numcubies];
     Face adjacents[] = new Face[4];
     Cubie center;
-
+    Color color;
     public final int TL = 0;
     public final int T = 1;
     public final int TR = 2;
@@ -12,18 +17,26 @@ class Face{
     public final int BL = 5;
     public final int B = 6;
     public final int BR = 7;
-    
-    public Face(Color c, Orientation o){
+
+     Face(Color c, Orientation o) {
         center = new Cubie(c, o);
         setCubie(c, o);
+        color = c;
         // printface();
     }
-    public void setCubie(Color c, Orientation o){
-        for(int i = 0;i < numcubies;i++){
-            cubie[i]= new Cubie(c, o);
+
+    /**
+     *
+     * @param c
+     * @param o
+     */
+    void setCubie(Color c, Orientation o) {
+        for (int i = 0; i < numcubies; i++) {
+            cubie[i] = new Cubie(c, o);
         }
     }
-    public void adjacentsAssign(Face top, Face right, Face bottom, Face left){
+
+    public void adjacentsAssign(Face top, Face right, Face bottom, Face left) {
         adjacents[0] = top;
         adjacents[1] = right;
         adjacents[2] = bottom;
@@ -40,18 +53,22 @@ class Face{
         cubie[BR].setAdjacents(bottom.cubie[TR], right.cubie[BL]);
     }
 
-    public void printface(){
+    public void printface() {
         System.out.println(toString());
     }
-    public String toString(){
+
+    @Override
+    public String toString() {
         String s = "";
-        for(int i = 0;i < numcubies;i++){
-            if(i == 4)
+        for (int i = 0; i < numcubies; i++) {
+            if (i == 4) {
                 s += center.toString();
-            if(i == 2 || i == 4 || i == 7)
-                s += cubie[i].toString()+"\n";
-            else
+            }
+            if (i == 2 || i == 4 || i == 7) {
+                s += cubie[i].toString() + "\n";
+            } else {
                 s += cubie[i].toString();
+            }
         }
         // s+="\n";
         return s;
