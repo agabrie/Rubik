@@ -15,7 +15,7 @@ public class Driver {
      */
     static Rubik cube = new Rubik();
     static Rubik solved = new Rubik();
-	static boolean verbose = false;
+	static boolean verbose = true;
 	static boolean solution = false;
     static int moves = 0;
     static HashMap<Character, Runnable> instruct;
@@ -29,7 +29,7 @@ public class Driver {
     public static void execute(String instr) {
         try {
 			if(solution && cube.equals(solved)){
-				System.out.println("solved");
+				System.out.println(Coloreths.Green.color+"solved"+Coloreths.Reset.color);
 				System.exit(0);
 			}
             System.out.println("Instruction : " + instr);
@@ -114,11 +114,11 @@ public class Driver {
             }
             // throw new Exception("Argument required");
             Collections.addAll(scramble, args[0].toUpperCase().split(" "));
-            verbose = binaryquestion("turn verbose mode on");
+            // verbose = binaryquestion("turn verbose mode on");
             invoke(scramble);
             System.out.println("Post scramble:\n" + cube);
             if (binaryquestion("Do you wish to see solution")) {
-                verbose = binaryquestion("With vebose mode turned on");
+                // verbose = binaryquestion("With vebose mode turned on");
                 Solver.simplesolve(scramble);
             }
             System.out.println("Final solution:\n" + cube);
