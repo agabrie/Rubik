@@ -260,6 +260,15 @@ public class Solver {
 								Driver.execute(rotations.get("L"));
 								Driver.execute(rotations.get("D"));
 								break;
+							case B:
+								Driver.execute(rotations.get("D"));
+								break;
+							case T:
+								// U B U'
+								Driver.execute(rotations.get("U"));
+								Driver.execute(rotations.get("B"));
+								Driver.execute(rotations.get("U")+"'");
+								break;
 						}
 					}
 					else if(expectedPosition.cubie == T ){
@@ -340,6 +349,9 @@ public class Solver {
 							Driver.execute(rotations.get("B"));
 							break;
 					}
+				}
+				else{
+					break;
 				}
 				// currentPosition = Driver.cube.findEdge(edge);
 
