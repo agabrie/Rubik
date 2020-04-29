@@ -162,10 +162,13 @@ public class Solver {
 			moveToFront(edge);
 		}
 	}
-	static void rotateRelevant(Coordinate expected,boolean again){
+	static void rotateRelevant(Coordinate expected,boolean again,boolean reverse){
 			String mod = "";
 			if(again)
 				mod = "2";
+			else if (reverse){
+				mod ="'";
+			}
 			switch(expected.cubie){
 				case T: Driver.execute(rotations.get("U")+mod);break;
 				case B: Driver.execute(rotations.get("D")+mod);break;	
@@ -185,26 +188,35 @@ public class Solver {
 		System.out.println("expected position of cube : "+expectedPosition);
 		switchFace(expectedPosition.face);
 		//check if face is yellow
-		if(isOppositeColor(currentPosition.face, expectedPosition.face))
-		{
-			// System.out.println("face is opposite? => true");
-			while(currentPosition.cubie != getCorrectPosition(expectedPosition)){
-				// System.out.println("not in position -> "+getCorrectPosition(expectedPosition));
-				// System.out.println("rather => "+currentPosition.cubie);
-				Driver.execute(rotations.get("B"));
-				currentPosition = Driver.cube.findEdge(edge);
+		while(currentPosition.face != expectedPosition.face || currentPosition.cubie != expectedPosition.cubie){
+			if(isOppositeColor(currentPosition.face, expectedPosition.face))
+			{
+				// System.out.println("face is opposite? => true");
+				// while(currentPosition.cubie != getCorrectPosition(expectedPosition)){
+					Driver.execute(rotations.get("B"));
+					currentPosition = Driver.cube.findEdge(edge);
+				// }
+				if(currentPosition.cubie == getCorrectPosition(expectedPosition)){
+					// System.out.println("updated position :"+currentPosition.cubie);
+					// Driver.execute(rotations.get("U"),);
+					rotateRelevant(expectedPosition, true,false);
+				}
 			}
-			if(currentPosition.cubie == getCorrectPosition(expectedPosition)){
-				// System.out.println("updated position :"+currentPosition.cubie);
-				// Driver.execute(rotations.get("U"),);
-				rotateRelevant(expectedPosition, true);
+			else
+			{
+				System.out.println("face is opposite? => false");
+				System.out.println("currentface "+currentPosition.face+", expected "+leftFace(expectedPosition.face));
+				if(currentPosition.face == leftFace(expectedPosition.face)){
+					System.out.println("face is left");
+					rotateRelevant(expectedPosition,false,true);
+					// currentPosition = Driver.cube.findEdge(edge);
+					System.out.println("after:"+currentPosition);
+				}
+				// currentPosition = Driver.cube.findEdge(edge);
+
+				break;
 			}
-		}
-		else{
-			System.out.println("face is opposite? => false");
-			if(currentPosition.cubie == leftFace(expectedPosition.face)){
-				System.out.println("face is left");
-			}
+			currentPosition = Driver.cube.findEdge(edge);
 		}
 	}
 	public static int leftFace(int face){
