@@ -169,6 +169,7 @@ public class Solver {
 			else if (reverse){
 				mod ="'";
 			}
+			System.out.println(expected.cubie);
 			switch(expected.cubie){
 				case T: Driver.execute(rotations.get("U")+mod);break;
 				case B: Driver.execute(rotations.get("D")+mod);break;	
@@ -184,8 +185,8 @@ public class Solver {
 		System.out.println("edge to solve : "+ edge.fulldetail());
 		Coordinate currentPosition = Driver.cube.findEdge(edge);
 		Coordinate expectedPosition = Driver.solved.findEdge(edge);
-		System.out.println("current position of cube : "+currentPosition);
-		System.out.println("expected position of cube : "+expectedPosition);
+		System.out.println("current position of cubie : "+currentPosition);
+		System.out.println("expected position of cubie : "+expectedPosition);
 		switchFace(expectedPosition.face);
 		//check if face is yellow
 		while(currentPosition.face != expectedPosition.face || currentPosition.cubie != expectedPosition.cubie){
@@ -193,8 +194,9 @@ public class Solver {
 			{
 				// System.out.println("face is opposite? => true");
 				// while(currentPosition.cubie != getCorrectPosition(expectedPosition)){
+				if(currentPosition.cubie != getCorrectPosition(expectedPosition))
 					Driver.execute(rotations.get("B"));
-					currentPosition = Driver.cube.findEdge(edge);
+				currentPosition = Driver.cube.findEdge(edge);
 				// }
 				if(currentPosition.cubie == getCorrectPosition(expectedPosition)){
 					// System.out.println("updated position :"+currentPosition.cubie);
@@ -205,12 +207,88 @@ public class Solver {
 			else
 			{
 				System.out.println("face is opposite? => false");
-				System.out.println("currentface "+currentPosition.face+", expected "+leftFace(expectedPosition.face));
+				System.out.println("current_face_postion "+currentPosition.face+", expected_face_position "+leftFace(expectedPosition.face));
+				currentFace();
 				if(currentPosition.face == leftFace(expectedPosition.face)){
 					System.out.println("face is left");
-					rotateRelevant(expectedPosition,false,true);
+					// switchFace(currentPosition.face);
+					if(expectedPosition.cubie == L){
+						switch(currentPosition.cubie){
+							case T: // F U' F'
+								Driver.execute(rotations.get("F"));Driver.execute(rotations.get("U")+"'");Driver.execute(rotations.get("F")+"'");
+								break;
+							case B: // F' D F
+								Driver.execute(rotations.get("F")+"'");Driver.execute(rotations.get("D"));Driver.execute(rotations.get("F"));
+								break;
+							default:
+								Driver.execute(rotations.get("L"));
+								break;
+						}
+					}
+					else if(expectedPosition.cubie == R ){
+						switch(currentPosition.cubie){
+							case T: // F' U' F
+								Driver.execute(rotations.get("F")+"'");Driver.execute(rotations.get("U")+"'");Driver.execute(rotations.get("F"));
+								break;
+							case B: // F D F'
+								Driver.execute(rotations.get("F"));Driver.execute(rotations.get("D"));Driver.execute(rotations.get("F")+"'");
+								break;
+							default:
+								Driver.execute(rotations.get("L"));
+								break;
+						}
+					}
+					else if(expectedPosition.cubie == B ){
+						switch(currentPosition.cubie){
+							case L:
+								// L' D L
+								break;
+							case R:
+								// L D
+								break;
+						}
+					}
+					else
+						rotateRelevant(expectedPosition,false,true);
 					// currentPosition = Driver.cube.findEdge(edge);
-					System.out.println("after:"+currentPosition);
+					// System.out.println("after:"+currentPosition);
+				}
+				else if(currentPosition.face == rightFace(expectedPosition.face)){
+					System.out.println("face is right");
+						if(expectedPosition.cubie == L){
+							switch(currentPosition.cubie){
+								case T: // F U F'
+									Driver.execute(rotations.get("F"));Driver.execute(rotations.get("U"));Driver.execute(rotations.get("F")+"'");
+									break;
+								case B: // F' D' F
+									Driver.execute(rotations.get("F")+"'");Driver.execute(rotations.get("D")+"'");Driver.execute(rotations.get("F"));
+									break;
+								default:
+									Driver.execute(rotations.get("R"));
+									break;
+								// case L:
+								// 	// L Driver
+								// case R:
+								// 	//L'
+							}
+						}
+						else if(expectedPosition.cubie == R ){
+							switch(currentPosition.cubie){
+								case T: // F' U F
+									Driver.execute(rotations.get("F")+"'");Driver.execute(rotations.get("U"));Driver.execute(rotations.get("F"));
+									break;
+								case B: // F D' F'
+									Driver.execute(rotations.get("F"));Driver.execute(rotations.get("D")+"'");Driver.execute(rotations.get("F")+"'");
+									break;
+								default:
+									Driver.execute(rotations.get("R"));
+									break;
+							}
+						}
+						else
+							rotateRelevant(expectedPosition,false,true);
+					// currentPosition = Driver.cube.findEdge(edge);
+					// System.out.println("after:"+currentPosition);
 				}
 				// currentPosition = Driver.cube.findEdge(edge);
 
@@ -220,17 +298,30 @@ public class Solver {
 		}
 	}
 	public static int leftFace(int face){
-		int left_face;
+		int l_face;
 		switch (face){
-			case WHITE : left_face = GREEN; break;
-			case YELLOW : left_face = BLUE; break;
-			case RED : left_face = GREEN; break;
-			case ORANGE : left_face = GREEN; break;
-			case GREEN : left_face = YELLOW; break;
-			case BLUE : left_face = WHITE; break;
-			default : left_face = GREEN; break;
+			case WHITE : l_face = GREEN; break;
+			case YELLOW : l_face = BLUE; break;
+			case RED : l_face = GREEN; break;
+			case ORANGE : l_face = GREEN; break;
+			case GREEN : l_face = YELLOW; break;
+			case BLUE : l_face = WHITE; break;
+			default : l_face = GREEN; break;
 		}
-		return left_face;
+		return l_face;
+	}
+	public static int rightFace(int face){
+		int r_face;
+		switch (face){
+			case WHITE : r_face = BLUE; break;
+			case YELLOW : r_face = GREEN; break;
+			case RED : r_face = BLUE; break;
+			case ORANGE : r_face = BLUE; break;
+			case GREEN : r_face = WHITE; break;
+			case BLUE : r_face = YELLOW; break;
+			default : r_face = BLUE; break;
+		}
+		return r_face;
 	}
 	public static int getCorrectPosition(Coordinate expected){
 		if(expected.cubie == L)return R;
@@ -370,12 +461,12 @@ public class Solver {
 	}
 
 	static void simplesolve(List<String> instructions) {
-		switchFace(GREEN);
 		Driver.solution = true;
 		Driver.moves = 0;
-		RTrigger();
-		switchFace(BLUE);
-		RTrigger();
+		// switchFace(GREEN);
+		// RTrigger();
+		// switchFace(BLUE);
+		// RTrigger();
 		WhiteCross();
 		// Cubie find = Driver.solved.faces[WHITE].cubie[T];
 		// System.out.println("position of : "+find.fulldetail());
