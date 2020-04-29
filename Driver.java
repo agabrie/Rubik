@@ -19,6 +19,7 @@ public class Driver {
 	static boolean solution = false;
     static int moves = 0;
     static HashMap<Character, Runnable> instruct;
+    static Scrambler scrambler = new Scrambler();
 
     public static void invoke(List<String> instructions) {
         instructions.forEach((instr) -> {
@@ -109,11 +110,35 @@ public class Driver {
 
             System.out.println(cube);
             List<String> scramble = new ArrayList<>();
-            if (!(args.length == 1)) {
-                debug();
-            }
+            // if (!(args.length == 1)) {
+            //     debug();
+            // }
             // throw new Exception("Argument required");
-            Collections.addAll(scramble, args[0].toUpperCase().split(" "));
+            String inputScramble="";
+            int num_scramble = 0;
+            if(args.length > 0){
+                // inputScramble = args[0];
+                System.out.println("args : "+args[0]);
+                try {
+                    num_scramble = Integer.parseInt(args[0]);
+                    System.out.println("num scr: "+num_scramble);
+                } catch (NumberFormatException nfe) {
+                    inputScramble = args[0];
+                }
+            }else{
+                num_scramble = 10;
+            }
+            System.out.println("input "+inputScramble);
+            if(num_scramble > 0){
+                
+                // scrambler = new Scrambler(num_scramble);
+                scrambler.setNumMoves(num_scramble);
+                scrambler.generateScramble();
+                inputScramble = scrambler.getScrambleString();
+                System.out.println("random scramble :"+inputScramble);
+            }
+
+            Collections.addAll(scramble, inputScramble.toUpperCase().split(" "));
             // verbose = binaryquestion("turn verbose mode on");
             invoke(scramble);
             System.out.println("Post scramble:\n" + cube);
