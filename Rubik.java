@@ -161,17 +161,17 @@ public class Rubik {
         faces[faceNum].cubie[B] = faces[faceNum].cubie[R];
         faces[faceNum].cubie[R] = faces[faceNum].cubie[T];
         faces[faceNum].cubie[T] = temp1;
-        // Color temp1 = faces[faceNum].cubie[5].color;  
-        // faces[faceNum].cubie[5].color =  faces[faceNum].cubie[7].color;
-        // faces[faceNum].cubie[7].color =  faces[faceNum].cubie[2].color;
-        // faces[faceNum].cubie[2].color =  faces[faceNum].cubie[0].color;
-        // faces[faceNum].cubie[0].color =  temp1;
+        // Color temp1 = faces[faceNum].cubie[5].color;
+        // faces[faceNum].cubie[5].color = faces[faceNum].cubie[7].color;
+        // faces[faceNum].cubie[7].color = faces[faceNum].cubie[2].color;
+        // faces[faceNum].cubie[2].color = faces[faceNum].cubie[0].color;
+        // faces[faceNum].cubie[0].color = temp1;
 
-        // temp1 = faces[faceNum].cubie[3].color;  
-        // faces[faceNum].cubie[3].color =  faces[faceNum].cubie[6].color;
-        // faces[faceNum].cubie[6].color =  faces[faceNum].cubie[4].color;
-        // faces[faceNum].cubie[4].color =  faces[faceNum].cubie[1].color;
-        // faces[faceNum].cubie[1].color =  temp1;
+        // temp1 = faces[faceNum].cubie[3].color;
+        // faces[faceNum].cubie[3].color = faces[faceNum].cubie[6].color;
+        // faces[faceNum].cubie[6].color = faces[faceNum].cubie[4].color;
+        // faces[faceNum].cubie[4].color = faces[faceNum].cubie[1].color;
+        // faces[faceNum].cubie[1].color = temp1;
     }
 
     public void clockwiseAdjacents(int faceNum) {
@@ -201,17 +201,26 @@ public class Rubik {
         top.cubie[7] = temp3;
         // Color temp1 = faces[faceNum].adjacents[3].cubie[7].color;
         // Color temp2 = faces[faceNum].adjacents[3].cubie[4].color;
-        // Color temp3 = faces[faceNum].adjacents[3].cubie[2].color;        
+        // Color temp3 = faces[faceNum].adjacents[3].cubie[2].color;
 
-        // faces[faceNum].adjacents[3].cubie[7].color = faces[faceNum].adjacents[2].cubie[2].color;
-        // faces[faceNum].adjacents[3].cubie[4].color = faces[faceNum].adjacents[2].cubie[1].color;
-        // faces[faceNum].adjacents[3].cubie[2].color = faces[faceNum].adjacents[2].cubie[0].color;
-        // faces[faceNum].adjacents[2].cubie[2].color = faces[faceNum].adjacents[1].cubie[0].color;
-        // faces[faceNum].adjacents[2].cubie[1].color = faces[faceNum].adjacents[1].cubie[3].color;
-        // faces[faceNum].adjacents[2].cubie[0].color = faces[faceNum].adjacents[1].cubie[5].color;
-        // faces[faceNum].adjacents[1].cubie[0].color = faces[faceNum].adjacents[0].cubie[5].color;
-        // faces[faceNum].adjacents[1].cubie[3].color = faces[faceNum].adjacents[0].cubie[6].color;
-        // faces[faceNum].adjacents[1].cubie[5].color = faces[faceNum].adjacents[0].cubie[7].color;
+        // faces[faceNum].adjacents[3].cubie[7].color =
+        // faces[faceNum].adjacents[2].cubie[2].color;
+        // faces[faceNum].adjacents[3].cubie[4].color =
+        // faces[faceNum].adjacents[2].cubie[1].color;
+        // faces[faceNum].adjacents[3].cubie[2].color =
+        // faces[faceNum].adjacents[2].cubie[0].color;
+        // faces[faceNum].adjacents[2].cubie[2].color =
+        // faces[faceNum].adjacents[1].cubie[0].color;
+        // faces[faceNum].adjacents[2].cubie[1].color =
+        // faces[faceNum].adjacents[1].cubie[3].color;
+        // faces[faceNum].adjacents[2].cubie[0].color =
+        // faces[faceNum].adjacents[1].cubie[5].color;
+        // faces[faceNum].adjacents[1].cubie[0].color =
+        // faces[faceNum].adjacents[0].cubie[5].color;
+        // faces[faceNum].adjacents[1].cubie[3].color =
+        // faces[faceNum].adjacents[0].cubie[6].color;
+        // faces[faceNum].adjacents[1].cubie[5].color =
+        // faces[faceNum].adjacents[0].cubie[7].color;
         // faces[faceNum].adjacents[0].cubie[5].color = temp1;
         // faces[faceNum].adjacents[0].cubie[6].color = temp2;
         // faces[faceNum].adjacents[0].cubie[7].color = temp3;
@@ -226,9 +235,11 @@ public class Rubik {
         }
         return s;
     }
-    public Cubie cubieAt(Coordinate c){
+
+    public Cubie cubieAt(Coordinate c) {
         return faces[c.face].cubie[c.cubie];
     }
+
     public Coordinate findEdge(Cubie edge) {
         // Rubik cube = Driver.cube;
         // ArrayList<>
@@ -248,23 +259,26 @@ public class Rubik {
         }
         return null;
     }
+
     @Override
     public boolean equals(Object o) {
 
-        // If the object is compared with itself then return true   
+        // If the object is compared with itself then return true
         if (o == this) {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not "null instanceof [type]" also returns false */
+        /*
+         * Check if o is an instance of Complex or not "null instanceof [type]" also
+         * returns false
+         */
         if (!(o instanceof Rubik)) {
             return false;
         }
 
-        // typecast o to Complex so that we can compare data members  
+        // typecast o to Complex so that we can compare data members
         Rubik c = (Rubik) o;
         // compare detail strings
         return (toString().equals(c.toString()));
     }
 }
-

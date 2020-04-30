@@ -18,7 +18,7 @@ public final class Face {
     public final int B = 6;
     public final int BR = 7;
 
-     Face(Color c, Orientation o) {
+    Face(Color c, Orientation o) {
         center = new Cubie(c, o);
         setCubie(c, o);
         color = c;

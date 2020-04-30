@@ -15,8 +15,8 @@ public class Driver {
      */
     static Rubik cube = new Rubik();
     static Rubik solved = new Rubik();
-	static boolean verbose = false;
-	static boolean solution = false;
+    static boolean verbose = false;
+    static boolean solution = false;
     static int moves = 0;
     static HashMap<Character, Runnable> instruct;
     static Scrambler scrambler = new Scrambler();
@@ -32,11 +32,11 @@ public class Driver {
 
     public static void execute(String instr) {
         try {
-			if(solution && cube.equals(solved)){
-				System.out.println(Coloreths.Green.color+"solved"+Coloreths.Reset.color);
-				System.exit(0);
+            if (solution && cube.equals(solved)) {
+                System.out.println(Coloreths.Green.color + "solved" + Coloreths.Reset.color);
+                System.exit(0);
             }
-            if(verbose)
+            if (verbose)
                 System.out.println("Instruction : " + instr);
             instructions.add(instr);
             if (instr.length() == 2) {
@@ -53,12 +53,12 @@ public class Driver {
             if (instr.length() != 1) {
                 throw new Exception("incorrect instruction format : " + instr);
             }
-			instruct.get(instr.charAt(0)).run();
-			cube.clockwise = true;
-			cube.extra = false;
+            instruct.get(instr.charAt(0)).run();
+            cube.clockwise = true;
+            cube.extra = false;
             moves++;
             // if (verbose) {
-                // System.err.println(cube.toString() + "Number of Moves : " + moves);
+            // System.err.println(cube.toString() + "Number of Moves : " + moves);
             // }
         } catch (Exception e) {
             System.out.println(e);
@@ -115,12 +115,12 @@ public class Driver {
             System.out.println(cube);
             List<String> scramble = new ArrayList<>();
             // if (!(args.length == 1)) {
-            //     debug();
+            // debug();
             // }
             // throw new Exception("Argument required");
-            String inputScramble="";
+            String inputScramble = "";
             int num_scramble = 0;
-            if(args.length > 0){
+            if (args.length > 0) {
                 // inputScramble = args[0];
                 // System.out.println("args : "+args[0]);
                 try {
@@ -129,12 +129,12 @@ public class Driver {
                 } catch (NumberFormatException nfe) {
                     inputScramble = args[0];
                 }
-            }else{
+            } else {
                 num_scramble = 10;
             }
             // System.out.println("input "+inputScramble);
-            if(num_scramble > 0){
-                
+            if (num_scramble > 0) {
+
                 // scrambler = new Scrambler(num_scramble);
                 scrambler.setNumMoves(num_scramble);
                 scrambler.generateScramble();
@@ -153,76 +153,73 @@ public class Driver {
                 new Solver().simplesolve(scramble);
             }
             System.out.println("Final solution:\n" + cube);
-            System.out.println("Number of moves in solution : "+moves);
+            System.out.println("Number of moves in solution : " + moves);
         } catch (Exception e) {
             System.out.println(e);
             System.exit(0);
         }
     }
-    static List<String> extend(List<String> instructions){
+
+    static List<String> extend(List<String> instructions) {
         List<String> extension = new ArrayList<String>();
-        for(String instr:instructions){
-            if(instr.length() == 2){
-                switch(instr.charAt(1)){
+        for (String instr : instructions) {
+            if (instr.length() == 2) {
+                switch (instr.charAt(1)) {
                     case '2':
-                        extension.add(instr.charAt(0)+"");
-                        extension.add(instr.charAt(0)+"");
+                        extension.add(instr.charAt(0) + "");
+                        extension.add(instr.charAt(0) + "");
                         break;
                     case '\'':
-                        extension.add(instr.charAt(0)+"");
-                        extension.add(instr.charAt(0)+"");
-                        extension.add(instr.charAt(0)+"");
+                        extension.add(instr.charAt(0) + "");
+                        extension.add(instr.charAt(0) + "");
+                        extension.add(instr.charAt(0) + "");
                         break;
                 }
-            }
-            else{
-                extension.add(instr.charAt(0)+"");
+            } else {
+                extension.add(instr.charAt(0) + "");
             }
         }
         return extension;
-     }
-     static String compress(String instruction,int repeat_counter){
+    }
+
+    static String compress(String instruction, int repeat_counter) {
         String result;
-        switch (repeat_counter % 4){
+        switch (repeat_counter % 4) {
             case 2:
-                result = instruction.charAt(0)+"2";
-                    // summary.add(previous.charAt(0)+"2");
+                result = instruction.charAt(0) + "2";
                 break;
             case 3:
-                result = instruction.charAt(0)+"'";
-
-                    // summary.add(previous.charAt(0)+"'");
+                result = instruction.charAt(0) + "'";
                 break;
             case 1:
-                result = instruction.charAt(0)+"";
-                    // summary.add(previous.charAt(0)+"");
-                    break;
+                result = instruction.charAt(0) + "";
+                break;
             default:
                 result = null;
                 break;
         }
         return result;
-     }
-     static List<String> summarise(List<String> instructions){
-         List<String> summary = new ArrayList<String>();
-         int repeat_counter = 1;
-         List<String> extended = extend(instructions);
-         String instr = extended.get(0);
-         String previous = instr;
-            for(int j = 1;j < extended.size();j++){
-                instr = extended.get(j);
-                if (!instr.equals(previous)){
-                    // System.out.println(previous+" repeats "+repeat_counter);
-                if(compress(previous,repeat_counter) != null)    
+    }
+
+    static List<String> summarise(List<String> instructions) {
+        List<String> summary = new ArrayList<String>();
+        int repeat_counter = 1;
+        List<String> extended = extend(instructions);
+        String instr = extended.get(0);
+        String previous = instr;
+        for (int j = 1; j < extended.size(); j++) {
+            instr = extended.get(j);
+            if (!instr.equals(previous)) {
+                if (compress(previous, repeat_counter) != null)
                     summary.add(compress(previous, repeat_counter));
-                    repeat_counter = 1;
-                }else{
-                    repeat_counter++;
-                }
-                previous = instr;
+                repeat_counter = 1;
+            } else {
+                repeat_counter++;
             }
-            if(compress(previous,repeat_counter) != null)
-                summary.add(compress(previous,repeat_counter));
-            return summary;
+            previous = instr;
         }
+        if (compress(previous, repeat_counter) != null)
+            summary.add(compress(previous, repeat_counter));
+        return summary;
+    }
 }
