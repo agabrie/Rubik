@@ -30,31 +30,8 @@ public class Cubie {
     }
 
     public String colorString() {
-        String str;
-        switch (this.color[0]) {
-            case RED:
-                str = Coloreths.Red.color + "[R]" + Coloreths.Reset.color;
-                break;
-            case GREEN:
-                str = Coloreths.Green.color + "[G]" + Coloreths.Reset.color;
-                break;
-            case YELLOW:
-                str = Coloreths.Yellow.color + "[Y]" + Coloreths.Reset.color;
-                break;
-            case BLUE:
-                str = Coloreths.Blue.color + "[B]" + Coloreths.Reset.color;
-                break;
-            case WHITE:
-                str = Coloreths.White.color + "[W]" + Coloreths.Reset.color;
-                break;
-            case ORANGE:
-                str = Coloreths.Orange.color + "[O]" + Coloreths.Reset.color;
-                break;
-            default:
-                str = Coloreths.White.color + "[W]" + Coloreths.Reset.color;
-                break;
-        }
-        return str;
+        Color c = this.color[0];
+        return String.format("%s[%c]%s",c.mod.color,c.ref,Coloreths.Reset.color);
     }
 
     public String fulldetail() {

@@ -9,20 +9,16 @@ public final class Face {
     Face adjacents[] = new Face[4];
     Cubie center;
     Color color;
-    public final int TL = 0;
-    public final int T = 1;
-    public final int TR = 2;
-    public final int L = 3;
-    public final int R = 4;
-    public final int BL = 5;
-    public final int B = 6;
-    public final int BR = 7;
 
     Face(Color c, Orientation o) {
         center = new Cubie(c, o);
         setCubie(c, o);
         color = c;
         // printface();
+    }
+
+    public Cubie getCubie(Relation r) {
+        return cubie[r.value];
     }
 
     /**
@@ -42,15 +38,15 @@ public final class Face {
         adjacents[2] = bottom;
         adjacents[3] = left;
 
-        cubie[T].setAdjacents(top.cubie[B]);
-        cubie[R].setAdjacents(right.cubie[L]);
-        cubie[B].setAdjacents(bottom.cubie[T]);
-        cubie[L].setAdjacents(left.cubie[R]);
+        cubie[Relation.T.value].setAdjacents(top.cubie[Relation.B.value]);
+        cubie[Relation.R.value].setAdjacents(right.cubie[Relation.L.value]);
+        cubie[Relation.B.value].setAdjacents(bottom.cubie[Relation.T.value]);
+        cubie[Relation.L.value].setAdjacents(left.cubie[Relation.R.value]);
 
-        cubie[TL].setAdjacents(top.cubie[BL], left.cubie[TR]);
-        cubie[TR].setAdjacents(top.cubie[BR], right.cubie[TL]);
-        cubie[BL].setAdjacents(bottom.cubie[TL], left.cubie[BR]);
-        cubie[BR].setAdjacents(bottom.cubie[TR], right.cubie[BL]);
+        cubie[Relation.TL.value].setAdjacents(top.cubie[Relation.BL.value], left.cubie[Relation.TR.value]);
+        cubie[Relation.TR.value].setAdjacents(top.cubie[Relation.BR.value], right.cubie[Relation.TL.value]);
+        cubie[Relation.BL.value].setAdjacents(bottom.cubie[Relation.TL.value], left.cubie[Relation.BR.value]);
+        cubie[Relation.BR.value].setAdjacents(bottom.cubie[Relation.TR.value], right.cubie[Relation.BL.value]);
     }
 
     public void printface() {

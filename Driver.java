@@ -94,6 +94,7 @@ public class Driver {
                 execute(scInput.nextLine());
                 System.out.println(cube);
             }
+            scInput.close();
         } catch (Exception e) {
             System.out.println(e);
             System.exit(0);
@@ -101,7 +102,6 @@ public class Driver {
     }
 
     public static void main(String[] args) {
-        // TODO code application logic here
         try {
             // Solver solver = new Solver();
             instruct = new HashMap<>();
