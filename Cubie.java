@@ -1,43 +1,52 @@
-class Cubie{
-    Color color;
+import java.util.Arrays;
+import java.util.Objects;
+
+/**
+ *
+ * @author Abduraghmaan G
+ */
+public class Cubie {
+
+    Color color[] = new Color[3];
+    Cubie adjacents[] = new Cubie[2];
     Orientation orientation;
 
-    public Cubie(Color c, Orientation o){
-        this.color = c;
+    Cubie(Color c, Orientation o) {
+        this.color[0] = c;
         this.orientation = o;
         // System.out.println(colorString());
     }
 
-    public String colorString(){
-        String color;
-        switch(this.color){
-            case RED:
-                color = Coloreths.Red.color+"[R]"+Coloreths.Reset.color;
-                break;
-            case GREEN:
-                color = Coloreths.Green.color+"[G]"+Coloreths.Reset.color;
-                break;
-            case YELLOW:
-                color = Coloreths.Yellow.color+"[Y]"+Coloreths.Reset.color;
-                break;
-            case BLUE:
-                color = Coloreths.Blue.color+"[B]"+Coloreths.Reset.color;
-                break;
-            case WHITE:
-                color = Coloreths.White.color+"[W]"+Coloreths.Reset.color;
-                break;
-            case ORANGE:
-                color = Coloreths.Cyan.color+"[O]"+Coloreths.Reset.color;
-                break;
-            default :
-                color = Coloreths.White.color+"[W]"+Coloreths.Reset.color;
-                break;
-        }
-        return color;
+    public void setAdjacents(Cubie edge) {
+        color[1] = edge.color[0];
+        adjacents[0] = edge;
     }
-    public String orientationString(){
+
+    public void setAdjacents(Cubie c1, Cubie c2) {
+        color[1] = c1.color[0];
+        color[2] = c2.color[0];
+        adjacents[0] = c1;
+        adjacents[1] = c2;
+    }
+
+    public String colorString() {
+        Color c = this.color[0];
+        return String.format("%s[%c]%s",c.mod.color,c.ref,Coloreths.Reset.color);
+    }
+
+    public String fulldetail() {
+        String s = colorString();
+        for (Cubie c : adjacents) {
+            if (c != null) {
+                s += "->" + c.colorString();
+            }
+        }
+        return s;
+    }
+
+    public String orientationString() {
         String orient;
-        switch(this.orientation){
+        switch (this.orientation) {
             case DOWN:
                 orient = "DOWN";
                 break;
@@ -59,11 +68,44 @@ class Cubie{
         }
         return orient;
     }
-    
-    public String toString(){
-        String color = colorString();
+
+    @Override
+    public String toString() {
+        String str = colorString();
         // String orient = orientationString();
         // System.out.println("something");
-        return String.format("%s",color);
+        return String.format("%s", str);
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /*
+         * Check if o is an instance of Complex or not "null instanceof [type]" also
+         * returns false
+         */
+        if (!(o instanceof Cubie)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        Cubie c = (Cubie) o;
+        // compare detail strings
+        return (fulldetail().equals(c.fulldetail()));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Arrays.deepHashCode(this.color);
+        hash = 79 * hash + Arrays.deepHashCode(this.adjacents);
+        hash = 79 * hash + Objects.hashCode(this.orientation);
+        return hash;
+    }
+
 }
