@@ -2,7 +2,8 @@
  *
  * @author Abduraghmaan G
  */
-public class Coordinate {
+package rubik;
+ public class Coordinate {
     Color face;
     Relation cubie;
 
