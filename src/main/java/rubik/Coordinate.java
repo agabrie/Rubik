@@ -3,6 +3,7 @@
  *
  * @author Abduraghmaan G
  */
+package rubik;
  public class Coordinate {
     Color face;
     Relation cubie;
