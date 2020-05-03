@@ -1,8 +1,9 @@
+
 /**
  *
  * @author Abduraghmaan G
  */
-public class Coordinate {
+ public class Coordinate {
     Color face;
     Relation cubie;
 
