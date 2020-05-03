@@ -59,9 +59,9 @@ public class Driver {
             cube.clockwise = true;
             cube.extra = false;
             moves++;
-            // if (verbose) {
-            // System.err.println(cube.toString() + "Number of Moves : " + moves);
-            // }
+            if (verbose) {
+            System.err.println(cube.toString() + "Number of Moves : " + moves);
+            }
         } catch (Exception e) {
             System.out.println(e);
             System.exit(0);
@@ -204,6 +204,8 @@ public class Driver {
     }
 
     static List<String> summarise(List<String> instructions) {
+        if(instructions.size() <= 1)
+            return(instructions);
         List<String> summary = new ArrayList<String>();
         int repeat_counter = 1;
         List<String> extended = extend(instructions);
