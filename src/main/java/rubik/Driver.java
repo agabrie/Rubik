@@ -123,7 +123,7 @@ public class Driver {
                 }
                 execute(input.toUpperCase());
                 System.out.println(cube);
-                System.out.println("Enter an instruction : ");
+                System.out.println("Enter an instruction ('Q' to stop) : ");
             }
             // scInput.close();
         } catch (Exception e) {
@@ -248,10 +248,10 @@ public class Driver {
                 if(!nosolution)
                     new Solver().simplesolve(scramble);
             // }
-            if(output && !nosolution){
-                System.out.println("Final solution:\n" + cube);
-                System.out.println("Number of moves in solution : " + moves);
-            }
+            // if(output && !nosolution){
+            //     System.out.println("Final solution:\n" + cube);
+            //     System.out.println("Number of moves in solution : " + moves);
+            // }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(0);

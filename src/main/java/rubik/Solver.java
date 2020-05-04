@@ -191,7 +191,7 @@ public class Solver {
 		Coordinate expectedPosition = Driver.solved.findEdge(edge);
 		switchFace(expectedPosition.face);
 		// int i = 0;
-		while (currentPosition.face != expectedPosition.face || currentPosition.cubie != expectedPosition.cubie) {
+		while (!currentPosition.equals(expectedPosition)) {
 			// if(i++ == 10){
 				// break;
 			// }
@@ -469,7 +469,7 @@ public class Solver {
 		Coordinate currentPosition = Driver.cube.findEdge(edge);
 		Coordinate expectedPosition = Driver.solved.findEdge(edge);
 		switchFace(expectedPosition.face);
-		while (currentPosition.face != expectedPosition.face || currentPosition.cubie != expectedPosition.cubie) {
+		while (!currentPosition.equals(expectedPosition)){
 			switch (expectedPosition.getRelevantFace(currentPosition)) {
 				case OPPOSITE:
 					if (currentPosition.cubie != getCorrectPosition(expectedPosition))
@@ -767,12 +767,18 @@ public class Solver {
 			WhiteCross();
 			Driver.instructions = Driver.summarise(Driver.instructions);
 			Driver.moves = Driver.instructions.size();
+			if(Driver.output)
+                System.out.println(Driver.cube);
 			System.out.println("White Cross : "+Driver.instructions);
+            System.out.println("Number of moves : " + Driver.moves);
 			Driver.instructions.clear();
 			FirstLayer();
 			Driver.instructions = Driver.summarise(Driver.instructions);
 			Driver.moves = Driver.instructions.size();
+			if(Driver.output)
+                System.out.println(Driver.cube);
 			System.out.println("First Layer : "+Driver.instructions);
+            System.out.println("Number of moves : " + Driver.moves);
 			Driver.instructions.clear();
 		}
 		else{
@@ -780,7 +786,10 @@ public class Solver {
 			FirstLayer();
 			Driver.instructions = Driver.summarise(Driver.instructions);
 			Driver.moves = Driver.instructions.size();
+			if(Driver.output)
+                System.out.println("Final solution:\n" + Driver.cube);
 			System.out.println("Solution : "+Driver.instructions);
+			System.out.println("Number of moves in final solution : " + Driver.moves);
 		}
 	}
 
