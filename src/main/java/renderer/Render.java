@@ -15,7 +15,7 @@ import java.util.List;
 
 import rubik.*;
 
-import static javafx.application.Platform.exit;
+// import static javafx.application.Platform.exit;
 
 class Vector3 {
     float x;
