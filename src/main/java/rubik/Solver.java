@@ -167,7 +167,8 @@ public class Solver {
 				moveToFront(edge);
 			}
 		}
-		System.out.println("white cross solved : " + testPosition(cross));
+		if(Driver.output && Driver.parts)
+			System.out.println("white cross solved : " + testPosition(cross));
 	}
 
 	void FirstLayer(){
@@ -182,7 +183,8 @@ public class Solver {
 				// moveToFront(edge);
 			}
 		}
-		System.out.println("white corners solved : " + testPosition(cross));
+		if(Driver.output && Driver.parts)
+			System.out.println("white corners solved : " + testPosition(cross));
 	}
 	void movetoCorner(Cubie edge){
 		Coordinate currentPosition = Driver.cube.findEdge(edge);
@@ -760,14 +762,26 @@ public class Solver {
 		Driver.solution = true;
 		Driver.moves = 0;
 		Driver.instructions.clear();
-		WhiteCross();
-		FirstLayer();
-		// System.out.println("FL done!");
-		Driver.instructions = Driver.summarise(Driver.instructions);
-		// System.out.println("Solver.simplesolve()");
-		Driver.moves = Driver.instructions.size();
-		// System.out.println("na");
-		System.out.println(Driver.instructions);
+		if(Driver.parts)
+		{
+			WhiteCross();
+			Driver.instructions = Driver.summarise(Driver.instructions);
+			Driver.moves = Driver.instructions.size();
+			System.out.println("White Cross : "+Driver.instructions);
+			Driver.instructions.clear();
+			FirstLayer();
+			Driver.instructions = Driver.summarise(Driver.instructions);
+			Driver.moves = Driver.instructions.size();
+			System.out.println("First Layer : "+Driver.instructions);
+			Driver.instructions.clear();
+		}
+		else{
+			WhiteCross();
+			FirstLayer();
+			Driver.instructions = Driver.summarise(Driver.instructions);
+			Driver.moves = Driver.instructions.size();
+			System.out.println("Solution : "+Driver.instructions);
+		}
 	}
 
 }
