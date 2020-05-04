@@ -15,6 +15,14 @@
     <dependencies>
         <!-- <dependency>
             <groupId>org.jogamp.jogl</groupId>
+            <artifactId>libgluegen-rt</artifactId>
+            <version>3</version>
+            <scope>runtime</scope>
+            <type>so</type>
+            <systemPath>${project.basedir}/lib/jogl-all.jar</systemPath>
+        </dependency> -->
+        <!-- <dependency>
+            <groupId>org.jogamp.jogl</groupId>
             <artifactId>jogl-all</artifactId>
             <version>2.3.1</version>
         </dependency>

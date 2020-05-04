@@ -1,12 +1,16 @@
 package renderer;
 
-import com.jogamp.graph.geom.Vertex;
+import com.jogamp.nativewindow.AbstractGraphicsDevice;
+import com.jogamp.nativewindow.NativeWindowException;
+import com.jogamp.newt.Display;
+import com.jogamp.newt.NewtFactory;
+import com.jogamp.newt.Screen;
+import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
+// import com.jogamp.opengl.test.junit.jogl.demos.es1.GearsES1;
 import com.jogamp.opengl.util.FPSAnimator;
-//import javafx.geometry.Orientation;
-import jogamp.opengl.glu.gl2.nurbs.GLUgl2nurbsImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -547,20 +551,54 @@ public class Render implements GLEventListener {
         gl.glLoadIdentity();
 //        rubik.L(true,1);
     }
+    static GLWindow createWindow(final Screen screen, final GLCapabilities caps, final GLEventListener demo)
+    throws InterruptedException
+{
+//        Assert.assertNotNull(caps);
+//
+// Create native windowing resources .. X11/Win/OSX
+//
+GLWindow glWindow;
+if(null!=screen) {
+    glWindow = GLWindow.create(screen, caps);
+//            Assert.assertNotNull(glWindow);
+} else {
+    glWindow = GLWindow.create(caps);
+//            Assert.assertNotNull(glWindow);
+}
 
-    public static void main(String[] args) {
+glWindow.addGLEventListener(demo);
 
-        //getting the capabilities object of GL2 profile
-        final GLProfile profile = GLProfile.get(GLProfile.GL2);
-        GLCapabilities capabilities = new GLCapabilities(profile);
+glWindow.setSize(512, 512);
+glWindow.setVisible(true);
+//        Assert.assertEquals(true,glWindow.isVisible());
+//        Assert.assertEquals(true,glWindow.isNativeValid());
 
-        // The canvas
-        final GLCanvas glcanvas = new GLCanvas(capabilities);
-        Render r = new Render();
+return glWindow;
+}
+static void destroyWindow(final GLWindow glWindow) {
+if(null!=glWindow) {
+    glWindow.destroy();
+//            Assert.assertEquals(false,glWindow.isNativeValid());
+}
+}
+
+public static void main(String[] args) {
+
+//getting the capabilities object of GL2 profile
+
+
+
+// final GLProfile profile = GLProfile.get(GLProfile.GL2);
+// GLCapabilities capabilities = new GLCapabilities(profile);
+
+// The canvas
+// final GLCanvas glcanvas = new GLCanvas(capabilities);
+Render r = new Render();
 //        r.instructions.add("F");
-        r.instructions.add("L");
-        r.instructions.add("L");
-        r.instructions.add("F");
+r.instructions.add("L");
+r.instructions.add("L");
+r.instructions.add("F");
 //        r.instructions.add("F");
 //        r.instructions.add("F");
 //        r.instructions.add("F");
@@ -571,19 +609,48 @@ public class Render implements GLEventListener {
 //        Render r2 = new Render();
 //        Rubik r = new Rubik(drawable);
 //        rubik.F(true);
-        glcanvas.addGLEventListener(r);
-        glcanvas.setSize(400, 400);
+String remoteDisplay = "localhost:0.0";
+Display displayRemote; // remote display
+AbstractGraphicsDevice deviceRemote;
+Screen screenRemote;
+GLWindow windowRemote;
+//        GearsES1 demoRemote = null;
+try {
+    displayRemote = NewtFactory.createDisplay(remoteDisplay); // remote display
+    displayRemote.createNative();
+    System.err.println(displayRemote);
+    deviceRemote = displayRemote.getGraphicsDevice();
+    System.err.println(deviceRemote);
+    GLProfile.initProfiles(deviceRemote); // just to make sure
+    System.err.println();
+    System.err.println("GLProfiles window2: "+deviceRemote.getConnection()+": "+GLProfile.glAvailabilityToString(deviceRemote));
+    final GLProfile glpRemote = GLProfile.get(deviceRemote, GLProfile.GL2ES1);
+//            Assert.assertNotNull(glpRemote);
+    final GLCapabilities capsRemote = new GLCapabilities(glpRemote);
+//            Assert.assertNotNull(capsRemote);
+    screenRemote  = NewtFactory.createScreen(displayRemote, 0); // screen 0
+//            demoRemote = new GearsES1(0);
+    windowRemote = createWindow(screenRemote, capsRemote, r); // remote, no vsync
+} catch (final NativeWindowException | InterruptedException nwe) {
+    System.err.println(nwe);
+//            Assume.assumeNoException(nwe);
+//            destroyWindow(windowLocal);
+    return;
+}
+// glcanvas.addGLEventListener(r);
+// glcanvas.setSize(400, 400);
 
-        //creating frame
-        final JFrame frame = new JFrame("cube");
+//creating frame
+final JFrame frame = new JFrame("cube");
 
-        //adding canvas to frame
-        frame.getContentPane().add(glcanvas);
-        frame.setSize(frame.getContentPane().getPreferredSize());
-        frame.setVisible(true);
-        final FPSAnimator animator = new FPSAnimator(glcanvas, 300, true);
-        animator.start();
+//adding canvas to frame
+// frame.getContentPane().add(glcanvas);
+// frame.setSize(frame.getContentPane().getPreferredSize());
+// frame.setVisible(true);
+final FPSAnimator animator = new FPSAnimator(windowRemote, 300, true);
+animator.start();
 
-    }//end of main
+}//end of main
+
 
 }//end of classimport javax.media.opengl.GL2;
