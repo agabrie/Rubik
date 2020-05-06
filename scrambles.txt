@@ -4,6 +4,8 @@
 
 "F2 L R B R2 L2 R2 F2 D"
 
+// Second Layer problems
+
 "D' B2 D' B D2"
 
 "D' B2 F D2 L2 F2 B2 U"

@@ -283,46 +283,79 @@ public class Solver {
 					blue.getCubie(Relation.T), blue.getCubie(Relation.B),
 		};
 
-		int i = 0;
+		// int i = 0;
 		while (!testPosition(cross)) {
-			if(i++ == 5)
-				break;
+			// if(i++ == 5)
+				// break;
 			for (Cubie edge : cross) {
-				System.out.println(edge.fulldetail());
+				// System.out.println(edge.fulldetail());
 				SLEdge(edge);
 			}
 		}
 		if(Driver.output && Driver.parts)
 			System.out.println("second layer solved : " + testPosition(cross));
 	}
-
+	
 	void SLEdge(Cubie edge){
 		Coordinate currentPosition = Driver.cube.findCoordinate(edge);
 		Coordinate expectedPosition = Driver.solved.findCoordinate(edge);
 		// switchFace(expectedPosition.face);
-		int i =0;
+		// int i =0;
 		while (!currentPosition.equals(expectedPosition)) {
 			switchFace(expectedPosition.face);
 
-			if(i++ == 10)
-				return;
+			// if(i++ == 10)
+			// 	return;
 			if(currentPosition.face != expectedPosition.face){
 				// switch(currentPosition.face){
 				// 	case YELLOW:
 				// 		return;
 				// }
 				if((currentPosition.face == Color.GREEN && currentPosition.cubie == Relation.L ) ||
-				(currentPosition.face == Color.BLUE && currentPosition.cubie == Relation.R )||
-				(currentPosition.face == Color.ORANGE && currentPosition.cubie == Relation.T )||
+				(currentPosition.face == Color.BLUE && currentPosition.cubie == Relation.R ) ||
+				(currentPosition.face == Color.ORANGE && currentPosition.cubie == Relation.T ) ||
 				(currentPosition.face == Color.RED && currentPosition.cubie == Relation.B )
 				){
 					switchFace(Color.WHITE);
 					Driver.execute("B");
+				}else{
+					switchFace(currentPosition.face);
+					// System.out.println(currentPosition.toString()+" -> "+expectedPosition.toString());
+					switch(currentPosition.face){
+						case RED:
+							if(currentPosition.cubie == Relation.R)
+								Bottom2RightEdge();
+							else
+								Bottom2LeftEdge();
+							break;
+						case ORANGE:
+							if(currentPosition.cubie == Relation.R)
+								Top2RightEdge();
+							else
+								Top2LeftEdge();
+							break;
+						case BLUE:
+						if(currentPosition.cubie == Relation.T)
+							Right2TopEdge();
+						else
+							Right2BottomEdge();
+						break;
+						case GREEN:
+							if(currentPosition.cubie == Relation.T)
+								Left2TopEdge();
+							else
+								Left2BottomEdge();
+							break;
+						default:
+							return;
+					}
+
+					
 				}
 				// return;
 			}
 			else{
-				System.out.println(currentPosition.face+" -> "+currentPosition.cubie+"2"+expectedPosition.cubie);
+				// System.out.println(currentPosition.face+" -> "+currentPosition.cubie+"2"+expectedPosition.cubie);
 				// System.out.println("Expected position"+expectedPosition.cubie);
 				switch(currentPosition.cubie){
 					case T:
@@ -984,15 +1017,23 @@ public class Solver {
 			Driver.instructions = Driver.summarise(Driver.instructions);
 			Driver.moves = Driver.instructions.size();
 			if(Driver.output)
-                System.out.println(Driver.cube);
-			System.out.println("First Layer : "+Driver.instructions);
+				System.out.println(Driver.cube);
+			if(Driver.lined)
+				for(String s:Driver.instructions)
+					System.out.println(s);
+			else
+				System.out.println("First Layer : "+Driver.instructions);
             System.out.println("Number of moves : " + Driver.moves);
 			Driver.instructions.clear();
 			SecondLayer();
 			Driver.instructions = Driver.summarise(Driver.instructions);
 			Driver.moves = Driver.instructions.size();
 			if(Driver.output)
-                System.out.println(Driver.cube);
+				System.out.println(Driver.cube);
+			if(Driver.lined)
+				for(String s:Driver.instructions)
+					System.out.println(s);
+			else
 			System.out.println("Second Layer : "+Driver.instructions);
             System.out.println("Number of moves : " + Driver.moves);
 			Driver.instructions.clear();
@@ -1005,8 +1046,12 @@ public class Solver {
 			Driver.instructions = Driver.summarise(Driver.instructions);
 			Driver.moves = Driver.instructions.size();
 			if(Driver.output)
-                System.out.println("Final solution:\n" + Driver.cube);
-			System.out.println("Solution : "+Driver.instructions);
+				System.out.println("Final solution:\n" + Driver.cube);
+			if(Driver.lined)
+				for(String s:Driver.instructions)
+					System.out.println(s);
+			else
+				System.out.println("Solution : "+Driver.instructions);
 			System.out.println("Number of moves in final solution : " + Driver.moves);
 		}
 	}
