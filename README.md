@@ -15,10 +15,13 @@ alternatively:
 >Note: all *'/'* must be replaced with *'\\'* when running in windows command terminal (*cmd.exe*)
 ## To Run:
 - Arguments:
+	>
 	`java -cp target/rubik-1.jar rubik.Driver <flags> <starting scramble>`
 >
 - Starting Scramble:
+	>
 	must on contain the following instructions and be enveloped in quotation marks:
+	>
 	`U D L R F B` for clockwise rotations of the relevant faces
 	>
 	`U' D' L' R' F' B'` for anti-clockwise rotations of the relevant faces
@@ -26,6 +29,7 @@ alternatively:
 	`U2 D2 L2 R2 F2 B2` for double rotations of the relevant faces
 >
 - Flags:
+	>
 	`-i	Manual input mode`
 	>
 	`-l	Output each result on a new line`
