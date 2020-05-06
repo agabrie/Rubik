@@ -32,19 +32,19 @@ public class Driver {
         summarise(instructions).forEach((instr) -> {
             execute(instr);
         });
-        if(scrambled)
-            System.out.println("Scrambled : "+summarise(instructions));
+        if (scrambled)
+            System.out.println("Scrambled : " + summarise(instructions));
     }
 
-    static final ArrayList<String> valid = new ArrayList<String>(Arrays.asList("F", "B", "L", "R", "U", "D", "F'", "B'", "L'", "R'",
-            "U'", "D'", "F2", "B2", "L2", "R2", "U2", "D2"));
+    static final ArrayList<String> valid = new ArrayList<String>(Arrays.asList("F", "B", "L", "R", "U", "D", "F'", "B'",
+            "L'", "R'", "U'", "D'", "F2", "B2", "L2", "R2", "U2", "D2"));
 
     static public boolean testInstruction(String instr) {
         // for (String s : valid) {
-            // if (s.equalsIgnoreCase(instr))
-                // return true;
+        // if (s.equalsIgnoreCase(instr))
+        // return true;
         // }
-        if(valid.contains(instr))
+        if (valid.contains(instr))
             return true;
         else
             return false;
@@ -56,20 +56,20 @@ public class Driver {
                 System.out.println(Coloreths.Green.color + "solved" + Coloreths.Reset.color);
                 System.exit(0);
             }
-            if(!testInstruction(instr)){
-                if(instr.contains("-")){
-        // -i -l -nosolution -o -v -s -parts
-                    throw new Exception("Incorrect flag!\n\tgiven: "+instr+"\nExpected :\n"+
-                                        "   -i             Manual input mode\n"+
-                                        "   -l             Output each result on a new line\n"+
-                                        "   -n             Do not display the solution\n"+
-                                        "   -o             No visual representation of cube\n"+
-                                        "   -v             Display visual state of cube after each instruction\n"+
-                                        "   -s             AutoScramble on\n"+
-                                        "   -p             Display Soloution in different stages\n");
-                }
-                else
-                    throw new Exception("Incorrect instruction!\n\tgiven: "+instr+"\n\tExpected : "+valid+" all within in a single parameter");
+            if (!testInstruction(instr)) {
+                if (instr.contains("-")) {
+                    // -i -l -nosolution -o -v -s -parts
+                    throw new Exception("Incorrect flag!\n\tgiven: " + instr + "\nExpected :\n"
+                            + "   -i             Manual input mode\n"
+                            + "   -l             Output each result on a new line\n"
+                            + "   -n             Do not display the solution\n"
+                            + "   -o             No visual representation of cube\n"
+                            + "   -v             Display visual state of cube after each instruction\n"
+                            + "   -s             AutoScramble on\n"
+                            + "   -p             Display Solution in different stages\n");
+                } else
+                    throw new Exception("Incorrect instruction!\n\tgiven: " + instr + "\n\tExpected : " + valid
+                            + " all within in a single parameter");
             }
             if (verbose)
                 System.out.println("Instruction : " + instr);
@@ -113,7 +113,7 @@ public class Driver {
                 output = true;
             } else if (!input.equalsIgnoreCase("N")) {
                 scInput.close();
-                throw new Exception("Invalid Input!\n\tgiven : " + input+"\n\texpected : 'Y' or 'N'");
+                throw new Exception("Invalid Input!\n\tgiven : " + input + "\n\texpected : 'Y' or 'N'");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -144,54 +144,50 @@ public class Driver {
             System.exit(0);
         }
     }
+
     static boolean nosolution = false;
     static boolean output = false;
     static boolean debugger = false;
     static boolean scrambled = false;
     static boolean parts = false;
     static boolean lined = false;
-    static String[] checkFlags(String []arguments){
+
+    static String[] checkFlags(String[] arguments) {
         ArrayList<String> args = new ArrayList<String>();
         Collections.addAll(args, arguments);
         // -i -l -nosolution -o -v -s -parts
-        if(args.contains("-i"))
-        {
+        if (args.contains("-i")) {
             args.remove("-i");
             debugger = true;
         }
-        if(args.contains("-l"))
-        {
+        if (args.contains("-l")) {
             args.remove("-l");
             lined = true;
         }
-        if(args.contains("-n"))
-        {
+        if (args.contains("-n")) {
             args.remove("-n");
             nosolution = true;
         }
-        if(args.contains("-o"))
-        {
+        if (args.contains("-o")) {
             args.remove("-o");
             output = true;
         }
-        if(args.contains("-v"))
-        {
+        if (args.contains("-v")) {
             args.remove("-v");
-            verbose= true;
+            verbose = true;
         }
-        if(args.contains("-s"))
-        {
+        if (args.contains("-s")) {
             args.remove("-s");
             scrambled = true;
         }
-        if(args.contains("-p"))
-        {
+        if (args.contains("-p")) {
             args.remove("-p");
             parts = true;
         }
         return args.toArray(new String[0]);
         // return args.toArray(String[0]);
     }
+
     public static void main(String[] args) {
         try {
             // Solver solver = new Solver();
@@ -204,13 +200,13 @@ public class Driver {
             instruct.put('U', () -> cube.U());
 
             args = checkFlags(args);
-            for(String arg:args)
-            System.out.println(arg);
-            if(output)
+            for (String arg : args)
+                System.out.println(arg);
+            if (output)
                 System.out.println(cube);
             List<String> scramble = new ArrayList<>();
-            if (!scrambled && (debugger|| args.length == 0)) {
-                
+            if (!scrambled && (debugger || args.length == 0)) {
+
                 // System.out.println("debugger mode");
                 output = true;
                 scrambled = false;
@@ -228,14 +224,13 @@ public class Driver {
                         // System.out.println("num scr: "+num_scramble);
                     } catch (NumberFormatException nfe) {
                         inputScramble = args[0];
-                        if(scrambled){
-                        System.out.println("Cannot add instruction with scramble mode on!");
-                        if(binaryquestion("would you like to continue with 10 move scramble")){
-                            num_scramble = 20;
-                            scrambled = true;
-                        }
-                        else
-                            System.exit(0);
+                        if (scrambled) {
+                            System.out.println("Cannot add instruction with scramble mode on!");
+                            if (binaryquestion("would you like to continue with 10 move scramble")) {
+                                num_scramble = 20;
+                                scrambled = true;
+                            } else
+                                System.exit(0);
                         }
                     }
                 } else {
@@ -258,18 +253,18 @@ public class Driver {
                 // verbose = binaryquestion("turn verbose mode on");
                 invoke(scramble);
             }
-            if(output)
+            if (output)
                 System.out.println("Post scramble:\n" + cube);
             // if (binaryquestion("Do you wish to see solution")) {
-                // verbose = binaryquestion("With vebose mode turned on");
-                // Solver.simplesolve(scramble);
-                // Solver solver = new Solver();
-                if(!nosolution)
-                    new Solver().simplesolve(scramble);
+            // verbose = binaryquestion("With vebose mode turned on");
+            // Solver.simplesolve(scramble);
+            // Solver solver = new Solver();
+            if (!nosolution)
+                new Solver().simplesolve(scramble);
             // }
             // if(output && !nosolution){
-            //     System.out.println("Final solution:\n" + cube);
-            //     System.out.println("Number of moves in solution : " + moves);
+            // System.out.println("Final solution:\n" + cube);
+            // System.out.println("Number of moves in solution : " + moves);
             // }
         } catch (Exception e) {
             System.out.println(e.getMessage());

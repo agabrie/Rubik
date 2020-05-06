@@ -1,4 +1,5 @@
 package rubik;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -32,7 +33,7 @@ public class Cubie {
 
     public String colorString() {
         Color c = this.color[0];
-        return String.format("%s[%c]%s",c.mod.color,c.ref,Coloreths.Reset.color);
+        return String.format("%s[%c]%s", c.mod.color, c.ref, Coloreths.Reset.color);
     }
 
     public String fulldetail() {

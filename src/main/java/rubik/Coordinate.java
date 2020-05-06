@@ -4,7 +4,8 @@
  * @author Abduraghmaan G
  */
 package rubik;
- public class Coordinate {
+
+public class Coordinate {
     Color face;
     Relation cubie;
 
@@ -190,9 +191,8 @@ package rubik;
 
     @Override
     public String toString() {
-        return String.format("face:%s => cubie:[%s]", /*Driver.cube.faces[this.face.value].center.toString()*/
-        this.face.color,
-                this.cubie);
+        return String.format("face:%s => cubie:[%s]", /* Driver.cube.faces[this.face.value].center.toString() */
+                this.face.color, this.cubie);
     }
 
     @Override

@@ -1,4 +1,5 @@
 package rubik;
+
 /**
  *
  * @author Abduraghmaan G
