@@ -14,10 +14,12 @@ enum Color {
     public int value;
     public Coloreths mod;
     public char ref;
+    public String color;
     private Color(int value,Coloreths mod,char ref){
         this.value = value;
         this.mod = mod;
         this.ref = ref;
+        this.color = mod.color+"["+ref+"]"+Coloreths.Reset.color;
     }
     public Color getFace(int value){
         switch(value){

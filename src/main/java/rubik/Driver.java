@@ -56,8 +56,21 @@ public class Driver {
                 System.out.println(Coloreths.Green.color + "solved" + Coloreths.Reset.color);
                 System.exit(0);
             }
-            if(!testInstruction(instr))
-                throw new Exception("Incorrect instruction!\n\tgiven: "+instr+"\n\tExpected : "+valid);
+            if(!testInstruction(instr)){
+                if(instr.contains("-")){
+        // -i -l -nosolution -o -v -s -parts
+                    throw new Exception("Incorrect flag!\n\tgiven: "+instr+"\nExpected :\n"+
+                                        "   -i             Manual input mode\n"+
+                                        "   -l             Output each result on a new line\n"+
+                                        "   -n             Do not display the solution\n"+
+                                        "   -o             No visual representation of cube\n"+
+                                        "   -v             Display visual state of cube after each instruction\n"+
+                                        "   -s             AutoScramble on\n"+
+                                        "   -p             Display Soloution in different stages\n");
+                }
+                else
+                    throw new Exception("Incorrect instruction!\n\tgiven: "+instr+"\n\tExpected : "+valid+" all within in a single parameter");
+            }
             if (verbose)
                 System.out.println("Instruction : " + instr);
             instructions.add(instr);
@@ -136,18 +149,24 @@ public class Driver {
     static boolean debugger = false;
     static boolean scrambled = false;
     static boolean parts = false;
-
+    static boolean lined = false;
     static String[] checkFlags(String []arguments){
         ArrayList<String> args = new ArrayList<String>();
         Collections.addAll(args, arguments);
+        // -i -l -nosolution -o -v -s -parts
         if(args.contains("-i"))
         {
             args.remove("-i");
             debugger = true;
         }
-        if(args.contains("-nosolution"))
+        if(args.contains("-l"))
         {
-            args.remove("-nosolution");
+            args.remove("-l");
+            lined = true;
+        }
+        if(args.contains("-n"))
+        {
+            args.remove("-n");
             nosolution = true;
         }
         if(args.contains("-o"))
@@ -165,9 +184,9 @@ public class Driver {
             args.remove("-s");
             scrambled = true;
         }
-        if(args.contains("-parts"))
+        if(args.contains("-p"))
         {
-            args.remove("-parts");
+            args.remove("-p");
             parts = true;
         }
         return args.toArray(new String[0]);
@@ -212,7 +231,7 @@ public class Driver {
                         if(scrambled){
                         System.out.println("Cannot add instruction with scramble mode on!");
                         if(binaryquestion("would you like to continue with 10 move scramble")){
-                            num_scramble = 10;
+                            num_scramble = 20;
                             scrambled = true;
                         }
                         else
@@ -221,7 +240,7 @@ public class Driver {
                     }
                 } else {
                     scrambled = true;
-                    num_scramble = 10;
+                    num_scramble = 20;
                 }
                 // System.out.println("input "+inputScramble);
                 if (scrambled) {
