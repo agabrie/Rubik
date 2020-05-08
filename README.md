@@ -19,7 +19,7 @@ alternatively:
 ## To Run:
 - Arguments:
 	>
-	`java -cp target/rubik-1.jar rubik.Driver <flags> <starting scramble>`
+	`java -jar target/rubik-1.jar <flags> <starting scramble>`
 >
 - Starting Scramble:
 	>
@@ -49,14 +49,18 @@ alternatively:
 >
 # Examples
 - in manual input mode:
-	`java -cp target/rubik-1.jar rubik.Driver`
+	`java -jar target/rubik-1.jar`
 	>
-	or : `java -cp target/rubik-1.jar rubik.Driver -i`
+	or : 
+	>
+	`java -jar target/rubik-1.jar -i`
 >
 - for scrambled input:
-	`java -cp target/rubik-1.jar rubik.Driver -s`
+	`java -jar target/rubik-1.jar -s`
 	>
-	or with a deterimined scrambled size: `java -cp target/rubik-1.jar rubik.Driver -s 40`
+	or with a deterimined scrambled size:
+	>
+	`java -jar target/rubik-1.jar -s 40`
 >
 - for pre-determined scramble:
-	`java -cp target/rubik-1.jar rubik.Driver "B U' R D2 F L2"`
+	`java -jar target/rubik-1.jar "B U' R D2 F L2"`
