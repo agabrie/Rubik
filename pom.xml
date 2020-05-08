@@ -65,10 +65,10 @@
             <systemPath>${project.basedir}/jar/gluegen.jar</systemPath>
         </dependency>
     </dependencies>
-  </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
+    <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
@@ -110,14 +110,34 @@
           <version>3.0.0</version>
         </plugin>
         <plugin>
-          <!-- Build an executable JAR File-->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>copy-dependencies</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>copy-dependencies</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${project.build.directory}/jar</outputDirectory>
+                <overWriteReleases>false</overWriteReleases>
+                <overWriteSnapshots>false</overWriteSnapshots>
+                <overWriteIfNewer>true</overWriteIfNewer>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+          <!-- Build an executable JAR File -->
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>2.4</version>
           <configuration>
             <archive>
               <manifest>
-                <mainClass>rubik.Driver</mainClass>
+                <!-- <mainClass>rubik.Driver</mainClass> -->
+                <mainClass>renderer.Render</mainClass>
               </manifest>
             </archive>
           </configuration>
