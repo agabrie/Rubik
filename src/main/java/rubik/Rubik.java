@@ -1,4 +1,5 @@
 package rubik;
+
 /**
  *
  * @author Abduraghmaan G
@@ -198,7 +199,7 @@ public class Rubik {
         return faces[c.face.value].cubie[c.cubie.value];
     }
 
-    public Coordinate findEdge(Cubie edge) {
+    public Coordinate findCoordinate(Cubie edge) {
         int f = 0;
         Color color = Color.WHITE;
         for (Face face : faces) {
