@@ -1,21 +1,20 @@
 package renderer;
 
-import com.jogamp.graph.geom.Vertex;
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
-//import javafx.geometry.Orientation;
-import jogamp.opengl.glu.gl2.nurbs.GLUgl2nurbsImpl;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import rubik.*;
+// import rubik.*;
 
-// import static javafx.application.Platform.exit;
 
 class Vector3 {
     float x;
@@ -26,6 +25,32 @@ class Vector3 {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+    @Override
+    public String toString(){
+        return String.format("( %.1f, %.1f, %.1f)",this.x,this.y,this.z);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /*
+         * Check if o is an instance of Complex or not "null instanceof [type]" also
+         * returns false
+         */
+        if (!(o instanceof Vector3)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        Vector3 v = (Vector3) o;
+        // compare detail strings
+        return (v.x == this.x && v.y == this.y && v.z == this.z);
     }
 }
 
@@ -105,6 +130,7 @@ enum FaceOrientation{
 class Cube {
     final float scale = 0.245f;
     float rquad = 0.0f;
+    Vector3 rotation = new Vector3(0,0,0);
     GL2 gl = null;
     Square front = new Square(FaceColor.WHITE.value,FaceOrientation.FRONT.points);
     Square top = new Square(FaceColor.ORANGE.value,FaceOrientation.TOP.points);
@@ -113,7 +139,7 @@ class Cube {
     Square back = new Square(FaceColor.YELLOW.value,FaceOrientation.BACK.points);
     Square bottom = new Square(FaceColor.RED.value,FaceOrientation.BOTTOM.points);
     Vector3 shift;
-    Vector3 rotation;
+    Vector3 rotate;
     static float rotSpeed = 1f;
     float rotlimit = -90f;
     boolean rotating = false;
@@ -126,10 +152,10 @@ class Cube {
         gl = drawable.getGL().getGL2();
         gl.glLoadIdentity();
         gl.glTranslatef(0f, 0f, -5.f);
-        if (!(rotation.x==0 && rotation.y==0 && rotation.z==0))
-            gl.glRotatef(rquad, rotation.x, rotation.y, rotation.z);
-//        rotation = Rotation.NONE.value;
-//        gl.glRotatef(rquad ,1,1,1);
+
+            rotateX();
+            rotateY();
+            rotateZ();
         gl.glBegin(GL2.GL_QUADS);
 
         displaySquare(front);
@@ -139,27 +165,61 @@ class Cube {
         displaySquare(back);
         displaySquare(bottom);
         gl.glEnd();
-//        System.out.println("rotating ?  "+rotating);
 
-        System.out.printf("rquad : [%f] === rotlimit : [%f]%n",rquad,rotlimit);
-        if(rquad < rotlimit){
-            rotating = false;
-//            if(rquad <= -360f) {
-//                rquad = 0f;
-//            }
-//            setRotation();
-//            setRotation(Rotation.NONE.value,0);
-            stopRotation();
-            return;
-//            rquad = 0f;
-//            return false;
-//            System.out.println("rotating ?  "+rotating);
-        }else{
-            rquad -=rotSpeed;
-
+//        System.out.printf("rotation : %s === rotlimit : [%.1f]%n",rotation,rotlimit);
+    }
+    public void rotateX(){
+        if(rotate.x != 0){
+            gl.glRotatef(rotation.x,1,0,0);
+            if((rotate.x > 0)){
+                if(rotation.x > rotlimit) {
+                    rotating = false;
+                    return;
+                }
+                rotation.x += rotSpeed;
+            }else{
+                if(rotation.x < rotlimit) {
+                    rotating = false;
+                    return;
+                }
+                rotation.x -= rotSpeed;
+            }
         }
-
-//        rotlimit;
+    }
+    public void rotateY(){
+        if(rotate.y != 0){
+            gl.glRotatef(rotation.y,0,1,0);
+            if((rotate.y > 0)){
+                if(rotation.y > rotlimit) {
+                    rotating = false;
+                    return;
+                }
+                rotation.y += rotSpeed;
+            }else{
+                if(rotation.y < rotlimit) {
+                    rotating = false;
+                    return;
+                }
+                rotation.y -= rotSpeed;
+            }
+        }
+    }public void rotateZ(){
+        if(rotate.z != 0){
+            gl.glRotatef(rotation.z,0,0,1);
+            if((rotate.z > 0)){
+                if(rotation.z > rotlimit) {
+                    rotating = false;
+                    return;
+                }
+                rotation.z += rotSpeed;
+            }else{
+                if(rotation.z < rotlimit) {
+                    rotating = false;
+                    return;
+                }
+                rotation.z -= rotSpeed;
+            }
+        }
     }
     public void displaySquare(Square face) {
             displayColor(face.color);
@@ -175,10 +235,20 @@ class Cube {
         gl.glVertex3f(scale*vertex.x+shift.x,scale*vertex.y+shift.y,scale*vertex.z+shift.z);
     }
     void setRotation(Vector3 r,int numRotations){
-        rotation = r;
+        rotate = r;
+        if(rotate == Rotation.NONE.value)
+            rotating = false;
+        else
+            rotating = true;
+
 //        if(rotlimit < -360f)
-        rquad = -(-rquad%360);
-        System.out.printf("rolimit calc : rquad[%d], num rotates[%d], rotlimit++ [%f]%n",Math.round(rquad),numRotations,(-90f*numRotations));
+//        rquad = -(-rquad%360);
+
+
+
+//        System.out.printf("rolimit calc : rquad[%d], num rotates[%d], rotlimit++ [%f]%n",Math.round(rquad),numRotations,(-90f*numRotations));
+
+
             rotlimit = Math.round(rquad)+(-90f*numRotations);
             if (rquad > -90f)
                 rotlimit = -90f;
@@ -194,15 +264,17 @@ class Cube {
 //                rotlimit = -(-rotlimit%360);
 //                rquad = -(-rquad%360);
 //            }
-        rotating = true;
     }
     void stopRotation(){
-        System.out.println("STOP!");
-        rotation = Rotation.NONE.value;
+//        System.out.println("STOP!");
+//        if(rotate.x < -90f && rotate.y > -180f)
+//            rotate.x = -90f;
+//        rotate = Rotation.NONE.value;
+//        setRotation(Rotation.NONE.value,0);
 //        rquad=-(Math.round(-rquad)%360);
-        rquad = rotlimit;
-        if(rquad -90f > -360f)
-        rotlimit = rquad + (-90f);
+//        rquad = rotlimit;
+//        if(rquad -90f > -360f)
+//        rotlimit = rquad + (-90f);
 //        rotlimit = rquad +
 //        if(rquad > -90f)
 //            rotlimit = -90f;
@@ -214,7 +286,7 @@ class Cube {
 //            rotlimit = -360f;
     }
     boolean isRotating(){
-//        System.out.println("rotating is "+rotating);
+//        System.out.println("rotating is "+rotating+" : "+rotate);
         return rotating;
     }
 }
@@ -303,9 +375,11 @@ class Rubik {
 //            canrotate = cubie.canRotate();
 //            if(!isrotating && cubie.isRotating())
 //                isrotating = cubie.isRotating();
-            if (cubie.isRotating())
+            if (cubie.isRotating()) {
+//                System.out.println("is rotating");
                 numRotating++;
-            System.out.println(numRotating+"");
+            }
+//            System.out.println("number of cubes rotating : "+numRotating);
             cubie.draw(drawable);
         }
         if(numRotating > 0)
@@ -357,7 +431,7 @@ class Rubik {
     }
     void L(boolean clockwise,int numRotations){
         if (clockwise){
-            rotateFace(Rotation.X,left,numRotations);
+            rotateFace(Rotation.X,left,numRotations);/*
             int temp1 = leftbuffer[6];
             leftbuffer[6] = leftbuffer[8];
             leftbuffer[8] = leftbuffer[2];
@@ -392,10 +466,17 @@ class Rubik {
             bottombuffer[6] = temp3;
 
 //            temp1 = frontbuffer
+*/
         }
         else {
             rotateFace(Rotation.Xi, left, numRotations);
         }
+    }
+    void R(boolean clockwise,int numRotations){
+        if (clockwise)
+            rotateFace(Rotation.X,right,numRotations);
+        else
+            rotateFace(Rotation.Xi,right,numRotations);
     }
     void B(boolean clockwise,int numRotations){
         if (clockwise)
@@ -403,10 +484,22 @@ class Rubik {
         else
             rotateFace(Rotation.Z,back,numRotations);
     }
-
+    void U(boolean clockwise,int numRotations){
+        if (clockwise)
+            rotateFace(Rotation.Y,top,numRotations);
+        else
+            rotateFace(Rotation.Yi,top,numRotations);
+    }
+    void D(boolean clockwise,int numRotations){
+        if (clockwise)
+            rotateFace(Rotation.Yi,bottom,numRotations);
+        else
+            rotateFace(Rotation.Y,bottom,numRotations);
+    }
     void F(boolean clockwise,int numRotations){
 //        System.out.println("F is running");
         if (clockwise){
+            /*
             int temp1 = frontbuffer[6];
             frontbuffer[6] = frontbuffer[8];
             frontbuffer[8] = frontbuffer[2];
@@ -455,6 +548,8 @@ class Rubik {
 //            bottombuffer[0] = temp1;
 //            bottombuffer[3] = temp2;
 //            bottombuffer[6] = temp3;
+
+             */
             rotateFace(Rotation.Z,front,numRotations);
         }
         else
@@ -472,14 +567,35 @@ class Rubik {
         return isrotating;
     }
 }
+//class KeyInput implements KeyListener{
+//    @Override
+//    public void keyPressed(KeyEvent e) {
+//        System.out.println(e.getKeyChar()+" pressed");
+//    }
+//
+//    @Override
+//    public void keyReleased(KeyEvent e) {
+//        System.out.println(e.getKeyChar()+" released");
+//    }
+//
+//    @Override
+//    public void keyTyped(KeyEvent e) {
+//        System.out.println(e.getKeyChar()+" typed");
+//    }
+//}
 
-public class Render implements GLEventListener {
+public class Render implements GLEventListener{
     public static DisplayMode dm, dm_old;
     private GLU glu = new GLU();
-    private float rquad = 0.0f;
+   //  private float rquad = 0.0f;
     static Rubik rubik;
     static int index = -1;
     ArrayList<String> instructions = new ArrayList<>();
+//    private int  next = KeyEvent.VK_ENTER;
+   //  private static Point center;
+   //  private Point mousePoint;
+
+
 
     @Override
     public void display(GLAutoDrawable drawable) {
@@ -494,10 +610,29 @@ public class Render implements GLEventListener {
             String instruction = instructions.get(index);
             switch (instruction){
                 case "L":rubik.L(true,1);System.out.println("L command");break;
+                case "R":rubik.R(true,1);System.out.println("R command");break;
                 case "F":rubik.F(true,1);System.out.println("F command");break;
+                case "B":rubik.B(true,1);System.out.println("B command");break;
+                case "U":rubik.U(true,1);System.out.println("U command");break;
+                case "D":rubik.D(true,1);System.out.println("D command");break;
+
+                case "L2":rubik.L(true,2);System.out.println("L command");break;
+                case "R2":rubik.R(true,2);System.out.println("R command");break;
+                case "F2":rubik.F(true,2);System.out.println("F command");break;
+                case "B2":rubik.B(true,2);System.out.println("B command");break;
+                case "U2":rubik.U(true,2);System.out.println("U command");break;
+                case "D2":rubik.D(true,2);System.out.println("D command");break;
+
+                case "L'":rubik.L(false,1);System.out.println("L' command");break;
+                case "R'":rubik.R(false,1);System.out.println("R' command");break;
+                case "F'":rubik.F(false,1);System.out.println("F' command");break;
+                case "B'":rubik.B(false,1);System.out.println("B' command");break;
+                case "U'":rubik.U(false,1);System.out.println("U' command");break;
+                case "D'":rubik.D(false,1);System.out.println("D' command");break;
                 default:break;
             }
             rubik.save();
+            next = false;
         }
 
 //            rubik.L(true,1);
@@ -526,7 +661,7 @@ public class Render implements GLEventListener {
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
         rubik = new Rubik(drawable);
-
+//        drawable.addGLEventListener(r);
     }
 
     @Override
@@ -547,20 +682,43 @@ public class Render implements GLEventListener {
         gl.glLoadIdentity();
 //        rubik.L(true,1);
     }
-
+    static boolean next = false;
     public static void main(String[] args) {
 
         //getting the capabilities object of GL2 profile
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
-
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Image img= new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);
+        Cursor pointer = t.createCustomCursor(img,new Point(0,0),"none");
         // The canvas
         final GLCanvas glcanvas = new GLCanvas(capabilities);
         Render r = new Render();
 //        r.instructions.add("F");
         r.instructions.add("L");
-        r.instructions.add("L");
+        r.instructions.add("L'");
+        r.instructions.add("L2");
+
+        r.instructions.add("R");
+        r.instructions.add("R'");
+        r.instructions.add("R2");
+
         r.instructions.add("F");
+        r.instructions.add("F'");
+        r.instructions.add("F2");
+
+        r.instructions.add("B");
+        r.instructions.add("B'");
+        r.instructions.add("B2");
+
+        r.instructions.add("U");
+        r.instructions.add("U'");
+        r.instructions.add("U2");
+
+        r.instructions.add("D");
+        r.instructions.add("D'");
+        r.instructions.add("D2");
+
 //        r.instructions.add("F");
 //        r.instructions.add("F");
 //        r.instructions.add("F");
@@ -571,7 +729,25 @@ public class Render implements GLEventListener {
 //        Render r2 = new Render();
 //        Rubik r = new Rubik(drawable);
 //        rubik.F(true);
+//        KeyInput keylistener = new KeyInput();
         glcanvas.addGLEventListener(r);
+        glcanvas.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                System.out.println(e.getKeyChar()+" pressed");
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                System.out.println(e.getKeyChar()+" released");
+                next = true;
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                System.out.println(e.getKeyChar()+" typed");
+            }
+        });
         glcanvas.setSize(400, 400);
 
         //creating frame
@@ -580,6 +756,7 @@ public class Render implements GLEventListener {
         //adding canvas to frame
         frame.getContentPane().add(glcanvas);
         frame.setSize(frame.getContentPane().getPreferredSize());
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         final FPSAnimator animator = new FPSAnimator(glcanvas, 300, true);
         animator.start();

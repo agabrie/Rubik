@@ -1,0 +1,5 @@
+<factorypath>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/jogamp/jogl/jogl-all/2.3.2/jogl-all-2.3.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/jogamp/gluegen/gluegen-rt/2.3.2/gluegen-rt-2.3.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/jogamp/gluegen/gluegen/2.3.2/gluegen-2.3.2.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
