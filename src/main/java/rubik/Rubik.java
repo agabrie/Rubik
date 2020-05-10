@@ -31,7 +31,6 @@ public class Rubik {
                 faces[Color.RED.value], faces[Color.BLUE.value]);
         faces[Color.ORANGE.value].adjacentsAssign(faces[Color.YELLOW.value], faces[Color.BLUE.value],
                 faces[Color.WHITE.value], faces[Color.GREEN.value]);
-        // System.err.print(toString());
     }
 
     public void F() {
@@ -128,7 +127,6 @@ public class Rubik {
     }
 
     public void antiClockwiseFace(Color face_num) {
-        // int faceNum = face_num.value;
         for (int i = 0; i < 3; i++) {
             clockwiseFace(face_num);
         }
@@ -162,7 +160,7 @@ public class Rubik {
         Face right = faces[faceNum].adjacents[1];
         Face bottom = faces[faceNum].adjacents[2];
         Face left = faces[faceNum].adjacents[3];
-        // System.out.println(top.toString()+left.toString()+right.toString()+bottom.toString());
+
         Cubie temp1 = left.cubie[7];
         Cubie temp2 = left.cubie[4];
         Cubie temp3 = left.cubie[2];
@@ -203,11 +201,9 @@ public class Rubik {
         int f = 0;
         Color color = Color.WHITE;
         for (Face face : faces) {
-            // System.out.println("looking in faces :"+faces.center.colorString());
             int c = 0;
             Relation r = Relation.B;
             for (Cubie cubie : face.cubie) {
-                // System.out.println("looking at cubie :"+cubie.fulldetail());
                 if (cubie.equals(edge)) {
                     Coordinate p = new Coordinate(color.getFace(f), r.getCubie(c));
                     return (p);
@@ -222,22 +218,16 @@ public class Rubik {
     @Override
     public boolean equals(Object o) {
 
-        // If the object is compared with itself then return true
         if (o == this) {
             return true;
         }
 
-        /*
-         * Check if o is an instance of Complex or not "null instanceof [type]" also
-         * returns false
-         */
         if (!(o instanceof Rubik)) {
             return false;
         }
 
-        // typecast o to Complex so that we can compare data members
         Rubik c = (Rubik) o;
-        // compare detail strings
+
         return (toString().equals(c.toString()));
     }
 }

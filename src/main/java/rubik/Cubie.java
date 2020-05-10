@@ -16,7 +16,6 @@ public class Cubie {
     Cubie(Color c, Orientation o) {
         this.color[0] = c;
         this.orientation = o;
-        // System.out.println(colorString());
     }
 
     public void setAdjacents(Cubie edge) {
@@ -74,40 +73,18 @@ public class Cubie {
     @Override
     public String toString() {
         String str = colorString();
-        // String orient = orientationString();
-        // System.out.println("something");
         return String.format("%s", str);
     }
 
     @Override
     public boolean equals(Object o) {
-
-        // If the object is compared with itself then return true
         if (o == this) {
             return true;
         }
-
-        /*
-         * Check if o is an instance of Complex or not "null instanceof [type]" also
-         * returns false
-         */
         if (!(o instanceof Cubie)) {
             return false;
         }
-
-        // typecast o to Complex so that we can compare data members
         Cubie c = (Cubie) o;
-        // compare detail strings
         return (fulldetail().equals(c.fulldetail()));
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Arrays.deepHashCode(this.color);
-        hash = 79 * hash + Arrays.deepHashCode(this.adjacents);
-        hash = 79 * hash + Objects.hashCode(this.orientation);
-        return hash;
-    }
-
 }

@@ -16,7 +16,6 @@ public final class Face {
         center = new Cubie(c, o);
         setCubie(c, o);
         color = c;
-        // printface();
     }
 
     public Cubie getCubie(Relation r) {
@@ -68,7 +67,6 @@ public final class Face {
                 s += cubie[i].toString();
             }
         }
-        // s+="\n";
         return s;
     }
 }

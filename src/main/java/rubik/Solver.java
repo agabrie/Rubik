@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.net.ssl.SSLKeyException;
-import javax.sound.midi.SysexMessage;
-import javax.swing.text.Position;
-
 /**
  *
  * @author Abduraghmaan G
@@ -47,9 +43,6 @@ public class Solver {
 	}
 
 	public HashMap<Enum<?>, Runnable> orient = new HashMap<Enum<?>, Runnable>() {
-		/**
-		 *
-		 */
 		private static final long serialVersionUID = 1L;
 
 		{
@@ -61,7 +54,6 @@ public class Solver {
 				rotations.put("D", "D");
 				rotations.put("F", "F");
 				rotations.put("B", "B");
-				// System.out.println(rotations);
 			});
 			put(Color.YELLOW, () -> {
 				rotations = new HashMap<>();
@@ -98,7 +90,6 @@ public class Solver {
 				rotations.put("D", "F");
 				rotations.put("F", "U");
 				rotations.put("B", "D");
-				// System.out.println(rotations);
 			});
 			put(Color.RED, () -> {
 				rotations = new HashMap<>();
@@ -108,7 +99,6 @@ public class Solver {
 				rotations.put("D", "B");
 				rotations.put("F", "D");
 				rotations.put("B", "U");
-				// System.out.println(rotations);
 			});
 		}
 	};
@@ -138,8 +128,6 @@ public class Solver {
 
 	void Top2RightEdge() {
 		// U R U' R' U' F' U F
-		// System.out.println("TR
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Driver.execute(rotations.get("U"));
 		Driver.execute(rotations.get("R"));
 		Driver.execute(rotations.get("U") + "'");
@@ -148,14 +136,10 @@ public class Solver {
 		Driver.execute(rotations.get("F") + "'");
 		Driver.execute(rotations.get("U"));
 		Driver.execute(rotations.get("F"));
-		// System.out.println("TR
-		// ------------------------------------------------------------------------------------------------------");
 	}
 
 	void Top2LeftEdge() {
 		// U' L' U L U F U' F'
-		// System.out.println("TL
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Driver.execute(rotations.get("U") + "'");
 		Driver.execute(rotations.get("L") + "'");
 		Driver.execute(rotations.get("U"));
@@ -164,14 +148,10 @@ public class Solver {
 		Driver.execute(rotations.get("F"));
 		Driver.execute(rotations.get("U") + "'");
 		Driver.execute(rotations.get("F") + "'");
-		// System.out.println("TL
-		// ------------------------------------------------------------------------------------------------------");
 	}
 
 	void Bottom2LeftEdge() {
 		// D L D' L' D' F' D F
-		// System.out.println("BL
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Driver.execute(rotations.get("D"));
 		Driver.execute(rotations.get("L"));
 		Driver.execute(rotations.get("D") + "'");
@@ -180,14 +160,10 @@ public class Solver {
 		Driver.execute(rotations.get("F") + "'");
 		Driver.execute(rotations.get("D"));
 		Driver.execute(rotations.get("F"));
-		// System.out.println("BL
-		// ------------------------------------------------------------------------------------------------------");
 	}
 
 	void Bottom2RightEdge() {
 		// D' R' D R D F D' F'
-		// System.out.println("BR
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Driver.execute(rotations.get("D") + "'");
 		Driver.execute(rotations.get("R") + "'");
 		Driver.execute(rotations.get("D"));
@@ -196,14 +172,10 @@ public class Solver {
 		Driver.execute(rotations.get("F"));
 		Driver.execute(rotations.get("D") + "'");
 		Driver.execute(rotations.get("F") + "'");
-		// System.out.println("BR
-		// -------------------------------------------------------------------------------------------------------");
 	}
 
 	void Left2TopEdge() {
 		// B U B' U' B' L' B L
-		// System.out.println("LT
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Driver.execute(rotations.get("L"));
 		Driver.execute(rotations.get("U"));
 		Driver.execute(rotations.get("L") + "'");
@@ -212,15 +184,10 @@ public class Solver {
 		Driver.execute(rotations.get("F") + "'");
 		Driver.execute(rotations.get("L"));
 		Driver.execute(rotations.get("F"));
-		// System.out.println("LT
-		// ------------------------------------------------------------------------------------------------------");
 	}
 
 	void Left2BottomEdge() {
 		// B' D' B D B L B' L'
-		// System.out.println("LB
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		Driver.execute(rotations.get("L") + "'");
 		Driver.execute(rotations.get("D") + "'");
 		Driver.execute(rotations.get("L"));
 		Driver.execute(rotations.get("D"));
@@ -228,15 +195,10 @@ public class Solver {
 		Driver.execute(rotations.get("F"));
 		Driver.execute(rotations.get("L") + "'");
 		Driver.execute(rotations.get("F") + "'");
-		// System.out.println("LB
-		// ------------------------------------------------------------------------------------------------------");
-
 	}
 
 	void Right2TopEdge() {
 		// B' U' B U B R B' R'
-		// System.out.println("RT
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Driver.execute(rotations.get("R") + "'");
 		Driver.execute(rotations.get("U") + "'");
 		Driver.execute(rotations.get("R"));
@@ -245,14 +207,10 @@ public class Solver {
 		Driver.execute(rotations.get("F"));
 		Driver.execute(rotations.get("R") + "'");
 		Driver.execute(rotations.get("F") + "'");
-		// System.out.println("RT
-		// ------------------------------------------------------------------------------------------------------");
 	}
 
 	void Right2BottomEdge() {
 		// B D B' D' B' R' B R
-		// System.out.println("RB
-		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Driver.execute(rotations.get("R"));
 		Driver.execute(rotations.get("D"));
 		Driver.execute(rotations.get("R") + "'");
@@ -261,8 +219,6 @@ public class Solver {
 		Driver.execute(rotations.get("F") + "'");
 		Driver.execute(rotations.get("R"));
 		Driver.execute(rotations.get("F"));
-		// System.out.println("RB
-		// --------------------------------------------------------------------------------------------------------");
 	}
 
 	void WhiteCross() {
@@ -279,7 +235,6 @@ public class Solver {
 	}
 
 	void WhiteCorners() {
-		// System.out.println("First Layer!");
 		Face white = Driver.solved.faces[Color.WHITE.value];
 		Cubie cross[] = { white.getCubie(Relation.TL), white.getCubie(Relation.TR), white.getCubie(Relation.BL),
 				white.getCubie(Relation.BR) };
@@ -294,10 +249,10 @@ public class Solver {
 
 	void FirstLayer() {
 		WhiteCross();
-		if(Driver.parts)
+		if (Driver.parts)
 			displayResults("White Cross");
 		WhiteCorners();
-		if(Driver.parts)
+		if (Driver.parts)
 			displayResults("White Corners");
 	}
 
@@ -310,12 +265,8 @@ public class Solver {
 				green.getCubie(Relation.B), red.getCubie(Relation.L), red.getCubie(Relation.R),
 				blue.getCubie(Relation.T), blue.getCubie(Relation.B), };
 
-		// int i = 0;
 		while (!testPosition(cross)) {
-			// if(i++ == 5)
-			// break;
 			for (Cubie edge : cross) {
-				// System.out.println(edge.fulldetail());
 				SLEdge(edge);
 			}
 		}
@@ -336,16 +287,12 @@ public class Solver {
 			Driver.execute(rotations.get("U"));
 		}
 		Coordinate greenP = Driver.cube.findCoordinate(cross[1]);
-		// System.out.println("current : "+Driver.cube);
-		// System.out.println("Green : "+greenP.cubie);
 		switch (greenP.cubie) {
 			case L:
-				// System.out.println("L");
 				swapRightAdjacents(Color.ORANGE);
 				Driver.execute(rotations.get("U"));
 				break;
 			case B:
-				// System.out.println("B");
 				swapRightAdjacents(Color.RED);
 				break;
 			default:
@@ -364,6 +311,7 @@ public class Solver {
 	void swapLeftAdjacents(Color f) {
 		switchFace(f);
 		switch (f) {
+			default:break;
 			case ORANGE: {
 				// R U R' U R U2 R' U
 				Driver.execute(rotations.get("R"));
@@ -374,7 +322,6 @@ public class Solver {
 				Driver.execute(rotations.get("U") + "2");
 				Driver.execute(rotations.get("R") + "'");
 				Driver.execute(rotations.get("U"));
-				// Driver.execute(rotations.get("R"));
 			}
 				break;
 			case RED: {
@@ -413,12 +360,14 @@ public class Solver {
 				Driver.execute(rotations.get("D") + "'");
 				Driver.execute(rotations.get("R"));
 			}
+			break;
 		}
 	}
 
 	void swapRightAdjacents(Color f) {
 		switchFace(f);
 		switch (f) {
+			default :break;
 			case ORANGE: {
 				// L' U' L U' L' U2 L U'
 				Driver.execute(rotations.get("L") + "'");
@@ -429,7 +378,6 @@ public class Solver {
 				Driver.execute(rotations.get("U") + "2");
 				Driver.execute(rotations.get("L"));
 				Driver.execute(rotations.get("U") + "'");
-				// Driver.execute(rotations.get("R")+"'");
 
 			}
 				break;
@@ -443,7 +391,6 @@ public class Solver {
 				Driver.execute(rotations.get("D") + "2");
 				Driver.execute(rotations.get("R"));
 				Driver.execute(rotations.get("D") + "'");
-				// Driver.execute(rotations.get("R")+"'");
 			}
 				break;
 			case GREEN: {
@@ -456,7 +403,6 @@ public class Solver {
 				Driver.execute(rotations.get("L") + "2");
 				Driver.execute(rotations.get("D"));
 				Driver.execute(rotations.get("L") + "'");
-				// Driver.execute(rotations.get("D")+"'");
 			}
 				break;
 			case BLUE: {
@@ -469,22 +415,13 @@ public class Solver {
 				Driver.execute(rotations.get("L") + "2");
 				Driver.execute(rotations.get("U"));
 				Driver.execute(rotations.get("L") + "'");
-				// Driver.execute(rotations.get("U")+"'");
 			}
 		}
 	}
 
-	// int getCurrentLeftAdjacent(int i, Cubie cross[]) {
-
-	// return i;
-	// }
-
 	Relation getCorrectLeft(Coordinate current) {
 		Relation relevant;
 		switch (current.cubie) {
-			// case T:
-			// relevant = Relation.L;
-			// break;
 			case L:
 				relevant = Relation.B;
 				break;
@@ -501,25 +438,12 @@ public class Solver {
 		return relevant;
 	}
 
-	// void positionYC(Cubie edge) {
-	// Coordinate expectedPosition = Driver.solved.findCoordinate(edge);
-	// Coordinate currentPosition = Driver.cube.findCoordinate(edge);
-	// switchFace(expectedPosition.face);
-	// while (!currentPosition.equals(expectedPosition)) {
-	// switch (expectedPosition.face) {
-	// case ORANGE:
-	// Driver.execute(rotations.get("U"));
-	// }
-	// }
-
-	// }
-
 	void FinalLayer() {
 		YellowCross();
-		if(Driver.parts)
+		if (Driver.parts)
 			displayResults("Yellow Cross");
 		YellowCorners();
-		if(Driver.parts)
+		if (Driver.parts)
 			displayResults("Yellow Corners");
 	}
 
@@ -528,158 +452,137 @@ public class Solver {
 		Cubie cross[] = { yellow.getCubie(Relation.TL), yellow.getCubie(Relation.TR), yellow.getCubie(Relation.BL),
 				yellow.getCubie(Relation.BR) };
 		int i = 0;
-		// int counter = 0;
-		while(i != 4){
-			// if(counter++ > 3)
-				// break;
+
+		while (i != 4) {
+
 			i = 0;
 			Cubie anchor = null;
 			for (Cubie corner : cross) {
-				// System.out.println(corner.fulldetail());
-				if(testCornerPosition(corner)){
+
+				if (testCornerPosition(corner)) {
 					i++;
 					anchor = corner;
 				}
 			}
-			// System.out.println("Correctly positioned : "+i);
-			if(i == 1){
+
+			if (i == 1) {
 				repositionYellowCorners(anchor);
-			}else if(i == 0)
+			} else if (i == 0)
 				repositionYellowCorners(cross[0]);
 		}
 		if (Driver.output && Driver.parts)
 			System.out.println("yellow corners positioned!");
 		switchFace(Color.ORANGE);
-		for(Cubie corner:cross){
-			// System.out.println(corner.fulldetail());
+		for (Cubie corner : cross) {
+
 			reorientYellowCorner(corner);
 		}
 		if (Driver.output && Driver.parts)
 			System.out.println("yellow corners oriented!");
-		while(!testPosition(cross)){
+		while (!testPosition(cross)) {
 			Driver.execute(rotations.get("U"));
 		}
 	}
 
-	void reorientYellowCorner(Cubie corner){
-		// Coordinate expectedPosition = Driver.solved.findCoordinate(corner);
+	void reorientYellowCorner(Cubie corner) {
 		Coordinate currentPosition = Driver.cube.findCoordinate(corner);
-		// switchFace(Color.ORANGE);
-		// while()
-		// System.out.println("Current Position -> "+currentPosition);
-		if(currentPosition.face != Color.YELLOW){
-			// switchFace(Color.WHITE);
-			while(!(currentPosition.face == Color.ORANGE && currentPosition.cubie == Relation.TR) && !(currentPosition.face == Color.BLUE && currentPosition.cubie == Relation.TR)){
-				// System.out.println(frontface);
+		if (currentPosition.face != Color.YELLOW) {
+			while (!(currentPosition.face == Color.ORANGE && currentPosition.cubie == Relation.TR)
+					&& !(currentPosition.face == Color.BLUE && currentPosition.cubie == Relation.TR)) {
 				Driver.execute(rotations.get("U"));
 				currentPosition = Driver.cube.findCoordinate(corner);
-				// System.out.println("rotate top to : \n"+Driver.cube);
 			}
-			// System.out.println("Position : "+currentPosition);
-			// switchFace(Color.ORANGE);
-			while(currentPosition.face != Color.YELLOW)
-			{
+			while (currentPosition.face != Color.YELLOW) {
 				// R' D' R D
-				Driver.execute(rotations.get("R")+"'");
-				Driver.execute(rotations.get("D")+"'");
+				Driver.execute(rotations.get("R") + "'");
+				Driver.execute(rotations.get("D") + "'");
 				Driver.execute(rotations.get("R"));
 				Driver.execute(rotations.get("D"));
 				currentPosition = Driver.cube.findCoordinate(corner);
-				// System.out.println("after weird : "+currentPosition+"\n check\n"+Driver.cube);
-				
 			}
 		}
-		// else
-			// Driver.execute("U");
 	}
-	void repositionYellowCorners(Cubie anchor){
-		// System.out.println(anchor.fulldetail());
-		Coordinate expectedPosition = Driver.solved.findCoordinate(anchor);
-		// System.out.println("anchor position : "+expectedPosition.cubie);
-		switch(expectedPosition.cubie){
-			case TL:
-				switchFace(Color.ORANGE);				
-				// U R U' L'        U R' U' L
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("R"));				
-				Driver.execute(rotations.get("U")+"'");				
-				Driver.execute(rotations.get("L")+"'");
 
-				Driver.execute(rotations.get("U"));				
-				Driver.execute(rotations.get("R")+"'");				
-				Driver.execute(rotations.get("U")+"'");				
-				Driver.execute(rotations.get("L"));				
+	void repositionYellowCorners(Cubie anchor) {
+		Coordinate expectedPosition = Driver.solved.findCoordinate(anchor);
+		switch (expectedPosition.cubie) {
+			default:break;
+			case TL:
+				switchFace(Color.ORANGE);
+				// U R U' L' U R' U' L
+				Driver.execute(rotations.get("U"));
+				Driver.execute(rotations.get("R"));
+				Driver.execute(rotations.get("U") + "'");
+				Driver.execute(rotations.get("L") + "'");
+
+				Driver.execute(rotations.get("U"));
+				Driver.execute(rotations.get("R") + "'");
+				Driver.execute(rotations.get("U") + "'");
+				Driver.execute(rotations.get("L"));
 				break;
 			case TR:
 				switchFace(Color.GREEN);
 				// L U L' D' L U' L' D
 				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U"));				
-				Driver.execute(rotations.get("L")+"'");				
-				Driver.execute(rotations.get("D")+"'");
+				Driver.execute(rotations.get("U"));
+				Driver.execute(rotations.get("L") + "'");
+				Driver.execute(rotations.get("D") + "'");
 
-				Driver.execute(rotations.get("L"));				
-				Driver.execute(rotations.get("U")+"'");				
-				Driver.execute(rotations.get("L")+"'");				
-				Driver.execute(rotations.get("D"));	
+				Driver.execute(rotations.get("L"));
+				Driver.execute(rotations.get("U") + "'");
+				Driver.execute(rotations.get("L") + "'");
+				Driver.execute(rotations.get("D"));
 				break;
 			case BL:
 				switchFace(Color.BLUE);
 				// R D R' U' R D' R' U
 
 				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D"));				
-				Driver.execute(rotations.get("R")+"'");				
-				Driver.execute(rotations.get("U")+"'");
+				Driver.execute(rotations.get("D"));
+				Driver.execute(rotations.get("R") + "'");
+				Driver.execute(rotations.get("U") + "'");
 
-				Driver.execute(rotations.get("R"));				
-				Driver.execute(rotations.get("D")+"'");				
-				Driver.execute(rotations.get("R")+"'");				
-				Driver.execute(rotations.get("U"));	
+				Driver.execute(rotations.get("R"));
+				Driver.execute(rotations.get("D") + "'");
+				Driver.execute(rotations.get("R") + "'");
+				Driver.execute(rotations.get("U"));
 				break;
 			case BR:
 				switchFace(Color.RED);
-				// D L D' R'        D L' D' R
+				// D L D' R' D L' D' R
 				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L"));				
-				Driver.execute(rotations.get("D")+"'");				
-				Driver.execute(rotations.get("R")+"'");
+				Driver.execute(rotations.get("L"));
+				Driver.execute(rotations.get("D") + "'");
+				Driver.execute(rotations.get("R") + "'");
 
-				Driver.execute(rotations.get("D"));				
-				Driver.execute(rotations.get("L")+"'");				
-				Driver.execute(rotations.get("D")+"'");				
-				Driver.execute(rotations.get("R"));	
+				Driver.execute(rotations.get("D"));
+				Driver.execute(rotations.get("L") + "'");
+				Driver.execute(rotations.get("D") + "'");
+				Driver.execute(rotations.get("R"));
 				break;
 		}
-		// System.out.println("anchor face : "+frontface);
-		// System.out.println("cube after reposition:\n"+Driver.cube);
 	}
+
 	boolean testCornerPosition(Cubie corner) {
 		Coordinate currentPosition = Driver.cube.findCoordinate(corner);
 		Coordinate expectedPosition = Driver.solved.findCoordinate(corner);
 		boolean oriented = false;
-		// System.out.println(expectedPosition.cubie);
-		if(currentPosition.equals(expectedPosition))
+		if (currentPosition.equals(expectedPosition))
 			return true;
 		switch (expectedPosition.cubie) {
 			case TL:
-				// System.out.println("TL -> "+currentPosition.cubie);
 				if (currentPosition.cubie == Relation.TR) {
-					// System.out.println("TR true");
 					oriented = (currentPosition.face == Color.BLUE || currentPosition.face == Color.ORANGE);
-					// System.out.println("face true");
 				} else
 					oriented = false;
 				break;
 			case TR:
-				// System.out.println("TR -> "+currentPosition.cubie);
 				if (currentPosition.cubie == Relation.TL) {
 					oriented = (currentPosition.face == Color.GREEN || currentPosition.face == Color.ORANGE);
 				} else
 					oriented = false;
 				break;
 			case BL:
-				// System.out.println("BL -> "+currentPosition.cubie);
 
 				if (currentPosition.cubie == Relation.BR) {
 					oriented = (currentPosition.face == Color.BLUE || currentPosition.face == Color.RED);
@@ -687,7 +590,6 @@ public class Solver {
 					oriented = false;
 				break;
 			case BR:
-				// System.out.println("BR -> "+currentPosition.cubie);
 				if (currentPosition.cubie == Relation.BL) {
 					oriented = (currentPosition.face == Color.GREEN || currentPosition.face == Color.RED);
 				} else
@@ -721,8 +623,6 @@ public class Solver {
 			Driver.execute(rotations.get("R") + "'");
 			Driver.execute(rotations.get("U") + "'");
 			Driver.execute(rotations.get("F") + "'");
-			// System.out.println("cube after yellow cross test : \n"+Driver.cube);
-			// x++;
 		}
 
 	}
@@ -731,34 +631,20 @@ public class Solver {
 		Face yellow = Driver.cube.faces[Color.YELLOW.value];
 		Cubie cross[] = { yellow.getCubie(Relation.T), yellow.getCubie(Relation.R), yellow.getCubie(Relation.L),
 				yellow.getCubie(Relation.B) };
-		// System.out.println("the current face:\n"+yellow.toString());
 		int numYellow = 0;
 		for (Cubie edge : cross) {
-			// // Coordinate current = Driver.solved.findCoordinate(edge);
-			// System.out.println(edge.color[0]);
 			if (edge.color[0] == Color.YELLOW)
 				numYellow++;
-			// return false;
 		}
-		// System.out.println("numYellow : "+numYellow);
 		return numYellow;
 	}
 
 	void SLEdge(Cubie edge) {
 		Coordinate currentPosition = Driver.cube.findCoordinate(edge);
 		Coordinate expectedPosition = Driver.solved.findCoordinate(edge);
-		// switchFace(expectedPosition.face);
-		// int i =0;
 		while (!currentPosition.equals(expectedPosition)) {
 			switchFace(expectedPosition.face);
-
-			// if(i++ == 10)
-			// return;
 			if (currentPosition.face != expectedPosition.face) {
-				// switch(currentPosition.face){
-				// case YELLOW:
-				// return;
-				// }
 				if ((currentPosition.face == Color.GREEN && currentPosition.cubie == Relation.L)
 						|| (currentPosition.face == Color.BLUE && currentPosition.cubie == Relation.R)
 						|| (currentPosition.face == Color.ORANGE && currentPosition.cubie == Relation.T)
@@ -767,8 +653,6 @@ public class Solver {
 					Driver.execute("B");
 				} else {
 					switchFace(currentPosition.face);
-					// System.out.println(currentPosition.toString()+" ->
-					// "+expectedPosition.toString());
 					switch (currentPosition.face) {
 						case RED:
 							if (currentPosition.cubie == Relation.R)
@@ -799,11 +683,7 @@ public class Solver {
 					}
 
 				}
-				// return;
 			} else {
-				// System.out.println(currentPosition.face+" ->
-				// "+currentPosition.cubie+"2"+expectedPosition.cubie);
-				// System.out.println("Expected position"+expectedPosition.cubie);
 				switch (currentPosition.cubie) {
 					case T:
 						switch (expectedPosition.cubie) {
@@ -869,25 +749,10 @@ public class Solver {
 								break;
 						}
 						break;
+					default:break;
 				}
-				// System.out.println(Driver.cube);
 			}
-			// switch (expectedPosition.getRelevantFace(currentPosition)) {
-			// case OPPOSITE:
-			// break;
-			// case LEFT:
-			// break;
-			// case RIGHT:
-			// break;
-			// case TOP:
-			// if(expectedPosition.face == Color.ORANGE)
-			// return;
-			// break;
-			// case BOTTOM:
-			// break;
-			// default:
-			// break;
-			// }
+
 			currentPosition = Driver.cube.findCoordinate(edge);
 		}
 
@@ -996,6 +861,7 @@ public class Solver {
 				Driver.execute(rotations.get("D") + "'");
 				Driver.execute(rotations.get("R") + "'");
 				break;
+			default:break;
 		}
 	}
 
@@ -1013,7 +879,6 @@ public class Solver {
 				break;
 			default:
 				Driver.execute(rotations.get("B"));
-				// Driver.execute(rotations.get("B") + "'");
 				break;
 		}
 	}
@@ -1091,7 +956,6 @@ public class Solver {
 				}
 				break;
 			case TL:
-				// System.out.println("TL top running");
 				switch (expectedPosition.cubie) {
 					case TR:
 						// B2 U' B U
@@ -1164,8 +1028,6 @@ public class Solver {
 	}
 
 	void moveToFront(Cubie edge) {
-		// edge needed to solve
-		// System.out.println("edge to solve : "+ edge.fulldetail());
 		Coordinate currentPosition = Driver.cube.findCoordinate(edge);
 		Coordinate expectedPosition = Driver.solved.findCoordinate(edge);
 		switchFace(expectedPosition.face);
@@ -1483,32 +1345,11 @@ public class Solver {
 		Driver.solution = true;
 		Driver.moves = 0;
 		Driver.instructions.clear();
-		if (Driver.parts) {
-			FirstLayer();
-			// displayResults("First Layer");
-			SecondLayer();
+		FirstLayer();
+		SecondLayer();
+		if (Driver.parts)
 			displayResults("Second Layer");
-			FinalLayer();
-			// displayResults("Final Layer");
-		} else {
-			// WhiteCross();
-			// WhiteCorners();
-			FirstLayer();
-			SecondLayer();
-			FinalLayer();
-			displayResults("Final Solution");
-			// Driver.instructions = Driver.summarise(Driver.instructions);
-			// Driver.moves = Driver.instructions.size();
-			// System.out.println("Final Solution : ");
-			// if (Driver.output)
-			// System.out.println(Driver.cube);
-			// if (Driver.lined)
-			// for (String s : Driver.instructions)
-			// System.out.println(s);
-			// else
-			// System.out.println(Driver.instructions);
-			// System.out.println("Number of moves in final solution : " + Driver.moves);
-		}
+		FinalLayer();
 	}
 
 }
