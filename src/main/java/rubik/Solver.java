@@ -10,10 +10,10 @@ import java.util.List;
  */
 public class Solver {
 
-	public Color frontface = Color.WHITE;
+	// public Color frontface = Color.WHITE;
 
-	public HashMap<String, String> rotations;
-
+	// public HashMap<String, String> rotations;
+	// Control controller;
 	public Color oppositeFace(Color face) {
 		Color opposite_face;
 		switch (face) {
@@ -42,183 +42,183 @@ public class Solver {
 		return opposite_face;
 	}
 
-	public HashMap<Enum<?>, Runnable> orient = new HashMap<Enum<?>, Runnable>() {
-		private static final long serialVersionUID = 1L;
+	// public HashMap<Enum<?>, Runnable> orient = new HashMap<Enum<?>, Runnable>() {
+	// private static final long serialVersionUID = 1L;
 
-		{
-			put(Color.WHITE, () -> {
-				rotations = new HashMap<>();
-				rotations.put("U", "U");
-				rotations.put("L", "L");
-				rotations.put("R", "R");
-				rotations.put("D", "D");
-				rotations.put("F", "F");
-				rotations.put("B", "B");
-			});
-			put(Color.YELLOW, () -> {
-				rotations = new HashMap<>();
-				rotations.put("U", "U");
-				rotations.put("L", "R");
-				rotations.put("R", "L");
-				rotations.put("D", "D");
-				rotations.put("F", "B");
-				rotations.put("B", "F");
-			});
-			put(Color.GREEN, () -> {
-				rotations = new HashMap<>();
-				rotations.put("U", "U");
-				rotations.put("L", "B");
-				rotations.put("R", "F");
-				rotations.put("D", "D");
-				rotations.put("F", "L");
-				rotations.put("B", "R");
-			});
-			put(Color.BLUE, () -> {
-				rotations = new HashMap<>();
-				rotations.put("U", "U");
-				rotations.put("L", "F");
-				rotations.put("R", "B");
-				rotations.put("D", "D");
-				rotations.put("F", "R");
-				rotations.put("B", "L");
-			});
-			put(Color.ORANGE, () -> {
-				rotations = new HashMap<>();
-				rotations.put("U", "B");
-				rotations.put("L", "L");
-				rotations.put("R", "R");
-				rotations.put("D", "F");
-				rotations.put("F", "U");
-				rotations.put("B", "D");
-			});
-			put(Color.RED, () -> {
-				rotations = new HashMap<>();
-				rotations.put("U", "F");
-				rotations.put("L", "L");
-				rotations.put("R", "R");
-				rotations.put("D", "B");
-				rotations.put("F", "D");
-				rotations.put("B", "U");
-			});
-		}
-	};
+	// {
+	// put(Color.WHITE, () -> {
+	// rotations = new HashMap<>();
+	// rotations.put("U", "U");
+	// rotations.put("L", "L");
+	// rotations.put("R", "R");
+	// rotations.put("D", "D");
+	// rotations.put("F", "F");
+	// rotations.put("B", "B");
+	// });
+	// put(Color.YELLOW, () -> {
+	// rotations = new HashMap<>();
+	// rotations.put("U", "U");
+	// rotations.put("L", "R");
+	// rotations.put("R", "L");
+	// rotations.put("D", "D");
+	// rotations.put("F", "B");
+	// rotations.put("B", "F");
+	// });
+	// put(Color.GREEN, () -> {
+	// rotations = new HashMap<>();
+	// rotations.put("U", "U");
+	// rotations.put("L", "B");
+	// rotations.put("R", "F");
+	// rotations.put("D", "D");
+	// rotations.put("F", "L");
+	// rotations.put("B", "R");
+	// });
+	// put(Color.BLUE, () -> {
+	// rotations = new HashMap<>();
+	// rotations.put("U", "U");
+	// rotations.put("L", "F");
+	// rotations.put("R", "B");
+	// rotations.put("D", "D");
+	// rotations.put("F", "R");
+	// rotations.put("B", "L");
+	// });
+	// put(Color.ORANGE, () -> {
+	// rotations = new HashMap<>();
+	// rotations.put("U", "B");
+	// rotations.put("L", "L");
+	// rotations.put("R", "R");
+	// rotations.put("D", "F");
+	// rotations.put("F", "U");
+	// rotations.put("B", "D");
+	// });
+	// put(Color.RED, () -> {
+	// rotations = new HashMap<>();
+	// rotations.put("U", "F");
+	// rotations.put("L", "L");
+	// rotations.put("R", "R");
+	// rotations.put("D", "B");
+	// rotations.put("F", "D");
+	// rotations.put("B", "U");
+	// });
+	// }
+	// };
 
-	public void switchFace(Color f) {
-		frontface = f;
-		orient.get(frontface).run();
-	}
+	// public void Control.switchFace(Color f) {
+	// frontface = f;
+	// orient.get(frontface).run();
+	// }
 
 	void RTrigger() {
 		List<String> instructions = new ArrayList<>();
-		instructions.add(rotations.get("R"));
-		instructions.add(rotations.get("U"));
-		instructions.add(rotations.get("R") + "'");
-		instructions.add(rotations.get("U") + "'");
-		Driver.invoke(instructions);
+		Control.R();
+		Control.U();
+		Control.Ri();
+		Control.Ui();
+		// Driver.invoke(instructions);
 	}
 
 	void LTrigger() {
 		List<String> instructions = new ArrayList<>();
-		instructions.add(rotations.get("L") + "'");
-		instructions.add(rotations.get("U") + "'");
-		instructions.add(rotations.get("L"));
-		instructions.add(rotations.get("U"));
-		Driver.invoke(instructions);
+		Control.Li();
+		Control.Ui();
+		Control.L();
+		Control.U();
+		// Driver.invoke(instructions);
 	}
 
 	void Top2RightEdge() {
 		// U R U' R' U' F' U F
-		Driver.execute(rotations.get("U"));
-		Driver.execute(rotations.get("R"));
-		Driver.execute(rotations.get("U") + "'");
-		Driver.execute(rotations.get("R") + "'");
-		Driver.execute(rotations.get("U") + "'");
-		Driver.execute(rotations.get("F") + "'");
-		Driver.execute(rotations.get("U"));
-		Driver.execute(rotations.get("F"));
+		Control.U();
+		Control.R();
+		Control.Ui();
+		Control.Ri();
+		Control.Ui();
+		Control.Fi();
+		Control.U();
+		Control.F();
 	}
 
 	void Top2LeftEdge() {
 		// U' L' U L U F U' F'
-		Driver.execute(rotations.get("U") + "'");
-		Driver.execute(rotations.get("L") + "'");
-		Driver.execute(rotations.get("U"));
-		Driver.execute(rotations.get("L"));
-		Driver.execute(rotations.get("U"));
-		Driver.execute(rotations.get("F"));
-		Driver.execute(rotations.get("U") + "'");
-		Driver.execute(rotations.get("F") + "'");
+		Control.Ui();
+		Control.Li();
+		Control.U();
+		Control.L();
+		Control.U();
+		Control.F();
+		Control.Ui();
+		Control.Fi();
 	}
 
 	void Bottom2LeftEdge() {
 		// D L D' L' D' F' D F
-		Driver.execute(rotations.get("D"));
-		Driver.execute(rotations.get("L"));
-		Driver.execute(rotations.get("D") + "'");
-		Driver.execute(rotations.get("L") + "'");
-		Driver.execute(rotations.get("D") + "'");
-		Driver.execute(rotations.get("F") + "'");
-		Driver.execute(rotations.get("D"));
-		Driver.execute(rotations.get("F"));
+		Control.D();
+		Control.L();
+		Control.Di();
+		Control.Li();
+		Control.Di();
+		Control.Fi();
+		Control.D();
+		Control.F();
 	}
 
 	void Bottom2RightEdge() {
 		// D' R' D R D F D' F'
-		Driver.execute(rotations.get("D") + "'");
-		Driver.execute(rotations.get("R") + "'");
-		Driver.execute(rotations.get("D"));
-		Driver.execute(rotations.get("R"));
-		Driver.execute(rotations.get("D"));
-		Driver.execute(rotations.get("F"));
-		Driver.execute(rotations.get("D") + "'");
-		Driver.execute(rotations.get("F") + "'");
+		Control.Di();
+		Control.Ri();
+		Control.D();
+		Control.R();
+		Control.D();
+		Control.F();
+		Control.Di();
+		Control.Fi();
 	}
 
 	void Left2TopEdge() {
 		// B U B' U' B' L' B L
-		Driver.execute(rotations.get("L"));
-		Driver.execute(rotations.get("U"));
-		Driver.execute(rotations.get("L") + "'");
-		Driver.execute(rotations.get("U") + "'");
-		Driver.execute(rotations.get("L") + "'");
-		Driver.execute(rotations.get("F") + "'");
-		Driver.execute(rotations.get("L"));
-		Driver.execute(rotations.get("F"));
+		Control.L();
+		Control.U();
+		Control.Li();
+		Control.Ui();
+		Control.Li();
+		Control.Fi();
+		Control.L();
+		Control.F();
 	}
 
 	void Left2BottomEdge() {
 		// B' D' B D B L B' L'
-		Driver.execute(rotations.get("D") + "'");
-		Driver.execute(rotations.get("L"));
-		Driver.execute(rotations.get("D"));
-		Driver.execute(rotations.get("L"));
-		Driver.execute(rotations.get("F"));
-		Driver.execute(rotations.get("L") + "'");
-		Driver.execute(rotations.get("F") + "'");
+		Control.Di();
+		Control.L();
+		Control.D();
+		Control.L();
+		Control.F();
+		Control.Li();
+		Control.Fi();
 	}
 
 	void Right2TopEdge() {
 		// B' U' B U B R B' R'
-		Driver.execute(rotations.get("R") + "'");
-		Driver.execute(rotations.get("U") + "'");
-		Driver.execute(rotations.get("R"));
-		Driver.execute(rotations.get("U"));
-		Driver.execute(rotations.get("R"));
-		Driver.execute(rotations.get("F"));
-		Driver.execute(rotations.get("R") + "'");
-		Driver.execute(rotations.get("F") + "'");
+		Control.Ri();
+		Control.Ui();
+		Control.R();
+		Control.U();
+		Control.R();
+		Control.F();
+		Control.Ri();
+		Control.Fi();
 	}
 
 	void Right2BottomEdge() {
 		// B D B' D' B' R' B R
-		Driver.execute(rotations.get("R"));
-		Driver.execute(rotations.get("D"));
-		Driver.execute(rotations.get("R") + "'");
-		Driver.execute(rotations.get("D") + "'");
-		Driver.execute(rotations.get("R") + "'");
-		Driver.execute(rotations.get("F") + "'");
-		Driver.execute(rotations.get("R"));
-		Driver.execute(rotations.get("F"));
+		Control.R();
+		Control.D();
+		Control.Ri();
+		Control.Di();
+		Control.Ri();
+		Control.Fi();
+		Control.R();
+		Control.F();
 	}
 
 	void WhiteCross() {
@@ -281,16 +281,16 @@ public class Solver {
 		orientYC();
 		Coordinate ep, cp;
 
-		switchFace(Color.ORANGE);
+		Control.switchFace(Color.ORANGE);
 		ep = Driver.solved.findCoordinate(cross[0]);
 		while (!ep.equals(cp = Driver.cube.findCoordinate(cross[0]))) {
-			Driver.execute(rotations.get("U"));
+			Control.U();
 		}
 		Coordinate greenP = Driver.cube.findCoordinate(cross[1]);
 		switch (greenP.cubie) {
 			case L:
 				swapRightAdjacents(Color.ORANGE);
-				Driver.execute(rotations.get("U"));
+				Control.U();
 				break;
 			case B:
 				swapRightAdjacents(Color.RED);
@@ -309,112 +309,114 @@ public class Solver {
 	}
 
 	void swapLeftAdjacents(Color f) {
-		switchFace(f);
+		Control.switchFace(f);
 		switch (f) {
-			default:break;
+			default:
+				break;
 			case ORANGE: {
 				// R U R' U R U2 R' U
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("U") + "2");
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("U"));
+				Control.R();
+				Control.U();
+				Control.Ri();
+				Control.U();
+				Control.R();
+				Control.U2();
+				Control.Ri();
+				Control.U();
 			}
 				break;
 			case RED: {
 				// L D L' D L D2 L' D
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("D") + "2");
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D"));
+				Control.L();
+				Control.D();
+				Control.Li();
+				Control.D();
+				Control.L();
+				Control.D2();
+				Control.Li();
+				Control.D();
 			}
 				break;
 			case GREEN: {
 				// U L U' L U L2 U' L
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("L") + "2");
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L"));
+				Control.U();
+				Control.L();
+				Control.Ui();
+				Control.L();
+				Control.U();
+				Control.L2();
+				Control.Ui();
+				Control.L();
 
 			}
 				break;
 			case BLUE: {
 				// D R D' R D R2 D' R
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("R") + "2");
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R"));
+				Control.D();
+				Control.R();
+				Control.Di();
+				Control.R();
+				Control.D();
+				Control.R2();
+				Control.Di();
+				Control.R();
 			}
-			break;
+				break;
 		}
 	}
 
 	void swapRightAdjacents(Color f) {
-		switchFace(f);
+		Control.switchFace(f);
 		switch (f) {
-			default :break;
+			default:
+				break;
 			case ORANGE: {
 				// L' U' L U' L' U2 L U'
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("U") + "2");
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U") + "'");
+				Control.Li();
+				Control.Ui();
+				Control.L();
+				Control.Ui();
+				Control.Li();
+				Control.U2();
+				Control.L();
+				Control.Ui();
 
 			}
 				break;
 			case RED: {
 				// R' D' R D' R' D2 R D'
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("D") + "2");
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D") + "'");
+				Control.Ri();
+				Control.Di();
+				Control.R();
+				Control.Di();
+				Control.Ri();
+				Control.D2();
+				Control.R();
+				Control.Di();
 			}
 				break;
 			case GREEN: {
 				// D' L' D L' D' L2 D L'
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("L") + "2");
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L") + "'");
+				Control.Di();
+				Control.Li();
+				Control.D();
+				Control.Li();
+				Control.Di();
+				Control.L2();
+				Control.D();
+				Control.Li();
 			}
 				break;
 			case BLUE: {
 				// U' R' U R' U' R2 U R'
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L") + "2");
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("L") + "'");
+				Control.Ui();
+				Control.Li();
+				Control.U();
+				Control.Li();
+				Control.Ui();
+				Control.L2();
+				Control.U();
+				Control.Li();
 			}
 		}
 	}
@@ -443,8 +445,7 @@ public class Solver {
 		if (Driver.parts)
 			displayResults("Yellow Cross");
 		YellowCorners();
-		if (Driver.parts)
-			displayResults("Yellow Corners");
+			displayResults("Final Solution");
 	}
 
 	void YellowCorners() {
@@ -472,7 +473,7 @@ public class Solver {
 		}
 		if (Driver.output && Driver.parts)
 			System.out.println("yellow corners positioned!");
-		switchFace(Color.ORANGE);
+		Control.switchFace(Color.ORANGE);
 		for (Cubie corner : cross) {
 
 			reorientYellowCorner(corner);
@@ -480,7 +481,7 @@ public class Solver {
 		if (Driver.output && Driver.parts)
 			System.out.println("yellow corners oriented!");
 		while (!testPosition(cross)) {
-			Driver.execute(rotations.get("U"));
+			Control.U();
 		}
 	}
 
@@ -489,15 +490,15 @@ public class Solver {
 		if (currentPosition.face != Color.YELLOW) {
 			while (!(currentPosition.face == Color.ORANGE && currentPosition.cubie == Relation.TR)
 					&& !(currentPosition.face == Color.BLUE && currentPosition.cubie == Relation.TR)) {
-				Driver.execute(rotations.get("U"));
+				Control.U();
 				currentPosition = Driver.cube.findCoordinate(corner);
 			}
 			while (currentPosition.face != Color.YELLOW) {
 				// R' D' R D
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D"));
+				Control.Ri();
+				Control.Di();
+				Control.R();
+				Control.D();
 				currentPosition = Driver.cube.findCoordinate(corner);
 			}
 		}
@@ -506,59 +507,60 @@ public class Solver {
 	void repositionYellowCorners(Cubie anchor) {
 		Coordinate expectedPosition = Driver.solved.findCoordinate(anchor);
 		switch (expectedPosition.cubie) {
-			default:break;
+			default:
+				break;
 			case TL:
-				switchFace(Color.ORANGE);
+				Control.switchFace(Color.ORANGE);
 				// U R U' L' U R' U' L
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L") + "'");
+				Control.U();
+				Control.R();
+				Control.Ui();
+				Control.Li();
 
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L"));
+				Control.U();
+				Control.Ri();
+				Control.Ui();
+				Control.L();
 				break;
 			case TR:
-				switchFace(Color.GREEN);
+				Control.switchFace(Color.GREEN);
 				// L U L' D' L U' L' D
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D") + "'");
+				Control.L();
+				Control.U();
+				Control.Li();
+				Control.Di();
 
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D"));
+				Control.L();
+				Control.Ui();
+				Control.Li();
+				Control.D();
 				break;
 			case BL:
-				switchFace(Color.BLUE);
+				Control.switchFace(Color.BLUE);
 				// R D R' U' R D' R' U
 
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("U") + "'");
+				Control.R();
+				Control.D();
+				Control.Ri();
+				Control.Ui();
 
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("U"));
+				Control.R();
+				Control.Di();
+				Control.Ri();
+				Control.U();
 				break;
 			case BR:
-				switchFace(Color.RED);
+				Control.switchFace(Color.RED);
 				// D L D' R' D L' D' R
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R") + "'");
+				Control.D();
+				Control.L();
+				Control.Di();
+				Control.Ri();
 
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R"));
+				Control.D();
+				Control.Li();
+				Control.Di();
+				Control.R();
 				break;
 		}
 	}
@@ -602,7 +604,7 @@ public class Solver {
 	}
 
 	void orientYC() {
-		switchFace(Color.ORANGE);
+		Control.switchFace(Color.ORANGE);
 		int x = 0;
 		int i = 0;
 		int numYellow;
@@ -610,19 +612,19 @@ public class Solver {
 			numYellow = checkYellowCross();
 			if (numYellow > 1)
 				if (Driver.cube.faces[Color.YELLOW.value].cubie[Relation.T.value].color[0] == Color.YELLOW)
-					Driver.execute(rotations.get("U"));
+					Control.U();
 			i = 0;
 			while (i < 4 && Driver.cube.faces[Color.YELLOW.value].cubie[Relation.R.value].color[0] != Color.YELLOW) {
-				Driver.execute(rotations.get("U") + "'");
+				Control.Ui();
 				i++;
 			}
 			// // F R U R' U' F'
-			Driver.execute(rotations.get("F"));
-			Driver.execute(rotations.get("R"));
-			Driver.execute(rotations.get("U"));
-			Driver.execute(rotations.get("R") + "'");
-			Driver.execute(rotations.get("U") + "'");
-			Driver.execute(rotations.get("F") + "'");
+			Control.F();
+			Control.R();
+			Control.U();
+			Control.Ri();
+			Control.Ui();
+			Control.Fi();
 		}
 
 	}
@@ -643,16 +645,16 @@ public class Solver {
 		Coordinate currentPosition = Driver.cube.findCoordinate(edge);
 		Coordinate expectedPosition = Driver.solved.findCoordinate(edge);
 		while (!currentPosition.equals(expectedPosition)) {
-			switchFace(expectedPosition.face);
+			Control.switchFace(expectedPosition.face);
 			if (currentPosition.face != expectedPosition.face) {
 				if ((currentPosition.face == Color.GREEN && currentPosition.cubie == Relation.L)
 						|| (currentPosition.face == Color.BLUE && currentPosition.cubie == Relation.R)
 						|| (currentPosition.face == Color.ORANGE && currentPosition.cubie == Relation.T)
 						|| (currentPosition.face == Color.RED && currentPosition.cubie == Relation.B)) {
-					switchFace(Color.WHITE);
+					Control.switchFace(Color.WHITE);
 					Driver.execute("B");
 				} else {
-					switchFace(currentPosition.face);
+					Control.switchFace(currentPosition.face);
 					switch (currentPosition.face) {
 						case RED:
 							if (currentPosition.cubie == Relation.R)
@@ -749,7 +751,8 @@ public class Solver {
 								break;
 						}
 						break;
-					default:break;
+					default:
+						break;
 				}
 			}
 
@@ -761,12 +764,12 @@ public class Solver {
 	void FLCorner(Cubie corner) {
 		Coordinate currentPosition = Driver.cube.findCoordinate(corner);
 		Coordinate expectedPosition = Driver.solved.findCoordinate(corner);
-		switchFace(expectedPosition.face);
+		Control.switchFace(expectedPosition.face);
 		while (!currentPosition.equals(expectedPosition)) {
 			switch (expectedPosition.getRelevantFace(currentPosition)) {
 				case OPPOSITE:
 					if (currentPosition.cubie != getCorrectPosition(expectedPosition))
-						Driver.execute(rotations.get("B"));
+						Control.B();
 					currentPosition = Driver.cube.findCoordinate(corner);
 					if (currentPosition.cubie == getCorrectPosition(expectedPosition)) {
 						flback(expectedPosition, currentPosition);
@@ -788,24 +791,24 @@ public class Solver {
 				default:
 					switch (currentPosition.cubie) {
 						case TR:
-							Driver.execute(rotations.get("U") + "'");
-							Driver.execute(rotations.get("B") + "'");
-							Driver.execute(rotations.get("U"));
+							Control.Ui();
+							Control.Bi();
+							Control.U();
 							break;
 						case BR:
-							Driver.execute(rotations.get("D"));
-							Driver.execute(rotations.get("B"));
-							Driver.execute(rotations.get("D") + "'");
+							Control.D();
+							Control.B();
+							Control.Di();
 							break;
 						case TL:
-							Driver.execute(rotations.get("U"));
-							Driver.execute(rotations.get("B"));
-							Driver.execute(rotations.get("U") + "'");
+							Control.U();
+							Control.B();
+							Control.Ui();
 							break;
 						case BL:
-							Driver.execute(rotations.get("D") + "'");
-							Driver.execute(rotations.get("B") + "'");
-							Driver.execute(rotations.get("D"));
+							Control.Di();
+							Control.Bi();
+							Control.D();
 							break;
 						default:
 							break;
@@ -831,54 +834,55 @@ public class Solver {
 		switch (currentPosition.cubie) {
 			case BL:
 				// R' U' B2 U R
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("B") + "2");
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("R"));
+				Control.Ri();
+				Control.Ui();
+				Control.B2();
+				Control.U();
+				Control.R();
 				break;
 			case BR:
 				// L U B2 U' L'
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("B") + "2");
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("L") + "'");
+				Control.L();
+				Control.U();
+				Control.B2();
+				Control.Ui();
+				Control.Li();
 				break;
 			case TR:
 				// L' D' B2 D L
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("B") + "2");
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("L"));
+				Control.Li();
+				Control.Di();
+				Control.B2();
+				Control.D();
+				Control.L();
 				break;
 			case TL:
 				// R D B2 D' R'
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("B") + "2");
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("R") + "'");
+				Control.R();
+				Control.D();
+				Control.B2();
+				Control.Di();
+				Control.Ri();
 				break;
-			default:break;
+			default:
+				break;
 		}
 	}
 
 	void flleft(Coordinate expectedPosition, Coordinate currentPosition) {
 		switch (currentPosition.cubie) {
 			case TR:// U B U'
-				Driver.execute(rotations.get("U"));
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("U") + "'");
+				Control.U();
+				Control.B();
+				Control.Ui();
 				break;
 			case BR:// D' B' D
-				Driver.execute(rotations.get("D") + "'");
-				Driver.execute(rotations.get("B") + "'");
-				Driver.execute(rotations.get("D"));
+				Control.Di();
+				Control.Bi();
+				Control.D();
 				break;
 			default:
-				Driver.execute(rotations.get("B"));
+				Control.B();
 				break;
 		}
 	}
@@ -886,17 +890,17 @@ public class Solver {
 	void flright(Coordinate expectedPosition, Coordinate currentPosition) {
 		switch (currentPosition.cubie) {
 			case TL:// U' B' U
-				Driver.execute(rotations.get("U") + "'");
-				Driver.execute(rotations.get("B") + "'");
-				Driver.execute(rotations.get("U"));
+				Control.Ui();
+				Control.Bi();
+				Control.U();
 				break;
 			case BL:// D B D'
-				Driver.execute(rotations.get("D"));
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("D") + "'");
+				Control.D();
+				Control.B();
+				Control.Di();
 				break;
 			default:
-				Driver.execute(rotations.get("B"));
+				Control.B();
 				break;
 		}
 	}
@@ -904,17 +908,17 @@ public class Solver {
 	void flbottom(Coordinate expectedPosition, Coordinate currentPosition) {
 		switch (currentPosition.cubie) {
 			case TR:// R' B' R
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("B") + "'");
-				Driver.execute(rotations.get("R"));
+				Control.Ri();
+				Control.Bi();
+				Control.R();
 				break;
 			case TL:// L B L'
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("L") + "'");
+				Control.L();
+				Control.B();
+				Control.Li();
 				break;
 			default:
-				Driver.execute(rotations.get("B"));
+				Control.B();
 				break;
 		}
 	}
@@ -925,31 +929,31 @@ public class Solver {
 				switch (expectedPosition.cubie) {
 					case TR:
 						// B R B' R'
-						Driver.execute(rotations.get("B"));
-						Driver.execute(rotations.get("R"));
-						Driver.execute(rotations.get("B") + "'");
-						Driver.execute(rotations.get("R") + "'");
+						Control.B();
+						Control.R();
+						Control.Bi();
+						Control.Ri();
 						break;
 					case TL:
 						// B2 U B' U'
-						Driver.execute(rotations.get("B") + "2");
-						Driver.execute(rotations.get("U"));
-						Driver.execute(rotations.get("B") + "'");
-						Driver.execute(rotations.get("U") + "'");
+						Control.B2();
+						Control.U();
+						Control.Bi();
+						Control.Ui();
 						break;
 					case BR:
 						// D B' D' B
-						Driver.execute(rotations.get("D"));
-						Driver.execute(rotations.get("B") + "'");
-						Driver.execute(rotations.get("D") + "'");
-						Driver.execute(rotations.get("B"));
+						Control.D();
+						Control.Bi();
+						Control.Di();
+						Control.B();
 						break;
 					case BL:
 						// B' L B' L'
-						Driver.execute(rotations.get("B") + "'");
-						Driver.execute(rotations.get("L"));
-						Driver.execute(rotations.get("B") + "'");
-						Driver.execute(rotations.get("L") + "'");
+						Control.Bi();
+						Control.L();
+						Control.Bi();
+						Control.Li();
 						break;
 					default:
 						break;
@@ -959,45 +963,45 @@ public class Solver {
 				switch (expectedPosition.cubie) {
 					case TR:
 						// B2 U' B U
-						Driver.execute(rotations.get("B") + "2");
-						Driver.execute(rotations.get("U") + "'");
-						Driver.execute(rotations.get("B"));
-						Driver.execute(rotations.get("U"));
+						Control.B2();
+						Control.Ui();
+						Control.B();
+						Control.U();
 						break;
 					case TL:
 						// B R B' R'
-						Driver.execute(rotations.get("B") + "'");
-						Driver.execute(rotations.get("L") + "'");
-						Driver.execute(rotations.get("B"));
-						Driver.execute(rotations.get("L"));
+						Control.Bi();
+						Control.Li();
+						Control.B();
+						Control.L();
 						break;
 					case BL:
 						// //D B' D' B
-						Driver.execute(rotations.get("D") + "'");
-						Driver.execute(rotations.get("B"));
-						Driver.execute(rotations.get("D"));
-						Driver.execute(rotations.get("B") + "'");
+						Control.Di();
+						Control.B();
+						Control.D();
+						Control.Bi();
 						break;
 					case BR:
 						// //B' L B' L'
-						Driver.execute(rotations.get("B"));
-						Driver.execute(rotations.get("R") + "'");
-						Driver.execute(rotations.get("B"));
-						Driver.execute(rotations.get("R"));
+						Control.B();
+						Control.Ri();
+						Control.B();
+						Control.R();
 						break;
 					default:
 						break;
 				}
 				break;
 			case BR:
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("R") + "'");
+				Control.R();
+				Control.B();
+				Control.Ri();
 				break;
 			case BL:
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("B") + "'");
-				Driver.execute(rotations.get("L"));
+				Control.Li();
+				Control.Bi();
+				Control.L();
 				break;
 		}
 	}
@@ -1011,16 +1015,56 @@ public class Solver {
 		}
 		switch (expected.cubie) {
 			case T:
-				Driver.execute(rotations.get("U") + mod);
+				switch (mod) {
+					case "":
+						Control.U();
+						break;
+					case "'":
+						Control.Ui();
+						break;
+					case "2":
+						Control.U2();
+						break;
+				}
 				break;
 			case B:
-				Driver.execute(rotations.get("D") + mod);
+				switch (mod) {
+					case "":
+						Control.D();
+						break;
+					case "'":
+						Control.Di();
+						break;
+					case "2":
+						Control.D2();
+						break;
+				}
 				break;
 			case L:
-				Driver.execute(rotations.get("L") + mod);
+				switch (mod) {
+					case "":
+						Control.L();
+						break;
+					case "'":
+						Control.Li();
+						break;
+					case "2":
+						Control.L2();
+						break;
+				}
 				break;
 			case R:
-				Driver.execute(rotations.get("R") + mod);
+				switch (mod) {
+					case "":
+						Control.R();
+						break;
+					case "'":
+						Control.Ri();
+						break;
+					case "2":
+						Control.R2();
+						break;
+				}
 				break;
 			default:
 				break;
@@ -1030,12 +1074,12 @@ public class Solver {
 	void moveToFront(Cubie edge) {
 		Coordinate currentPosition = Driver.cube.findCoordinate(edge);
 		Coordinate expectedPosition = Driver.solved.findCoordinate(edge);
-		switchFace(expectedPosition.face);
+		Control.switchFace(expectedPosition.face);
 		while (!currentPosition.equals(expectedPosition)) {
 			switch (expectedPosition.getRelevantFace(currentPosition)) {
 				case OPPOSITE:
 					if (currentPosition.cubie != getCorrectPosition(expectedPosition))
-						Driver.execute(rotations.get("B"));
+						Control.B();
 					currentPosition = Driver.cube.findCoordinate(edge);
 					if (currentPosition.cubie == getCorrectPosition(expectedPosition))
 						rotateRelevant(expectedPosition, true, false);
@@ -1055,16 +1099,21 @@ public class Solver {
 				default:
 					switch (currentPosition.cubie) {
 						case T:
-							Driver.execute(rotations.get("U") + 2);
+							// Driver.execute(rotations.get("U") + 2);
+							Control.U2();
 							break;
 						case B:
-							Driver.execute(rotations.get("D") + 2);
+							Control.D2();
+							// Driver.execute(rotations.get("D") + 2);
 							break;
 						case L:
-							Driver.execute(rotations.get("L") + 2);
+							Control.L2();
+							// Driver.execute(rotations.get("L") + 2);
 							break;
 						case R:
-							Driver.execute(rotations.get("R") + 2);
+							Control.R2();
+
+							// Driver.execute(rotations.get("R") + 2);
 							break;
 						default:
 							break;
@@ -1078,22 +1127,22 @@ public class Solver {
 	public void wcBottomFace(Coordinate expectedPosition, Coordinate currentPosition) {
 		switch (currentPosition.cubie) {
 			case R: // R B
-				Driver.execute(rotations.get("R") + "'");
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("R"));
+				Control.Ri();
+				Control.B();
+				Control.R();
 				break;
 			case L: // L' B
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("L"));
+				Control.L();
+				Control.B();
+				Control.L();
 				break;
 			case B:// B
-				Driver.execute(rotations.get("B"));
+				Control.B();
 				break;
 			case T: // F L F'
-				Driver.execute(rotations.get("F"));
-				Driver.execute(rotations.get("L"));
-				Driver.execute(rotations.get("F") + "'");
+				Control.F();
+				Control.L();
+				Control.Fi();
 				break;
 			default:
 				break;
@@ -1103,22 +1152,22 @@ public class Solver {
 	public void wcTopFace(Coordinate expectedPosition, Coordinate currentPosition) {
 		switch (currentPosition.cubie) {
 			case R: // R B
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("R") + "'");
+				Control.R();
+				Control.B();
+				Control.Ri();
 				break;
 			case L: // L' B
-				Driver.execute(rotations.get("L") + "'");
-				Driver.execute(rotations.get("B"));
-				Driver.execute(rotations.get("L"));
+				Control.Li();
+				Control.B();
+				Control.L();
 				break;
 			case B:// F R F'
-				Driver.execute(rotations.get("F"));
-				Driver.execute(rotations.get("R"));
-				Driver.execute(rotations.get("F") + "'");
+				Control.F();
+				Control.R();
+				Control.Fi();
 				break;
 			case T:// B
-				Driver.execute(rotations.get("B"));
+				Control.B();
 				break;
 			default:
 				break;
@@ -1129,54 +1178,54 @@ public class Solver {
 		if (expectedPosition.cubie == Relation.L) {
 			switch (currentPosition.cubie) {
 				case T: // F U F'
-					Driver.execute(rotations.get("F"));
-					Driver.execute(rotations.get("U"));
-					Driver.execute(rotations.get("F") + "'");
+					Control.F();
+					Control.U();
+					Control.Fi();
 					break;
 				case B: // F' D' F
-					Driver.execute(rotations.get("F") + "'");
-					Driver.execute(rotations.get("D") + "'");
-					Driver.execute(rotations.get("F"));
+					Control.Fi();
+					Control.Di();
+					Control.F();
 					break;
 				default:
-					Driver.execute(rotations.get("R"));
+					Control.R();
 					break;
 			}
 		} else if (expectedPosition.cubie == Relation.R) {
 			switch (currentPosition.cubie) {
 				case T: // F' U F
-					Driver.execute(rotations.get("F") + "'");
-					Driver.execute(rotations.get("U"));
-					Driver.execute(rotations.get("F"));
+					Control.Fi();
+					Control.U();
+					Control.F();
 					break;
 				case B: // F D' F'
-					Driver.execute(rotations.get("F"));
-					Driver.execute(rotations.get("D") + "'");
-					Driver.execute(rotations.get("F") + "'");
+					Control.F();
+					Control.Di();
+					Control.Fi();
 					break;
 				default:
-					Driver.execute(rotations.get("R"));
+					Control.R();
 					break;
 			}
 		} else if (expectedPosition.cubie == Relation.B) {
 			switch (currentPosition.cubie) {
 				case L:// L' D L
-					Driver.execute(rotations.get("R") + "'");
-					Driver.execute(rotations.get("D") + "'");
-					Driver.execute(rotations.get("R"));
+					Control.Ri();
+					Control.Di();
+					Control.R();
 					break;
 				case R:// L D
-					Driver.execute(rotations.get("R"));
-					Driver.execute(rotations.get("D") + "'");
-					Driver.execute(rotations.get("R") + "'");
+					Control.R();
+					Control.Di();
+					Control.Ri();
 					break;
 				case B:
-					Driver.execute(rotations.get("D") + "'");
+					Control.Di();
 					break;
 				case T:// U B U'
-					Driver.execute(rotations.get("U") + "'");
-					Driver.execute(rotations.get("B"));
-					Driver.execute(rotations.get("U"));
+					Control.Ui();
+					Control.B();
+					Control.U();
 					break;
 				default:
 					break;
@@ -1184,22 +1233,22 @@ public class Solver {
 		} else if (expectedPosition.cubie == Relation.T) {
 			switch (currentPosition.cubie) {
 				case L:// L U' L'
-					Driver.execute(rotations.get("R"));
-					Driver.execute(rotations.get("U"));
-					Driver.execute(rotations.get("R") + "'");
+					Control.R();
+					Control.U();
+					Control.Ri();
 					break;
 				case R:// L' U'
-					Driver.execute(rotations.get("R") + "'");
-					Driver.execute(rotations.get("U"));
-					Driver.execute(rotations.get("R"));
+					Control.Ri();
+					Control.U();
+					Control.R();
 					break;
 				case T: // U'
-					Driver.execute(rotations.get("U"));
+					Control.U();
 					break;
 				case B: // D' B D
-					Driver.execute(rotations.get("D"));
-					Driver.execute(rotations.get("B"));
-					Driver.execute(rotations.get("D") + "'");
+					Control.D();
+					Control.B();
+					Control.Di();
 					break;
 				default:
 					break;
@@ -1212,54 +1261,54 @@ public class Solver {
 		if (expectedPosition.cubie == Relation.L) {
 			switch (currentPosition.cubie) {
 				case T: // F U' F'
-					Driver.execute(rotations.get("F"));
-					Driver.execute(rotations.get("U") + "'");
-					Driver.execute(rotations.get("F") + "'");
+					Control.F();
+					Control.Ui();
+					Control.Fi();
 					break;
 				case B: // F' D F
-					Driver.execute(rotations.get("F") + "'");
-					Driver.execute(rotations.get("D"));
-					Driver.execute(rotations.get("F"));
+					Control.Fi();
+					Control.D();
+					Control.F();
 					break;
 				default:
-					Driver.execute(rotations.get("L"));
+					Control.L();
 					break;
 			}
 		} else if (expectedPosition.cubie == Relation.R) {
 			switch (currentPosition.cubie) {
 				case T: // F' U' F
-					Driver.execute(rotations.get("F") + "'");
-					Driver.execute(rotations.get("U") + "'");
-					Driver.execute(rotations.get("F"));
+					Control.Fi();
+					Control.Ui();
+					Control.F();
 					break;
 				case B: // F D F'
-					Driver.execute(rotations.get("F"));
-					Driver.execute(rotations.get("D"));
-					Driver.execute(rotations.get("F") + "'");
+					Control.F();
+					Control.D();
+					Control.Fi();
 					break;
 				default:
-					Driver.execute(rotations.get("L"));
+					Control.L();
 					break;
 			}
 		} else if (expectedPosition.cubie == Relation.B) {
 			switch (currentPosition.cubie) {
 				case L:// L' D L
-					Driver.execute(rotations.get("L") + "'");
-					Driver.execute(rotations.get("D"));
-					Driver.execute(rotations.get("L"));
+					Control.Li();
+					Control.D();
+					Control.L();
 					break;
 				case R:// L D
-					Driver.execute(rotations.get("L"));
-					Driver.execute(rotations.get("D"));
-					Driver.execute(rotations.get("L") + "'");
+					Control.L();
+					Control.D();
+					Control.Li();
 					break;
 				case B:
-					Driver.execute(rotations.get("D"));
+					Control.D();
 					break;
 				case T:// U B U'
-					Driver.execute(rotations.get("U"));
-					Driver.execute(rotations.get("B"));
-					Driver.execute(rotations.get("U") + "'");
+					Control.U();
+					Control.B();
+					Control.Ui();
 					break;
 				default:
 					break;
@@ -1268,23 +1317,23 @@ public class Solver {
 			switch (currentPosition.cubie) {
 				case L:
 					// L U' L'
-					Driver.execute(rotations.get("L"));
-					Driver.execute(rotations.get("U") + "'");
-					Driver.execute(rotations.get("L") + "'");
+					Control.L();
+					Control.Ui();
+					Control.Li();
 					break;
 				case R:
 					// L' U'
-					Driver.execute(rotations.get("L") + "'");
-					Driver.execute(rotations.get("U") + "'");
-					Driver.execute(rotations.get("L"));
+					Control.Li();
+					Control.Ui();
+					Control.L();
 					break;
 				case T: // U'
-					Driver.execute(rotations.get("U") + "'");
+					Control.Ui();
 					break;
 				case B: // D' B D
-					Driver.execute(rotations.get("D") + "'");
-					Driver.execute(rotations.get("B"));
-					Driver.execute(rotations.get("D"));
+					Control.Di();
+					Control.B();
+					Control.D();
 					break;
 				default:
 					break;
@@ -1322,9 +1371,9 @@ public class Solver {
 		return (current == oppositeFace(expected));
 	}
 
-	void currentFace() {
-		System.out.println("front face: " + Driver.cube.faces[frontface.value].center.colorString());
-	}
+	// void currentFace() {
+	// 	System.out.println("front face: " + Driver.cube.faces[frontface.value].center.colorString());
+	// }
 
 	void displayResults(String display) {
 		Driver.instructions = Driver.summarise(Driver.instructions);

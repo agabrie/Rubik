@@ -12,7 +12,8 @@ public class Cubie {
     Color color[] = new Color[3];
     Cubie adjacents[] = new Cubie[2];
     Orientation orientation;
-
+    Coordinate currentPosition;
+    Coordinate expectedPosition;
     Cubie(Color c, Orientation o) {
         this.color[0] = c;
         this.orientation = o;
@@ -22,7 +23,20 @@ public class Cubie {
         color[1] = edge.color[0];
         adjacents[0] = edge;
     }
+    
+    public void updateCoordinates(){
+        currentPosition = Driver.cube.findCoordinate(this);
+        expectedPosition = Driver.solved.findCoordinate(this);
+    }
 
+    public Coordinate getCurCoordinate(){
+        return currentPosition;
+    }
+    
+    public Coordinate getExpectedCoordinate(){
+        return expectedPosition;
+    }
+    
     public void setAdjacents(Cubie c1, Cubie c2) {
         color[1] = c1.color[0];
         color[2] = c2.color[0];

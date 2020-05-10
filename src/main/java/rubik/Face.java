@@ -22,11 +22,6 @@ public final class Face {
         return cubie[r.value];
     }
 
-    /**
-     *
-     * @param c
-     * @param o
-     */
     void setCubie(Color c, Orientation o) {
         for (int i = 0; i < numcubies; i++) {
             cubie[i] = new Cubie(c, o);
