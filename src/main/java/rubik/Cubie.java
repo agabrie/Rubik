@@ -12,8 +12,8 @@ public class Cubie {
     Color color[] = new Color[3];
     Cubie adjacents[] = new Cubie[2];
     Orientation orientation;
-    Coordinate currentPosition;
-    Coordinate expectedPosition;
+    Coordinate currentCoordinate;
+    Coordinate expectedCoordinate;
     Cubie(Color c, Orientation o) {
         this.color[0] = c;
         this.orientation = o;
@@ -23,18 +23,52 @@ public class Cubie {
         color[1] = edge.color[0];
         adjacents[0] = edge;
     }
-    
-    public void updateCoordinates(){
-        currentPosition = Driver.cube.findCoordinate(this);
-        expectedPosition = Driver.solved.findCoordinate(this);
+
+    public Relation getCurrentPosition(){
+        updateCoordinates();
+        return currentCoordinate.position;
     }
 
-    public Coordinate getCurCoordinate(){
-        return currentPosition;
+    public Relation getExpectedPosition(){
+        return currentCoordinate.position;
+    }
+
+    public Color getCurrentFace(){
+        updateCoordinates();
+        return currentCoordinate.face;
+    }
+
+    public Color getExpectedFace(){
+        return expectedCoordinate.face;
+    }
+    public boolean testFace(){
+        updateCoordinates();
+       return currentCoordinate.face == expectedCoordinate.face; 
+    }
+    public boolean testPosition(){
+        updateCoordinates();
+        return currentCoordinate.position == expectedCoordinate.position;
+    }
+    public boolean testCoordinate(){
+        updateCoordinates();
+        return currentCoordinate.equals(expectedCoordinate);
+    }
+    public Relation getRelevantFace(){
+        updateCoordinates();
+        return expectedCoordinate.getRelevantFace(currentCoordinate);
+    }
+    public void updateCoordinates(){
+        currentCoordinate = Driver.cube.findCoordinate(this);
+        expectedCoordinate = Driver.solved.findCoordinate(this);
+    }
+
+    public Coordinate getCurrentCoordinate(){
+        updateCoordinates();
+        return currentCoordinate;
     }
     
     public Coordinate getExpectedCoordinate(){
-        return expectedPosition;
+        return expectedCoordinate;
     }
     
     public void setAdjacents(Cubie c1, Cubie c2) {
@@ -83,7 +117,10 @@ public class Cubie {
         }
         return orient;
     }
-
+    public boolean testCurrentCoordinate(Color face,Relation position){
+        updateCoordinates();
+        return (currentCoordinate.face == face && currentCoordinate.position == position);
+    }
     @Override
     public String toString() {
         String str = colorString();

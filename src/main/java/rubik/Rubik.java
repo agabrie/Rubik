@@ -194,7 +194,7 @@ public class Rubik {
     }
 
     public Cubie cubieAt(Coordinate c) {
-        return faces[c.face.value].cubie[c.cubie.value];
+        return faces[c.face.value].cubie[c.position.value];
     }
 
     public Coordinate findCoordinate(Cubie edge) {

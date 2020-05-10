@@ -49,6 +49,34 @@ enum Color {
     public void setIndex(int value) {
         index = value;
     }
+
+    public Color oppositeFace() {
+		Color opposite_face;
+		switch (this) {
+			case WHITE:
+				opposite_face = Color.YELLOW;
+				break;
+			case YELLOW:
+				opposite_face = Color.WHITE;
+				break;
+			case RED:
+				opposite_face = Color.ORANGE;
+				break;
+			case ORANGE:
+				opposite_face = Color.RED;
+				break;
+			case GREEN:
+				opposite_face = Color.BLUE;
+				break;
+			case BLUE:
+				opposite_face = Color.GREEN;
+				break;
+			default:
+				opposite_face = Color.YELLOW;
+				break;
+		}
+		return opposite_face;
+	}
 }
 
 enum Orientation {
