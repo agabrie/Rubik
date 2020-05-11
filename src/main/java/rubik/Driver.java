@@ -6,22 +6,31 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-
+import enums.*;
 import scrambler.*;
+import solver.Solver;
 
 /**
  *
  * @author Abduraghmaan G
  */
 public class Driver {
-    static Rubik cube = new Rubik();
-    static Rubik solved = new Rubik();
+    public static Rubik cube = new Rubik();
+    public static Rubik solved = new Rubik();
     static boolean verbose = false;
     static boolean solution = false;
     static int moves = 0;
     static HashMap<Character, Runnable> instruct;
     static Scrambler scrambler = new Scrambler();
     static List<String> instructions = new ArrayList<String>();
+    public static boolean nosolution = false;
+    public static boolean output = false;
+    public static boolean debugger = false;
+    public static boolean scrambled = false;
+    public static boolean parts = false;
+    public static boolean lined = false;
+    static final ArrayList<String> valid = new ArrayList<String>(Arrays.asList("F", "B", "L", "R", "U", "D", "F'", "B'",
+            "L'", "R'", "U'", "D'", "F2", "B2", "L2", "R2", "U2", "D2"));
 
     public static void invoke(List<String> instructions) {
 
@@ -29,11 +38,8 @@ public class Driver {
             execute(instr);
         });
         if (scrambled)
-            System.out.println("Scrambled : " + summarise(instructions));
+            displayResults("Scrambled");
     }
-
-    static final ArrayList<String> valid = new ArrayList<String>(Arrays.asList("F", "B", "L", "R", "U", "D", "F'", "B'",
-            "L'", "R'", "U'", "D'", "F2", "B2", "L2", "R2", "U2", "D2"));
 
     static public boolean testInstruction(String instr) {
         if (valid.contains(instr))
@@ -64,15 +70,13 @@ public class Driver {
                             + " all within in a single parameter");
             }
             if (verbose)
-                System.out.println("Instruction : " + instr);
+                System.out.println(Coloreths.FBlue.color + "Instruction : " + Coloreths.Reset.color + instr);
             instructions.add(instr);
             if (instr.length() == 2) {
-                // clockwise = (!(instr.charAt(1) == '\''));
                 cube.extra = (instr.contains("2"));
                 if (!cube.extra) {
                     cube.clockwise = (!(instr.contains("\'")));
                 }
-                // extra = (instr.charAt(1)=='2');
                 instr = instr.replace("2", "");
                 instr = instr.replace("\'", "");
             }
@@ -88,7 +92,7 @@ public class Driver {
                 System.err.println(cube.toString() + "Number of Moves : " + moves);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(Coloreths.FRed.color + e.getMessage() + Coloreths.Reset.color);
             System.exit(0);
         }
     }
@@ -108,7 +112,7 @@ public class Driver {
                 throw new Exception("Invalid Input!\n\tgiven : " + input + "\n\texpected : 'Y' or 'N'");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(Coloreths.FRed.color + e.getMessage() + Coloreths.Reset.color);
             System.exit(0);
         }
         return output;
@@ -130,18 +134,12 @@ public class Driver {
                 System.out.println(cube);
                 System.out.println("Enter an instruction ('Q' to stop) : ");
             }
+            scInput.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(Coloreths.FRed.color + e.getMessage() + Coloreths.Reset.color);
             System.exit(0);
         }
     }
-
-    static boolean nosolution = false;
-    static boolean output = false;
-    static boolean debugger = false;
-    static boolean scrambled = false;
-    static boolean parts = false;
-    static boolean lined = false;
 
     static String[] checkFlags(String[] arguments) {
         ArrayList<String> args = new ArrayList<String>();
@@ -176,66 +174,6 @@ public class Driver {
             parts = true;
         }
         return args.toArray(new String[0]);
-    }
-
-    public static void main(String[] args) {
-        try {
-            instruct = new HashMap<>();
-            instruct.put('F', () -> cube.F());
-            instruct.put('D', () -> cube.D());
-            instruct.put('R', () -> cube.R());
-            instruct.put('L', () -> cube.L());
-            instruct.put('B', () -> cube.B());
-            instruct.put('U', () -> cube.U());
-
-            args = checkFlags(args);
-            for (String arg : args)
-                System.out.println(arg);
-            if (output)
-                System.out.println(cube);
-            List<String> scramble = new ArrayList<>();
-            if (!scrambled && (debugger || args.length == 0)) {
-                output = true;
-                scrambled = false;
-                inputmode();
-            } else {
-                String inputScramble = "";
-                int num_scramble = 0;
-                if (args.length > 0) {
-                    try {
-                        num_scramble = Integer.parseInt(args[0]);
-                    } catch (NumberFormatException nfe) {
-                        inputScramble = args[0];
-                        if (scrambled) {
-                            System.out.println("Cannot add instruction with scramble mode on!");
-                            if (binaryquestion("would you like to continue with 10 move scramble")) {
-                                num_scramble = 20;
-                                scrambled = true;
-                            } else
-                                System.exit(0);
-                        }
-                    }
-                } else {
-                    scrambled = true;
-                    num_scramble = 20;
-                }
-                if (scrambled) {
-                    scrambler.setNumMoves(num_scramble);
-                    scrambler.generateScramble();
-                    inputScramble = scrambler.getScrambleString();
-                }
-
-                Collections.addAll(scramble, inputScramble.toUpperCase().split(" "));
-                invoke(scramble);
-            }
-            if (output)
-                System.out.println("Post scramble:\n" + cube);
-            if (!nosolution)
-                new Solver().simplesolve(scramble);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
     }
 
     static List<String> extend(List<String> instructions) {
@@ -301,5 +239,85 @@ public class Driver {
         if (compress(previous, repeat_counter) != null)
             summary.add(compress(previous, repeat_counter));
         return summary;
+    }
+
+    public static void displayResults(String display) {
+        Driver.instructions = Driver.summarise(Driver.instructions);
+        Driver.moves = Driver.instructions.size();
+        System.out.println(Coloreths.FGreen.color + display + Coloreths.Reset.color + " : ");
+        if (Driver.output)
+            System.out.println(Driver.cube);
+        if (Driver.lined)
+            for (String s : Driver.instructions)
+                System.out.println(s);
+        else
+            System.out.println(Driver.instructions);
+        System.out.println(Coloreths.FYellow.color + "Number of moves : " + Coloreths.FMagenta.color + Driver.moves
+                + Coloreths.Reset.color);
+        Driver.instructions.clear();
+    }
+
+    public static void main(String[] args) {
+        try {
+            instruct = new HashMap<>();
+            instruct.put('F', () -> cube.F());
+            instruct.put('D', () -> cube.D());
+            instruct.put('R', () -> cube.R());
+            instruct.put('L', () -> cube.L());
+            instruct.put('B', () -> cube.B());
+            instruct.put('U', () -> cube.U());
+
+            args = checkFlags(args);
+            for (String arg : args)
+                System.out.println(arg);
+            if (output)
+                System.out.println(cube);
+            List<String> scramble = new ArrayList<>();
+            if (!scrambled && (debugger || args.length == 0)) {
+                output = true;
+                scrambled = false;
+                inputmode();
+            } else {
+                String inputScramble = "";
+                int num_scramble = 0;
+                if (args.length > 0) {
+                    try {
+                        num_scramble = Integer.parseInt(args[0]);
+                    } catch (NumberFormatException nfe) {
+                        inputScramble = args[0];
+                        if (scrambled) {
+                            System.out.println("Cannot add instruction with scramble mode on!");
+                            if (binaryquestion("would you like to continue with 10 move scramble")) {
+                                num_scramble = 20;
+                                scrambled = true;
+                            } else
+                                System.exit(0);
+                        }
+                    }
+                } else {
+                    scrambled = true;
+                    num_scramble = 20;
+                }
+                if (scrambled) {
+                    scrambler.setNumMoves(num_scramble);
+                    scrambler.generateScramble();
+                    inputScramble = scrambler.getScrambleString();
+                }
+
+                Collections.addAll(scramble, inputScramble.toUpperCase().split(" "));
+                invoke(scramble);
+            }
+            if (output)
+                System.out.println("Post scramble:\n" + cube);
+            if (!nosolution) {
+                solution = true;
+                moves = 0;
+                instructions.clear();
+                new Solver().simplesolve(scramble);
+            }
+        } catch (Exception e) {
+            System.out.println(Coloreths.FRed.color + e.getMessage() + Coloreths.Reset.color);
+            System.exit(0);
+        }
     }
 }

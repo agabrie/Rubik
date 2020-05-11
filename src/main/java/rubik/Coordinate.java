@@ -1,13 +1,10 @@
-
-/**
- *
- * @author Abduraghmaan G
- */
 package rubik;
 
+import enums.*;
+
 public class Coordinate {
-    Color face;
-    Relation position;
+    public Color face;
+    public Relation position;
 
     public Coordinate(Color face, Relation position) {
         this.face = face;
@@ -190,28 +187,27 @@ public class Coordinate {
     }
 
     Relation getCorrectLeft() {
-		Relation relevant;
-		switch (this.position) {
-			case L:
-				relevant = Relation.B;
-				break;
-			case B:
-				relevant = Relation.R;
-				break;
-			case R:
-				relevant = Relation.T;
-				break;
-			default:
-				relevant = Relation.L;
-				break;
-		}
-		return relevant;
-	}
-    
+        Relation relevant;
+        switch (this.position) {
+            case L:
+                relevant = Relation.B;
+                break;
+            case B:
+                relevant = Relation.R;
+                break;
+            case R:
+                relevant = Relation.T;
+                break;
+            default:
+                relevant = Relation.L;
+                break;
+        }
+        return relevant;
+    }
+
     @Override
     public String toString() {
-        return String.format("face:%s => position:[%s]", /* Driver.cube.faces[this.face.value].center.toString() */
-                this.face.color, this.position);
+        return String.format("face:%s => position:[%s]", this.face.color, this.position);
     }
 
     @Override
@@ -223,7 +219,6 @@ public class Coordinate {
             return false;
         }
         Coordinate c = (Coordinate) o;
-        // compare detail strings
         if (c.face == this.face && c.position == this.position)
             return true;
         return false;

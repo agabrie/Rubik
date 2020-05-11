@@ -1,12 +1,10 @@
 package rubik;
 
-/**
- *
- * @author Abduraghmaan G
- */
+import enums.*;
+
 public class Rubik {
 
-    Face[] faces = new Face[6];
+    public Face[] faces = new Face[6];
 
     public boolean clockwise = true;
     public boolean extra = false;

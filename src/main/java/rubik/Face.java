@@ -1,13 +1,11 @@
 package rubik;
 
-/**
- *
- * @author Abduraghmaan G
- */
+import enums.*;
+
 public final class Face {
 
     public int numcubies = 8;
-    Cubie cubie[] = new Cubie[numcubies];
+    public Cubie cubie[] = new Cubie[numcubies];
     Face adjacents[] = new Face[4];
     Cubie center;
     Color color;
